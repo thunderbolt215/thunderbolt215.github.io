@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="GAMES101 笔记 - Texture Mapping1.纹理映射：定义一个点的基本属性2.映射关系的获得​    2.1.美工&#x2F;艺术家 ​    2.2.参数化（模型展开到平面上，几何部分的技术） 3.纹理坐标系 约定$$u,v∈(0,1)$$即每个实际三维空间中的三角形的三个顶点都对应一个纹理坐标(u,v) 不同的位置可以映射到相同的纹理。 4.无缝衔接tilable textu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2022/03/02/Texture%20Mapping/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="GAMES101 笔记 - Texture Mapping1.纹理映射：定义一个点的基本属性2.映射关系的获得​    2.1.美工&#x2F;艺术家 ​    2.2.参数化（模型展开到平面上，几何部分的技术） 3.纹理坐标系 约定$$u,v∈(0,1)$$即每个实际三维空间中的三角形的三个顶点都对应一个纹理坐标(u,v) 不同的位置可以映射到相同的纹理。 4.无缝衔接tilable textu">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:/Users/86156/AppData/Roaming/Typora/typora-user-images/image-20220126141644622.png">
+<meta property="og:image" content="c:/Users/86156/AppData/Roaming/Typora/typora-user-images/image-20220128204009587.png">
+<meta property="og:image" content="c:/Users/86156/AppData/Roaming/Typora/typora-user-images/image-20220128205225593.png">
+<meta property="og:image" content="c:/Users/86156/AppData/Roaming/Typora/typora-user-images/image-20220128210321230.png">
+<meta property="og:image" content="c:/Users/86156/AppData/Roaming/Typora/typora-user-images/image-20220128210514750.png">
+<meta property="og:image" content="c:/Users/86156/AppData/Roaming/Typora/typora-user-images/image-20220128210858673.png">
+<meta property="og:image" content="c:/Users/86156/AppData/Roaming/Typora/typora-user-images/image-20220128211533169.png">
+<meta property="og:image" content="c:/Users/86156/AppData/Roaming/Typora/typora-user-images/image-20220128212457158.png">
+<meta property="og:image" content="c:/Users/86156/AppData/Roaming/Typora/typora-user-images/image-20220128212829659.png">
+<meta property="og:image" content="c:/Users/86156/AppData/Roaming/Typora/typora-user-images/image-20220128213611749.png">
+<meta property="og:image" content="c:/Users/86156/AppData/Roaming/Typora/typora-user-images/image-20220128214309149.png">
+<meta property="og:image" content="c:/Users/86156/AppData/Roaming/Typora/typora-user-images/image-20220128214447503.png">
+<meta property="og:image" content="c:/Users/86156/AppData/Roaming/Typora/typora-user-images/image-20220128214649797.png">
+<meta property="og:image" content="c:/Users/86156/AppData/Roaming/Typora/typora-user-images/image-20220128215048143.png">
+<meta property="og:image" content="c:/Users/86156/AppData/Roaming/Typora/typora-user-images/image-20220128215228135.png">
+<meta property="og:image" content="c:/Users/86156/AppData/Roaming/Typora/typora-user-images/image-20220129095224507.png">
+<meta property="og:image" content="c:/Users/86156/AppData/Roaming/Typora/typora-user-images/image-20220129100250606.png">
+<meta property="og:image" content="c:/Users/86156/AppData/Roaming/Typora/typora-user-images/image-20220129100314670.png">
+<meta property="article:published_time" content="2022-03-02T02:43:14.196Z">
+<meta property="article:modified_time" content="2022-01-30T02:58:40.132Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/86156/AppData/Roaming/Typora/typora-user-images/image-20220126141644622.png">
+
+<link rel="canonical" href="http://example.com/2022/03/02/Texture%20Mapping/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title> | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/02/Texture%20Mapping/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-03-02 10:43:14" itemprop="dateCreated datePublished" datetime="2022-03-02T10:43:14+08:00">2022-03-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-30 10:58:40" itemprop="dateModified" datetime="2022-01-30T10:58:40+08:00">2022-01-30</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="GAMES101-笔记-Texture-Mapping"><a href="#GAMES101-笔记-Texture-Mapping" class="headerlink" title="GAMES101 笔记 - Texture Mapping"></a>GAMES101 笔记 - Texture Mapping</h1><h2 id="1-纹理映射：定义一个点的基本属性"><a href="#1-纹理映射：定义一个点的基本属性" class="headerlink" title="1.纹理映射：定义一个点的基本属性"></a>1.纹理映射：定义一个点的基本属性</h2><h2 id="2-映射关系的获得"><a href="#2-映射关系的获得" class="headerlink" title="2.映射关系的获得"></a>2.映射关系的获得</h2><p>​    2.1.美工&#x2F;艺术家</p>
+<p>​    2.2.参数化（模型展开到平面上，几何部分的技术）</p>
+<h2 id="3-纹理坐标系"><a href="#3-纹理坐标系" class="headerlink" title="3.纹理坐标系"></a>3.纹理坐标系</h2><p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220126141644622.png" alt="image-20220126141644622"></p>
+<p>约定<br>$$<br>u,v∈(0,1)<br>$$<br>即每个实际三维空间中的三角形的三个顶点都对应一个纹理坐标(u,v)</p>
+<p>不同的位置可以映射到相同的纹理。</p>
+<h2 id="4-无缝衔接"><a href="#4-无缝衔接" class="headerlink" title="4.无缝衔接"></a>4.无缝衔接</h2><p>tilable texture</p>
+<p>一种设计无缝衔接纹理的方法：Wang Tiling</p>
+<h2 id="5-Barycentric-Coordinates：-For-interpolation"><a href="#5-Barycentric-Coordinates：-For-interpolation" class="headerlink" title="5.Barycentric Coordinates： For interpolation"></a>5.Barycentric Coordinates： For interpolation</h2><p>希望实现三角形内部各项属性值的平滑过渡。</p>
+<p>理想状态下求解流程：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">For each rasterized screen sample(x,y):            //一般取像素中心点</span><br><span class="line">	(u,v) = evaluate texture coordinate at (x,y); </span><br><span class="line">	//重心坐标插值，通过三角形顶点对应的纹理坐标计算三角形内部点对应的纹理坐标</span><br><span class="line">	texcolor = texture.sample(u,v); //通过纹理映射关系计算该点颜色值（即纹理图上对应点）</span><br><span class="line">	set sample&#x27;s color to texcolor; //在Blinn-Phong模型中充当反射系数Kd</span><br></pre></td></tr></table></figure>
+
+<p>但是会遇到各种问题。</p>
+<h3 id="5-1-Texture-Magnification（纹理放大）-What-if-the-texture-is-too-small"><a href="#5-1-Texture-Magnification（纹理放大）-What-if-the-texture-is-too-small" class="headerlink" title="5.1 Texture Magnification（纹理放大）: What if the texture is too small?"></a>5.1 Texture Magnification（纹理放大）: What if the texture is too small?</h3><p>纹理分辨率不够造成后果：多个pixel对应一个texel（纹理元素）</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128204009587.png" alt="image-20220128204009587"></p>
+<p>希望即使形成模糊，也要使得结果尽可能连续</p>
+<p>要解决的问题：查询非整数坐标如何得到其纹理值？</p>
+<h3 id="5-2-Bilinear-interpolation（双线性插值）"><a href="#5-2-Bilinear-interpolation（双线性插值）" class="headerlink" title="5.2 Bilinear interpolation（双线性插值）"></a>5.2 Bilinear interpolation（双线性插值）</h3><p>Linear interpolation （1D）<br>$$<br>lerp(x,v0,v1)&#x3D;v0+x(v1-v0)<br>$$<br>Bilinear interpolation (2D)</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128205225593.png" alt="image-20220128205225593"><br>$$<br>horizental:<br>$$</p>
+<p>$$<br>u0&#x3D;lerp(s,u00,u10)<br>$$</p>
+<p>$$<br>u1&#x3D;lerp(s,u01,u11)<br>$$</p>
+<p>$$<br>vertical:<br>$$</p>
+<p>$$<br>f(x,y)&#x3D;lerp(t,u0,u1)<br>$$</p>
+<p>这样这个红色点的取值综合考虑了周围四个纹理元素的颜色，得到了平滑的过渡。</p>
+<p>效果：</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128210321230.png" alt="image-20220128210321230"></p>
+<p>BIcubic：每次取周围16个，做竖直和水平插值，每次做三次插值，非线性插值。</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128210514750.png" alt="image-20220128210514750"></p>
+<p>（效果对比：Bicubic眼角处的锯齿消失了）</p>
+<h3 id="5-3-Texture-Magnification-hard-case-What-if-the-texture-is-too-large"><a href="#5-3-Texture-Magnification-hard-case-What-if-the-texture-is-too-large" class="headerlink" title="5.3 Texture Magnification (hard case): What if the texture is too large?"></a>5.3 Texture Magnification (hard case): What if the texture is too large?</h3><p>问题：走样（近处：锯齿；远处：摩尔纹）</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128210858673.png" alt="image-20220128210858673"></p>
+<p>原因：一个像素覆盖了纹理上的很大一块区域，则用某一个纹理值代表其纹理是不正确的。</p>
+<h4 id="5-3-1-Super-sampling"><a href="#5-3-1-Super-sampling" class="headerlink" title="5.3.1 Super sampling"></a>5.3.1 Super sampling</h4><p>超采样可以解决，理解：一个像素覆盖了纹理上的很大一块区域，解释为该像素内部包含了高频的纹理变化信号，因此需要更高频的采样才能获得正确结果。</p>
+<p>缺陷：代价高昂</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128211533169.png" alt="image-20220128211533169"></p>
+<h4 id="5-3-2-Point-Query-vs-Range-Query"><a href="#5-3-2-Point-Query-vs-Range-Query" class="headerlink" title="5.3.2 Point Query vs. Range Query"></a>5.3.2 Point Query vs. Range Query</h4><p>想法：避免采样，希望能够直接获得一个像素覆盖区域内纹理的平均值。</p>
+<p>前述Bilinear interpolation等为点查询方法，当前问题为范围查询问题。</p>
+<h4 id="5-3-3-Mipmap：-fast-approximate-square-Range-Query"><a href="#5-3-3-Mipmap：-fast-approximate-square-Range-Query" class="headerlink" title="5.3.3 Mipmap： (fast, approximate, square) Range Query"></a>5.3.3 Mipmap： (fast, approximate, square) Range Query</h4><h5 id="5-3-3-1-基本结构"><a href="#5-3-3-1-基本结构" class="headerlink" title="5.3.3.1 基本结构"></a>5.3.3.1 基本结构</h5><p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128212457158.png" alt="image-20220128212457158"></p>
+<h5 id="5-3-3-2-存储量"><a href="#5-3-3-2-存储量" class="headerlink" title="5.3.3.2 存储量"></a>5.3.3.2 存储量</h5><p>记原本存储量为1，各层存储量和为：<br>$$<br>1+1&#x2F;4+1&#x2F;16+…&#x3D;4&#x2F;3<br>$$<br>因此存储量只多出来1&#x2F;3.</p>
+<p>几何意义：</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128212829659.png" alt="image-20220128212829659"></p>
+<p>每层复制三份，放在左上、左下、右上。下一层复制三份，按照同样方法放在右下，不断重复，取极限可知总存储量增加了1&#x2F;3.</p>
+<h5 id="5-3-3-3-执行过程"><a href="#5-3-3-3-执行过程" class="headerlink" title="5.3.3.3 执行过程"></a>5.3.3.3 执行过程</h5><h6 id="1-像素空间长度投影到纹理空间"><a href="#1-像素空间长度投影到纹理空间" class="headerlink" title="(1) 像素空间长度投影到纹理空间"></a>(1) 像素空间长度投影到纹理空间</h6><p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128213611749.png" alt="image-20220128213611749"></p>
+<h6 id="（2）Trilinear-Interpolation"><a href="#（2）Trilinear-Interpolation" class="headerlink" title="（2）Trilinear Interpolation"></a>（2）Trilinear Interpolation</h6><p>根据所在层数D进行查询，取最接近的两层的查询结果，再做线性插值。</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128214309149.png" alt="image-20220128214309149"></p>
+<p>在实时渲染中得到广泛应用。（因为可以得到连续的结果）</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128214447503.png" alt="image-20220128214447503"></p>
+<p>（柱子上的问题：几何本身）</p>
+<h5 id="5-3-3-4-Limitation-Overblur"><a href="#5-3-3-4-Limitation-Overblur" class="headerlink" title="5.3.3.4 Limitation : Overblur"></a>5.3.3.4 Limitation : Overblur</h5><p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128214649797.png" alt="image-20220128214649797"></p>
+<p>原因：像素向纹理映射时，可能映射区域是一个不规则图形，此时仍沿用正方形近似，则导致计算平均值的区域过大，形成overblur</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128215048143.png" alt="image-20220128215048143"></p>
+<h4 id="5-3-4-Anisotropic-Filtering-各向异性过滤"><a href="#5-3-4-Anisotropic-Filtering-各向异性过滤" class="headerlink" title="5.3.4 Anisotropic Filtering (各向异性过滤)"></a>5.3.4 Anisotropic Filtering (各向异性过滤)</h4><p>各向异性过滤多增加了仅竖直和仅水平方向的压缩，从而可以查询到拉伸了的长条形区域（矩形，未必是正方形）</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128215228135.png" alt="image-20220128215228135"></p>
+<p>解决了一部分问题（矩形效果好，斜着的不规则的仍不行）</p>
+<p>效果更好的方法：EWA filtering</p>
+<p>Anisotropic Filtering开销：额外开销为原来的3倍</p>
+<p>nX：n代表层数，对性能影响不大，显存足够时开最大即可。</p>
+<h2 id="6-Applications-of-textures"><a href="#6-Applications-of-textures" class="headerlink" title="6.Applications of textures"></a>6.Applications of textures</h2><p>In modern GPUs<br>$$<br>texture&#x3D;memory+range query(filtering)<br>$$</p>
+<h3 id="6-1-Environment-lighting"><a href="#6-1-Environment-lighting" class="headerlink" title="6.1 Environment lighting"></a>6.1 Environment lighting</h3><p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220129095224507.png" alt="image-20220129095224507"></p>
+<center>经典模型：犹他茶壶（Utah Teapot）</center>
+
+<p>假设：环境光都来自无穷远处，因此只需要记录环境光的方向。</p>
+<p>环境光也可以看作一种纹理贴图，一种想法是假设放置一个光滑镜面金属球，用球面展开图记录环境光照。</p>
+<p>（Spherical Map）</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220129100250606.png" alt="image-20220129100250606"></p>
+<p>问题：球面扭曲（类比世界地图，高纬度地区展开后发生变形）</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220129100314670.png" alt="image-20220129100314670"></p>
+<p>另一种减少变形的办法：Cube Map</p>
+<h3 id="6-2-凹凸贴图"><a href="#6-2-凹凸贴图" class="headerlink" title="6.2 凹凸贴图"></a>6.2 凹凸贴图</h3><p>纹理不仅可以描述颜色，其实它可以定义任意位置任何属性。</p>
+<h3 id="6-3-位移贴图-Displacment-Mapping"><a href="#6-3-位移贴图-Displacment-Mapping" class="headerlink" title="6.3 位移贴图 Displacment Mapping"></a>6.3 位移贴图 Displacment Mapping</h3><h3 id="6-4-三维纹理"><a href="#6-4-三维纹理" class="headerlink" title="6.4 三维纹理"></a>6.4 三维纹理</h3><p>z</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/02/Assignment%206/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GAMES101-%E7%AC%94%E8%AE%B0-Texture-Mapping"><span class="nav-number">1.</span> <span class="nav-text">GAMES101 笔记 - Texture Mapping</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%BA%B9%E7%90%86%E6%98%A0%E5%B0%84%EF%BC%9A%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E7%82%B9%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%B1%9E%E6%80%A7"><span class="nav-number">1.1.</span> <span class="nav-text">1.纹理映射：定义一个点的基本属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB%E7%9A%84%E8%8E%B7%E5%BE%97"><span class="nav-number">1.2.</span> <span class="nav-text">2.映射关系的获得</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E7%BA%B9%E7%90%86%E5%9D%90%E6%A0%87%E7%B3%BB"><span class="nav-number">1.3.</span> <span class="nav-text">3.纹理坐标系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%97%A0%E7%BC%9D%E8%A1%94%E6%8E%A5"><span class="nav-number">1.4.</span> <span class="nav-text">4.无缝衔接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Barycentric-Coordinates%EF%BC%9A-For-interpolation"><span class="nav-number">1.5.</span> <span class="nav-text">5.Barycentric Coordinates： For interpolation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-Texture-Magnification%EF%BC%88%E7%BA%B9%E7%90%86%E6%94%BE%E5%A4%A7%EF%BC%89-What-if-the-texture-is-too-small"><span class="nav-number">1.5.1.</span> <span class="nav-text">5.1 Texture Magnification（纹理放大）: What if the texture is too small?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-Bilinear-interpolation%EF%BC%88%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%8F%92%E5%80%BC%EF%BC%89"><span class="nav-number">1.5.2.</span> <span class="nav-text">5.2 Bilinear interpolation（双线性插值）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-Texture-Magnification-hard-case-What-if-the-texture-is-too-large"><span class="nav-number">1.5.3.</span> <span class="nav-text">5.3 Texture Magnification (hard case): What if the texture is too large?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-1-Super-sampling"><span class="nav-number">1.5.3.1.</span> <span class="nav-text">5.3.1 Super sampling</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-2-Point-Query-vs-Range-Query"><span class="nav-number">1.5.3.2.</span> <span class="nav-text">5.3.2 Point Query vs. Range Query</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-3-Mipmap%EF%BC%9A-fast-approximate-square-Range-Query"><span class="nav-number">1.5.3.3.</span> <span class="nav-text">5.3.3 Mipmap： (fast, approximate, square) Range Query</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#5-3-3-1-%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="nav-number">1.5.3.3.1.</span> <span class="nav-text">5.3.3.1 基本结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-3-3-2-%E5%AD%98%E5%82%A8%E9%87%8F"><span class="nav-number">1.5.3.3.2.</span> <span class="nav-text">5.3.3.2 存储量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-3-3-3-%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">1.5.3.3.3.</span> <span class="nav-text">5.3.3.3 执行过程</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-%E5%83%8F%E7%B4%A0%E7%A9%BA%E9%97%B4%E9%95%BF%E5%BA%A6%E6%8A%95%E5%BD%B1%E5%88%B0%E7%BA%B9%E7%90%86%E7%A9%BA%E9%97%B4"><span class="nav-number">1.5.3.3.3.1.</span> <span class="nav-text">(1) 像素空间长度投影到纹理空间</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%EF%BC%882%EF%BC%89Trilinear-Interpolation"><span class="nav-number">1.5.3.3.3.2.</span> <span class="nav-text">（2）Trilinear Interpolation</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-3-3-4-Limitation-Overblur"><span class="nav-number">1.5.3.3.4.</span> <span class="nav-text">5.3.3.4 Limitation : Overblur</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-4-Anisotropic-Filtering-%E5%90%84%E5%90%91%E5%BC%82%E6%80%A7%E8%BF%87%E6%BB%A4"><span class="nav-number">1.5.3.4.</span> <span class="nav-text">5.3.4 Anisotropic Filtering (各向异性过滤)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Applications-of-textures"><span class="nav-number">1.6.</span> <span class="nav-text">6.Applications of textures</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-Environment-lighting"><span class="nav-number">1.6.1.</span> <span class="nav-text">6.1 Environment lighting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-%E5%87%B9%E5%87%B8%E8%B4%B4%E5%9B%BE"><span class="nav-number">1.6.2.</span> <span class="nav-text">6.2 凹凸贴图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-%E4%BD%8D%E7%A7%BB%E8%B4%B4%E5%9B%BE-Displacment-Mapping"><span class="nav-number">1.6.3.</span> <span class="nav-text">6.3 位移贴图 Displacment Mapping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-%E4%B8%89%E7%BB%B4%E7%BA%B9%E7%90%86"><span class="nav-number">1.6.4.</span> <span class="nav-text">6.4 三维纹理</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

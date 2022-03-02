@@ -145,7 +145,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/02/test/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/02/Texture%20Mapping/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -159,7 +159,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/03/02/test/" class="post-title-link" itemprop="url">test</a>
+            <a href="/2022/03/02/Texture%20Mapping/" class="post-title-link" itemprop="url">Untitled</a>
         </h2>
 
         <div class="post-meta">
@@ -168,10 +168,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-03-02 00:11:33 / Modified: 00:14:17" itemprop="dateCreated datePublished" datetime="2022-03-02T00:11:33+08:00">2022-03-02</time>
+              <time title="Created: 2022-03-02 10:43:14" itemprop="dateCreated datePublished" datetime="2022-03-02T10:43:14+08:00">2022-03-02</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-30 10:58:40" itemprop="dateModified" datetime="2022-01-30T10:58:40+08:00">2022-01-30</time>
+              </span>
 
           
 
@@ -184,19 +190,75 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>ankdsaskdjkada</p>
-<p>dasdas</p>
-<p>d</p>
-<p>asd</p>
-<p>asd</p>
-<p>as</p>
-<p>das</p>
-<p>f</p>
-<p>adf</p>
-<p>sd</p>
-<p>fsd</p>
-<p>f</p>
-<p>sd</p>
+          <h1 id="GAMES101-笔记-Texture-Mapping"><a href="#GAMES101-笔记-Texture-Mapping" class="headerlink" title="GAMES101 笔记 - Texture Mapping"></a>GAMES101 笔记 - Texture Mapping</h1><h2 id="1-纹理映射：定义一个点的基本属性"><a href="#1-纹理映射：定义一个点的基本属性" class="headerlink" title="1.纹理映射：定义一个点的基本属性"></a>1.纹理映射：定义一个点的基本属性</h2><h2 id="2-映射关系的获得"><a href="#2-映射关系的获得" class="headerlink" title="2.映射关系的获得"></a>2.映射关系的获得</h2><p>​    2.1.美工&#x2F;艺术家</p>
+<p>​    2.2.参数化（模型展开到平面上，几何部分的技术）</p>
+<h2 id="3-纹理坐标系"><a href="#3-纹理坐标系" class="headerlink" title="3.纹理坐标系"></a>3.纹理坐标系</h2><p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220126141644622.png" alt="image-20220126141644622"></p>
+<p>约定<br>$$<br>u,v∈(0,1)<br>$$<br>即每个实际三维空间中的三角形的三个顶点都对应一个纹理坐标(u,v)</p>
+<p>不同的位置可以映射到相同的纹理。</p>
+<h2 id="4-无缝衔接"><a href="#4-无缝衔接" class="headerlink" title="4.无缝衔接"></a>4.无缝衔接</h2><p>tilable texture</p>
+<p>一种设计无缝衔接纹理的方法：Wang Tiling</p>
+<h2 id="5-Barycentric-Coordinates：-For-interpolation"><a href="#5-Barycentric-Coordinates：-For-interpolation" class="headerlink" title="5.Barycentric Coordinates： For interpolation"></a>5.Barycentric Coordinates： For interpolation</h2><p>希望实现三角形内部各项属性值的平滑过渡。</p>
+<p>理想状态下求解流程：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">For each rasterized screen sample(x,y):            //一般取像素中心点</span><br><span class="line">	(u,v) = evaluate texture coordinate at (x,y); </span><br><span class="line">	//重心坐标插值，通过三角形顶点对应的纹理坐标计算三角形内部点对应的纹理坐标</span><br><span class="line">	texcolor = texture.sample(u,v); //通过纹理映射关系计算该点颜色值（即纹理图上对应点）</span><br><span class="line">	set sample&#x27;s color to texcolor; //在Blinn-Phong模型中充当反射系数Kd</span><br></pre></td></tr></table></figure>
+
+<p>但是会遇到各种问题。</p>
+<h3 id="5-1-Texture-Magnification（纹理放大）-What-if-the-texture-is-too-small"><a href="#5-1-Texture-Magnification（纹理放大）-What-if-the-texture-is-too-small" class="headerlink" title="5.1 Texture Magnification（纹理放大）: What if the texture is too small?"></a>5.1 Texture Magnification（纹理放大）: What if the texture is too small?</h3><p>纹理分辨率不够造成后果：多个pixel对应一个texel（纹理元素）</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128204009587.png" alt="image-20220128204009587"></p>
+<p>希望即使形成模糊，也要使得结果尽可能连续</p>
+<p>要解决的问题：查询非整数坐标如何得到其纹理值？</p>
+<h3 id="5-2-Bilinear-interpolation（双线性插值）"><a href="#5-2-Bilinear-interpolation（双线性插值）" class="headerlink" title="5.2 Bilinear interpolation（双线性插值）"></a>5.2 Bilinear interpolation（双线性插值）</h3><p>Linear interpolation （1D）<br>$$<br>lerp(x,v0,v1)&#x3D;v0+x(v1-v0)<br>$$<br>Bilinear interpolation (2D)</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128205225593.png" alt="image-20220128205225593"><br>$$<br>horizental:<br>$$</p>
+<p>$$<br>u0&#x3D;lerp(s,u00,u10)<br>$$</p>
+<p>$$<br>u1&#x3D;lerp(s,u01,u11)<br>$$</p>
+<p>$$<br>vertical:<br>$$</p>
+<p>$$<br>f(x,y)&#x3D;lerp(t,u0,u1)<br>$$</p>
+<p>这样这个红色点的取值综合考虑了周围四个纹理元素的颜色，得到了平滑的过渡。</p>
+<p>效果：</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128210321230.png" alt="image-20220128210321230"></p>
+<p>BIcubic：每次取周围16个，做竖直和水平插值，每次做三次插值，非线性插值。</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128210514750.png" alt="image-20220128210514750"></p>
+<p>（效果对比：Bicubic眼角处的锯齿消失了）</p>
+<h3 id="5-3-Texture-Magnification-hard-case-What-if-the-texture-is-too-large"><a href="#5-3-Texture-Magnification-hard-case-What-if-the-texture-is-too-large" class="headerlink" title="5.3 Texture Magnification (hard case): What if the texture is too large?"></a>5.3 Texture Magnification (hard case): What if the texture is too large?</h3><p>问题：走样（近处：锯齿；远处：摩尔纹）</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128210858673.png" alt="image-20220128210858673"></p>
+<p>原因：一个像素覆盖了纹理上的很大一块区域，则用某一个纹理值代表其纹理是不正确的。</p>
+<h4 id="5-3-1-Super-sampling"><a href="#5-3-1-Super-sampling" class="headerlink" title="5.3.1 Super sampling"></a>5.3.1 Super sampling</h4><p>超采样可以解决，理解：一个像素覆盖了纹理上的很大一块区域，解释为该像素内部包含了高频的纹理变化信号，因此需要更高频的采样才能获得正确结果。</p>
+<p>缺陷：代价高昂</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128211533169.png" alt="image-20220128211533169"></p>
+<h4 id="5-3-2-Point-Query-vs-Range-Query"><a href="#5-3-2-Point-Query-vs-Range-Query" class="headerlink" title="5.3.2 Point Query vs. Range Query"></a>5.3.2 Point Query vs. Range Query</h4><p>想法：避免采样，希望能够直接获得一个像素覆盖区域内纹理的平均值。</p>
+<p>前述Bilinear interpolation等为点查询方法，当前问题为范围查询问题。</p>
+<h4 id="5-3-3-Mipmap：-fast-approximate-square-Range-Query"><a href="#5-3-3-Mipmap：-fast-approximate-square-Range-Query" class="headerlink" title="5.3.3 Mipmap： (fast, approximate, square) Range Query"></a>5.3.3 Mipmap： (fast, approximate, square) Range Query</h4><h5 id="5-3-3-1-基本结构"><a href="#5-3-3-1-基本结构" class="headerlink" title="5.3.3.1 基本结构"></a>5.3.3.1 基本结构</h5><p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128212457158.png" alt="image-20220128212457158"></p>
+<h5 id="5-3-3-2-存储量"><a href="#5-3-3-2-存储量" class="headerlink" title="5.3.3.2 存储量"></a>5.3.3.2 存储量</h5><p>记原本存储量为1，各层存储量和为：<br>$$<br>1+1&#x2F;4+1&#x2F;16+…&#x3D;4&#x2F;3<br>$$<br>因此存储量只多出来1&#x2F;3.</p>
+<p>几何意义：</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128212829659.png" alt="image-20220128212829659"></p>
+<p>每层复制三份，放在左上、左下、右上。下一层复制三份，按照同样方法放在右下，不断重复，取极限可知总存储量增加了1&#x2F;3.</p>
+<h5 id="5-3-3-3-执行过程"><a href="#5-3-3-3-执行过程" class="headerlink" title="5.3.3.3 执行过程"></a>5.3.3.3 执行过程</h5><h6 id="1-像素空间长度投影到纹理空间"><a href="#1-像素空间长度投影到纹理空间" class="headerlink" title="(1) 像素空间长度投影到纹理空间"></a>(1) 像素空间长度投影到纹理空间</h6><p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128213611749.png" alt="image-20220128213611749"></p>
+<h6 id="（2）Trilinear-Interpolation"><a href="#（2）Trilinear-Interpolation" class="headerlink" title="（2）Trilinear Interpolation"></a>（2）Trilinear Interpolation</h6><p>根据所在层数D进行查询，取最接近的两层的查询结果，再做线性插值。</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128214309149.png" alt="image-20220128214309149"></p>
+<p>在实时渲染中得到广泛应用。（因为可以得到连续的结果）</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128214447503.png" alt="image-20220128214447503"></p>
+<p>（柱子上的问题：几何本身）</p>
+<h5 id="5-3-3-4-Limitation-Overblur"><a href="#5-3-3-4-Limitation-Overblur" class="headerlink" title="5.3.3.4 Limitation : Overblur"></a>5.3.3.4 Limitation : Overblur</h5><p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128214649797.png" alt="image-20220128214649797"></p>
+<p>原因：像素向纹理映射时，可能映射区域是一个不规则图形，此时仍沿用正方形近似，则导致计算平均值的区域过大，形成overblur</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128215048143.png" alt="image-20220128215048143"></p>
+<h4 id="5-3-4-Anisotropic-Filtering-各向异性过滤"><a href="#5-3-4-Anisotropic-Filtering-各向异性过滤" class="headerlink" title="5.3.4 Anisotropic Filtering (各向异性过滤)"></a>5.3.4 Anisotropic Filtering (各向异性过滤)</h4><p>各向异性过滤多增加了仅竖直和仅水平方向的压缩，从而可以查询到拉伸了的长条形区域（矩形，未必是正方形）</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220128215228135.png" alt="image-20220128215228135"></p>
+<p>解决了一部分问题（矩形效果好，斜着的不规则的仍不行）</p>
+<p>效果更好的方法：EWA filtering</p>
+<p>Anisotropic Filtering开销：额外开销为原来的3倍</p>
+<p>nX：n代表层数，对性能影响不大，显存足够时开最大即可。</p>
+<h2 id="6-Applications-of-textures"><a href="#6-Applications-of-textures" class="headerlink" title="6.Applications of textures"></a>6.Applications of textures</h2><p>In modern GPUs<br>$$<br>texture&#x3D;memory+range query(filtering)<br>$$</p>
+<h3 id="6-1-Environment-lighting"><a href="#6-1-Environment-lighting" class="headerlink" title="6.1 Environment lighting"></a>6.1 Environment lighting</h3><p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220129095224507.png" alt="image-20220129095224507"></p>
+<center>经典模型：犹他茶壶（Utah Teapot）</center>
+
+<p>假设：环境光都来自无穷远处，因此只需要记录环境光的方向。</p>
+<p>环境光也可以看作一种纹理贴图，一种想法是假设放置一个光滑镜面金属球，用球面展开图记录环境光照。</p>
+<p>（Spherical Map）</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220129100250606.png" alt="image-20220129100250606"></p>
+<p>问题：球面扭曲（类比世界地图，高纬度地区展开后发生变形）</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220129100314670.png" alt="image-20220129100314670"></p>
+<p>另一种减少变形的办法：Cube Map</p>
+<h3 id="6-2-凹凸贴图"><a href="#6-2-凹凸贴图" class="headerlink" title="6.2 凹凸贴图"></a>6.2 凹凸贴图</h3><p>纹理不仅可以描述颜色，其实它可以定义任意位置任何属性。</p>
+<h3 id="6-3-位移贴图-Displacment-Mapping"><a href="#6-3-位移贴图-Displacment-Mapping" class="headerlink" title="6.3 位移贴图 Displacment Mapping"></a>6.3 位移贴图 Displacment Mapping</h3><h3 id="6-4-三维纹理"><a href="#6-4-三维纹理" class="headerlink" title="6.4 三维纹理"></a>6.4 三维纹理</h3><p>z</p>
 
       
     </div>
@@ -216,7 +278,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/02/chenge-first-blog/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/02/Assignment%206/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -230,7 +292,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/03/02/chenge-first-blog/" class="post-title-link" itemprop="url">chenge-first-blog</a>
+            <a href="/2022/03/02/Assignment%206/" class="post-title-link" itemprop="url">Untitled</a>
         </h2>
 
         <div class="post-meta">
@@ -239,10 +301,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-03-02 00:08:00 / Modified: 00:08:31" itemprop="dateCreated datePublished" datetime="2022-03-02T00:08:00+08:00">2022-03-02</time>
+              <time title="Created: 2022-03-02 10:43:14" itemprop="dateCreated datePublished" datetime="2022-03-02T10:43:14+08:00">2022-03-02</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-27 22:25:00" itemprop="dateModified" datetime="2022-02-27T22:25:00+08:00">2022-02-27</time>
+              </span>
 
           
 
@@ -255,12 +323,484 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>hahahahahahha</p>
-<p>adasd</p>
-<p>asd</p>
-<p>asd</p>
-<p>as</p>
-<p>das</p>
+          <h1 id="Assignment-6"><a href="#Assignment-6" class="headerlink" title="Assignment 6"></a>Assignment 6</h1><h2 id="1-Basic"><a href="#1-Basic" class="headerlink" title="1. Basic"></a>1. Basic</h2><h3 id="1-1-Render-in-Renderer-cpp"><a href="#1-1-Render-in-Renderer-cpp" class="headerlink" title="1.1 Render() in Renderer.cpp"></a>1.1 <strong>Render()</strong> in Renderer.cpp</h3><p>这一部分直接按照作业5即可，在使用castRay函数时需要进行改动。</p>
+<p>注意：记得对dir向量归一化。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Renderer::Render</span><span class="params">(<span class="type">const</span> Scene&amp; scene)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">std::vector&lt;Vector3f&gt; <span class="title">framebuffer</span><span class="params">(scene.width * scene.height)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">float</span> scale = <span class="built_in">tan</span>(<span class="built_in">deg2rad</span>(scene.fov * <span class="number">0.5</span>));</span><br><span class="line">    <span class="type">float</span> imageAspectRatio = scene.width / (<span class="type">float</span>)scene.height;</span><br><span class="line">    <span class="function">Vector3f <span class="title">eye_pos</span><span class="params">(<span class="number">-1</span>, <span class="number">5</span>, <span class="number">10</span>)</span></span>;</span><br><span class="line">    <span class="type">int</span> m = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">uint32_t</span> j = <span class="number">0</span>; j &lt; scene.height; ++j) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">uint32_t</span> i = <span class="number">0</span>; i &lt; scene.width; ++i) &#123;</span><br><span class="line">            <span class="comment">// generate primary ray direction</span></span><br><span class="line">            <span class="type">float</span> x = (<span class="number">2</span> * (i + <span class="number">0.5</span>) / (<span class="type">float</span>)scene.width - <span class="number">1</span>) *</span><br><span class="line">                      imageAspectRatio * scale;</span><br><span class="line">            <span class="type">float</span> y = (<span class="number">1</span> - <span class="number">2</span> * (j + <span class="number">0.5</span>) / (<span class="type">float</span>)scene.height) * scale;</span><br><span class="line">            <span class="comment">// <span class="doctag">TODO:</span> Find the x and y positions of the current pixel to get the</span></span><br><span class="line">            <span class="comment">// direction</span></span><br><span class="line">            <span class="comment">//  vector that passes through it.</span></span><br><span class="line">            <span class="comment">// Also, don&#x27;t forget to multiply both of them with the variable</span></span><br><span class="line">            <span class="comment">// *scale*, and x (horizontal) variable with the *imageAspectRatio*</span></span><br><span class="line">            <span class="comment">// x = (2 * (i + 0.5f) / (float)(scene.width-1) - 1) * imageAspectRatio * scale;</span></span><br><span class="line">            <span class="comment">// y = (1 - 2 * (j + 0.5f) / (float)(scene.height-1)) * scale;</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">/*作业6添加部分*/</span></span><br><span class="line">            Vector3f dir = <span class="built_in">Vector3f</span>(x, y, <span class="number">-1</span>); <span class="comment">// Don&#x27;t forget to normalize this direction!</span></span><br><span class="line">            <span class="function">Ray <span class="title">ray</span><span class="params">(eye_pos, normalize(dir))</span></span>;</span><br><span class="line">            framebuffer[m++] = scene.<span class="built_in">castRay</span>(ray, <span class="number">0</span>);</span><br><span class="line">            <span class="comment">/*作业6添加部分*/</span>          </span><br><span class="line"></span><br><span class="line">            <span class="comment">// Don&#x27;t forget to normalize this direction!</span></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">UpdateProgress</span>(j / (<span class="type">float</span>)scene.height);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">UpdateProgress</span>(<span class="number">1.f</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// save framebuffer to file</span></span><br><span class="line">    FILE* fp = <span class="built_in">fopen</span>(<span class="string">&quot;binary.ppm&quot;</span>, <span class="string">&quot;wb&quot;</span>);</span><br><span class="line">    (<span class="type">void</span>)<span class="built_in">fprintf</span>(fp, <span class="string">&quot;P6\n%d %d\n255\n&quot;</span>, scene.width, scene.height);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> i = <span class="number">0</span>; i &lt; scene.height * scene.width; ++i) &#123;</span><br><span class="line">        <span class="type">static</span> <span class="type">unsigned</span> <span class="type">char</span> color[<span class="number">3</span>];</span><br><span class="line">        color[<span class="number">0</span>] = (<span class="type">unsigned</span> <span class="type">char</span>)(<span class="number">255</span> * <span class="built_in">clamp</span>(<span class="number">0</span>, <span class="number">1</span>, framebuffer[i].x));</span><br><span class="line">        color[<span class="number">1</span>] = (<span class="type">unsigned</span> <span class="type">char</span>)(<span class="number">255</span> * <span class="built_in">clamp</span>(<span class="number">0</span>, <span class="number">1</span>, framebuffer[i].y));</span><br><span class="line">        color[<span class="number">2</span>] = (<span class="type">unsigned</span> <span class="type">char</span>)(<span class="number">255</span> * <span class="built_in">clamp</span>(<span class="number">0</span>, <span class="number">1</span>, framebuffer[i].z));</span><br><span class="line">        <span class="built_in">fwrite</span>(color, <span class="number">1</span>, <span class="number">3</span>, fp);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">fclose</span>(fp);    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-Triangle-getIntersection-in-Triangle-hpp"><a href="#1-2-Triangle-getIntersection-in-Triangle-hpp" class="headerlink" title="1.2 Triangle::getIntersection in Triangle.hpp"></a>1.2 <strong>Triangle::getIntersection</strong> in Triangle.hpp</h3><p>这一部分出错较多。首先需要阅读一下框架中的计算，将其中参与运算的变量对应上之前作业5中的计算中间变量。需要编写的部分其实很简单，但是需要注意要把inter的各个成员变量都进行赋值，尤其注意不能漏掉m,normal,obj这些，同时赋值时需要注意参看上面的类的定义。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">inline Intersection Triangle::getIntersection(Ray ray)</span><br><span class="line">&#123;</span><br><span class="line">    Intersection inter;</span><br><span class="line"></span><br><span class="line">    if (dotProduct(ray.direction, normal) &gt; 0)</span><br><span class="line">        return inter;</span><br><span class="line">    double u, v, t_tmp = 0;</span><br><span class="line">    Vector3f pvec = crossProduct(ray.direction, e2);  //s1</span><br><span class="line">    double det = dotProduct(e1, pvec);  //dotProduct(s1, e1)</span><br><span class="line">    if (fabs(det) &lt; EPSILON)</span><br><span class="line">        return inter;</span><br><span class="line"></span><br><span class="line">    double det_inv = 1. / det;</span><br><span class="line">    Vector3f tvec = ray.origin - v0;  //s</span><br><span class="line">    u = dotProduct(tvec, pvec) * det_inv; //b1</span><br><span class="line">    if (u &lt; 0 || u &gt; 1)</span><br><span class="line">        return inter;</span><br><span class="line">    Vector3f qvec = crossProduct(tvec, e1);  //s2</span><br><span class="line">    v = dotProduct(ray.direction, qvec) * det_inv;  //b2</span><br><span class="line">    if (v &lt; 0 || u + v &gt; 1)</span><br><span class="line">        return inter;</span><br><span class="line">    t_tmp = dotProduct(e2, qvec) * det_inv;</span><br><span class="line"></span><br><span class="line">    // TODO find ray triangle intersection</span><br><span class="line">    if (t_tmp&gt;0.0f)</span><br><span class="line">    &#123;</span><br><span class="line">        inter.distance = t_tmp;</span><br><span class="line">        // inter.coords = Vector3f(u, v, 1.0); //**Wrong. </span><br><span class="line">        // inter.coords = ray(t_tmp);</span><br><span class="line">        inter.coords = ray.origin + ray.direction * t_tmp;  </span><br><span class="line">        inter.happened = true;</span><br><span class="line">        inter.m = m;   //**Missed. Pay attention to the &quot;m&quot; above!(int class definition)</span><br><span class="line">        inter.normal = normal;  //*Missed. But what is &quot;normal&quot; referring to ?</span><br><span class="line">        inter.obj = this;       //*Missed. obj?  this?</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    return inter;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3-IntersectP-const-Ray-amp-ray-const-Vector3f-amp-invDir-const-std-array-lt-int-3-gt-amp-dirIsNeg-in-the-Bounds3-hpp"><a href="#1-3-IntersectP-const-Ray-amp-ray-const-Vector3f-amp-invDir-const-std-array-lt-int-3-gt-amp-dirIsNeg-in-the-Bounds3-hpp" class="headerlink" title="1.3 IntersectP(const Ray&amp; ray, const Vector3f&amp; invDir,const std::array&lt;int, 3&gt;&amp; dirIsNeg) in the Bounds3.hpp"></a>1.3 IntersectP(const Ray&amp; ray, const Vector3f&amp; invDir,const std::array&lt;int, 3&gt;&amp; dirIsNeg) in the Bounds3.hpp</h3><p>这部分没出什么问题，只需要注意一下eigen库的使用，不要把中括号和小括号搞反。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">inline bool Bounds3::IntersectP(const Ray&amp; ray, const Vector3f&amp; invDir,</span><br><span class="line">                                const std::array&lt;int, 3&gt;&amp; dirIsNeg) const</span><br><span class="line">&#123;</span><br><span class="line">    // invDir: ray direction(x,y,z), invDir=(1.0/x,1.0/y,1.0/z), use this because Multiply </span><br><span class="line">    // is faster that Division</span><br><span class="line">    // dirIsNeg: ray direction(x,y,z), dirIsNeg=[int(x&gt;0),int(y&gt;0),int(z&gt;0)], </span><br><span class="line">    // use this to simplify your logic</span><br><span class="line">    // TODO test if ray bound intersects</span><br><span class="line">    double tenter, texit, tmin, tmax;</span><br><span class="line">    texit = std::numeric_limits&lt;double&gt;::max();</span><br><span class="line">    tenter = 0.0;</span><br><span class="line">    for (int i = 0;i &lt; 3;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        double tmin = std::min((pMin[i] - ray.origin[i]) * invDir[i], </span><br><span class="line">                                (pMax[i] - ray.origin[i]) * invDir[i]);</span><br><span class="line">        double tmax = std::max((pMin[i] - ray.origin[i]) * invDir[i], </span><br><span class="line">                                (pMax[i] - ray.origin[i]) * invDir[i]);</span><br><span class="line">        tenter = std::max(tenter, tmin);</span><br><span class="line">        texit = std::min(texit, tmax);</span><br><span class="line">    &#125;</span><br><span class="line">    if (tenter&lt;texit &amp;&amp; texit&gt;0)</span><br><span class="line">        return true;</span><br><span class="line">    return false;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-4-getIntersection-BVHBuildNode-node-const-Ray-ray-in-BVH-cpp"><a href="#1-4-getIntersection-BVHBuildNode-node-const-Ray-ray-in-BVH-cpp" class="headerlink" title="1.4 **getIntersection(BVHBuildNode* node, const Ray ray)**in BVH.cpp"></a>1.4 **getIntersection(BVHBuildNode* node, const Ray ray)**in BVH.cpp</h3><p>这部分也相对简单，出错的地方是对于叶子节点返回其中所有物体表面与光线相交的最近点时没写对，这也需要注意相关类的定义。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Intersection BVHAccel::getIntersection(BVHBuildNode* node, const Ray&amp; ray) const</span><br><span class="line">&#123;</span><br><span class="line">    // TODO Traverse the BVH to find intersection</span><br><span class="line">    Intersection isect;</span><br><span class="line">    std::array&lt;int, 3&gt; dirIsNeg;</span><br><span class="line">    for (int i=0;i&lt;3;i++)</span><br><span class="line">        dirIsNeg[i] = int(ray.direction[i]&gt;0);</span><br><span class="line">    if (!node-&gt;bounds.IntersectP(ray, ray.direction_inv, dirIsNeg)) </span><br><span class="line">        return isect; //若光线与bounding box不相交，结束</span><br><span class="line">    //若相交</span><br><span class="line">    //叶子节点，判断节点内部所有物体，返回最近的交点</span><br><span class="line">    if (node-&gt;left == nullptr &amp;&amp; node-&gt;right == nullptr)</span><br><span class="line">        // return Intersect(ray);    *Wrong.</span><br><span class="line">        return node-&gt;object-&gt;getIntersection(ray);  //Pay attention.</span><br><span class="line">    Intersection hit1 = getIntersection(node-&gt;left, ray);</span><br><span class="line">    Intersection hit2 = getIntersection(node-&gt;right, ray);</span><br><span class="line">    //若节点不是叶子节点，返回两个子节点交点的最近值</span><br><span class="line">    if (hit1.distance &lt; hit2.distance)</span><br><span class="line">        return hit1;</span><br><span class="line">    else </span><br><span class="line">        return hit2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-5-基础部分实现效果"><a href="#1-5-基础部分实现效果" class="headerlink" title="1.5 基础部分实现效果"></a>1.5 基础部分实现效果</h3><p><img src="https://s2.loli.net/2022/02/27/tlxA9inKOyM27ZL.png" alt="image-20220227222351813"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/02/Geometry/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/02/Geometry/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-03-02 10:43:14" itemprop="dateCreated datePublished" datetime="2022-03-02T10:43:14+08:00">2022-03-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-10 20:01:04" itemprop="dateModified" datetime="2022-02-10T20:01:04+08:00">2022-02-10</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Games101：Geometry"><a href="#Games101：Geometry" class="headerlink" title="Games101：Geometry"></a>Games101：Geometry</h1><h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><hr>
+<h2 id="1-Representation"><a href="#1-Representation" class="headerlink" title="1.Representation"></a>1.Representation</h2><h3 id="1-1-Implicit"><a href="#1-1-Implicit" class="headerlink" title="1.1 Implicit"></a>1.1 Implicit</h3><p>Based on <strong>classifying</strong> points (Point satisfy <strong>specified relationship</strong>)<br>[Example] </p>
+<p>Sphere : All points in 3D, where<br>$$<br>x^2+y^2+z^2&#x3D;1<br>$$</p>
+<p>Generally:</p>
+<p><img src="https://s2.loli.net/2022/02/10/Qpj5Rs9vI417nBY.png" alt="image-20220210180600709"><br>$$<br>f(x,y,z)&#x3D;0<br>$$<br>问题：不直观。对于已知表面方程，判定其形状困难，但是对于具体点判断与该表面的位置关系是容易的。</p>
+<h4 id="1-1-1-Algebraic-Surfaces"><a href="#1-1-1-Algebraic-Surfaces" class="headerlink" title="1.1.1 Algebraic Surfaces"></a>1.1.1 Algebraic Surfaces</h4><h4 id="1-1-2-Constructive-Solid-Geometry-CSG"><a href="#1-1-2-Constructive-Solid-Geometry-CSG" class="headerlink" title="1.1.2 Constructive Solid Geometry (CSG)"></a>1.1.2 Constructive Solid Geometry (CSG)</h4><p>Combine implicit geometry via Boolean operations.</p>
+<p>通过基本几何的基本运算形成新的几何。</p>
+<p><img src="https://s2.loli.net/2022/02/10/A8rlZ9CoDkzFyge.png" alt="image-20220130160518382"></p>
+<p><img src="https://s2.loli.net/2022/02/10/XRpleMJ28f7tQ93.png" alt="image-20220130160612861"></p>
+<p>应用广泛，应用在各种建模软件中。</p>
+<h4 id="1-1-3-Distance-Functions"><a href="#1-1-3-Distance-Functions" class="headerlink" title="1.1.3 Distance Functions"></a>1.1.3 Distance Functions</h4><p>Definition: Giving minimum distance (could be <strong>signed</strong>) from anywhere to object.</p>
+<p>空间中任一点到所要表述的几何形体表面的最小距离。(外部+，内部-)</p>
+<p>Using Distance Functions to <strong>blend</strong> surfaces together.</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220130162028364.png" alt="image-20220130162028364"></p>
+<p>先将距离函数融合，然后通过融合之后的距离函数恢复图形。</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220130162223361.png" alt="image-20220130162223361"></p>
+<center>moving boundary </center>
+
+<p>直接对图形做线性融合效果不好，对距离函数做融合相当于对<strong>边界</strong>做融合，效果好。（边界： SDF&#x3D;0）</p>
+<h4 id="1-1-4-Level-Set-Methods-水平集"><a href="#1-1-4-Level-Set-Methods-水平集" class="headerlink" title="1.1.4 Level Set Methods (水平集)"></a>1.1.4 Level Set Methods (水平集)</h4><p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220130163237329.png" alt="image-20220130163237329"></p>
+<p>存储DF&#x3D;0的点，构成水平集。</p>
+<h4 id="1-1-5-Fractals-（分形）"><a href="#1-1-5-Fractals-（分形）" class="headerlink" title="1.1.5 Fractals （分形）"></a>1.1.5 Fractals （分形）</h4><p>自相似。</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220130163608451.png" alt="image-20220130163608451"></p>
+<p>某些复杂的分形几何渲染时会引起走样。</p>
+<h3 id="1-2-Explicit"><a href="#1-2-Explicit" class="headerlink" title="1.2 Explicit"></a>1.2 Explicit</h3><p>方式：given directly &#x2F; parameter mapping</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220130155859700.png" alt="image-20220130155859700"><br>$$<br>f:R^2-&gt;R^3<br>$$</p>
+<p>$$<br>(u,v)-&gt;(x,y,z)<br>$$</p>
+<p>[Example]<br>$$<br>f(u,v)&#x3D; ((2+cosu)cosv, (2+cosu)sinv, sinu)<br>$$<br>问题：难以判断具体点和表面的位置关系</p>
+<h3 id="1-3-Conclusion"><a href="#1-3-Conclusion" class="headerlink" title="1.3 Conclusion"></a>1.3 Conclusion</h3><p>No “Best” Representation – Geometry is Hard!</p>
+<p><strong>Best Representation depends on the task.</strong></p>
+<hr>
+<h1 id="Curves"><a href="#Curves" class="headerlink" title="Curves"></a>Curves</h1><h2 id="1-Explicit-Representations"><a href="#1-Explicit-Representations" class="headerlink" title="1.Explicit Representations"></a>1.Explicit Representations</h2><h3 id="1-1-Point-Cloud"><a href="#1-1-Point-Cloud" class="headerlink" title="1.1 Point Cloud"></a>1.1 Point Cloud</h3><p>表示方法：“一堆点”</p>
+<p>点云密度不高时，很难画出效果好的图形（Difficult to draw in under-sampled regions)</p>
+<h3 id="1-2-Polygon-Mesh-多边形网"><a href="#1-2-Polygon-Mesh-多边形网" class="headerlink" title="1.2 Polygon Mesh (多边形网)"></a>1.2 Polygon Mesh (多边形网)</h3><p><strong>Most common</strong></p>
+<h3 id="1-3-obj"><a href="#1-3-obj" class="headerlink" title="1.3  obj"></a>1.3  obj</h3><p>全称：Wavefront object file Format</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220130203032052.png" alt="image-20220130203032052"></p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220130203047329.png" alt="image-20220130203047329"></p>
+<table>
+<thead>
+<tr>
+<th>v</th>
+<th>8个顶点的xyz坐标</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>vn</td>
+<td>6种不同的法线（实际自动建模产生了冗余）</td>
+</tr>
+<tr>
+<td>vt</td>
+<td>每个面四个点纹理坐标，共12个</td>
+</tr>
+<tr>
+<td>f</td>
+<td>定义点构成三角形的连接关系（图中依次指代  点坐标&#x2F;纹理坐标&#x2F;法线  （均为序号））</td>
+</tr>
+</tbody></table>
+<h3 id="1-4-Bezier-Curves-（贝塞尔曲线）"><a href="#1-4-Bezier-Curves-（贝塞尔曲线）" class="headerlink" title="1.4 Bézier Curves （贝塞尔曲线）"></a>1.4 Bézier Curves （贝塞尔曲线）</h3><p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220201204057311.png" alt="image-20220201204057311"></p>
+<p>四个控制点P0,P1,P2,P3定义曲线，起点P0,终点P3,起始处切线方向P0P1，终点处切线方向P2P3，乘以常系数3.</p>
+<p><strong>控制点未必一定要求曲线经过！</strong></p>
+<h4 id="1-4-1-绘制"><a href="#1-4-1-绘制" class="headerlink" title="1.4.1 绘制"></a>1.4.1 绘制</h4><p>de Casteljau Algorithm 求解</p>
+<p>一种递归算法，反复进行线性插值。</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220201220434151.png" alt="image-20220201220434151"></p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220201220914739.png" alt="image-20220201220914739"></p>
+<p>控制点可以扩展到三维空间。</p>
+<p>贝塞尔曲线性质</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220201221615475.png" alt="image-20220201221615475"></p>
+<p>注意：</p>
+<p>3.对仿射变换具有性质：对顶点做仿射变换，然后根据变换后的顶点画曲线；和直接对原曲线上的每一个点做变换得到新曲线的结果相同。<strong>但是对投影变换没有这个性质</strong>。</p>
+<p>4.凸包性质：画出的贝塞尔曲线一定在控制点组成的凸包内。</p>
+<h4 id="1-4-2-逐段贝塞尔曲线"><a href="#1-4-2-逐段贝塞尔曲线" class="headerlink" title="1.4.2 逐段贝塞尔曲线"></a>1.4.2 逐段贝塞尔曲线</h4><p>一般用四个控制点控制的三阶贝塞尔曲线组成整个曲线。</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220202103415914.png" alt="image-20220202103415914"></p>
+<h4 id="1-4-3-连续性"><a href="#1-4-3-连续性" class="headerlink" title="1.4.3 连续性"></a>1.4.3 连续性</h4><p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220202103434753.png" alt="image-20220202103434753"><br>$$<br>C0连续：两段曲线接触点数值连续<br>$$</p>
+<p>$$<br>an&#x3D;b0<br>$$</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220202103523752.png" alt="image-20220202103523752"><br>$$<br>C1连续：两段曲线数值连续，一阶导数连续<br>$$</p>
+<p>$$<br>an&#x3D;b0&#x3D;1&#x2F;2(a(n-1)+b1)<br>$$</p>
+<h3 id="1-5-其他曲线"><a href="#1-5-其他曲线" class="headerlink" title="1.5 其他曲线"></a>1.5 其他曲线</h3><h4 id="1-5-1-splines（样条）"><a href="#1-5-1-splines（样条）" class="headerlink" title="1.5.1 splines（样条）"></a>1.5.1 splines（样条）</h4><p>简单定义：一条可控的曲线</p>
+<h4 id="B-splines（basis-splines-基函数样条）"><a href="#B-splines（basis-splines-基函数样条）" class="headerlink" title="B-splines（basis splines 基函数样条）"></a>B-splines（basis splines 基函数样条）</h4><p>具有局部性：可以对曲线的某一部分进行修改而不影响整体，便于设计。</p>
+<hr>
+<h1 id="Surfaces"><a href="#Surfaces" class="headerlink" title="Surfaces"></a>Surfaces</h1><h2 id="1-Bezier-Surfaces"><a href="#1-Bezier-Surfaces" class="headerlink" title="1.Bézier Surfaces"></a>1.Bézier Surfaces</h2><h3 id="1-1-Mesh-Subdivision（up-sampling-网格细分）"><a href="#1-1-Mesh-Subdivision（up-sampling-网格细分）" class="headerlink" title="1.1 Mesh Subdivision（up-sampling, 网格细分）"></a>1.1 Mesh Subdivision（up-sampling, 网格细分）</h3><h4 id="1-1-1-Loop-Subdivision"><a href="#1-1-1-Loop-Subdivision" class="headerlink" title="1.1.1 Loop Subdivision"></a>1.1.1 Loop Subdivision</h4><p><strong>命名来自于发明者的家族姓名，与loop的本意无关！</strong></p>
+<p>基本流程：先细分，再调整</p>
+<p>1.三角形分解成4部分</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220203201829107.png" alt="image-20220203201829107"></p>
+<p>2.对每个分解块调整位置</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220203201840416.png" alt="image-20220203201840416"></p>
+<p><strong>New Vertices（某一条新边的中点）</strong></p>
+<p>该点（图中为白点）必为两个三角形共享。</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220203203010254.png" alt="image-20220203203010254"><br>$$<br>Update&#x3D;\frac{3}{8}(A+B)+\frac{1}{8}(C+D)<br>$$<br>即新顶点的值是周围顶点的加权平均，让面变得平滑。</p>
+<p><strong>Old Vertices</strong></p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220203204341206.png" alt="image-20220203204341206"><br>$$<br>n&#x3D;Vertex-degree<br>$$</p>
+<p>$$<br>u&#x3D;\begin{cases}<br>\frac{3}{16},n&#x3D;3\<br>\frac{3}{8n},otherwise<br>\end{cases}<br>$$</p>
+<p>$$<br>Update&#x3D;(1 - n*u) * original-position +<br>u * neighbor-position-sum<br>$$</p>
+<p>理解：顶点的度决定顶点的“重要程度”，度数越高越应当保留其原本的位置，反之则要根据其连接顶点的位置决定其位置。</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220203205309381.png" alt="image-20220203205309381"></p>
+<center>两次调整后的结果</center>
+
+<h4 id="1-1-2-Catmull-Clark-Subdivision（General-Mesh-一般情况）"><a href="#1-1-2-Catmull-Clark-Subdivision（General-Mesh-一般情况）" class="headerlink" title="1.1.2 Catmull-Clark Subdivision（General Mesh 一般情况）"></a>1.1.2 Catmull-Clark Subdivision（General Mesh 一般情况）</h4><p><strong>loop Subdivision只适合三角形面，Catmull-Clark Subdivision 适合于各种面</strong></p>
+<h5 id="基本定义"><a href="#基本定义" class="headerlink" title="基本定义"></a>基本定义</h5><p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220205105445298.png" alt="image-20220205105445298"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">quad-face 四边形平面</span><br><span class="line">extraordinary vertex 奇异点 （度不等于4）</span><br></pre></td></tr></table></figure>
+
+<p>多次细分后的结果：</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220205110221748.png" alt="image-20220205110221748"></p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220205110233935.png" alt="image-20220205110233935"></p>
+<h3 id="1-2-Mesh-Simplification（down-sampling-网格简化）"><a href="#1-2-Mesh-Simplification（down-sampling-网格简化）" class="headerlink" title="1.2 Mesh Simplification（down-sampling, 网格简化）"></a>1.2 Mesh Simplification（down-sampling, 网格简化）</h3><p>不同情况下根据性能要求选择不同的模型。</p>
+<h4 id="1-2-1-Edge-Collapse（边坍缩）"><a href="#1-2-1-Edge-Collapse（边坍缩）" class="headerlink" title="1.2.1 Edge Collapse（边坍缩）"></a>1.2.1 Edge Collapse（边坍缩）</h4><h3 id="1-3-Mesh-Regularization（网络正则化）"><a href="#1-3-Mesh-Regularization（网络正则化）" class="headerlink" title="1.3 Mesh Regularization（网络正则化）"></a>1.3 Mesh Regularization（网络正则化）</h3>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/02/Ray%20Tracing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/02/Ray%20Tracing/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-03-02 10:43:14" itemprop="dateCreated datePublished" datetime="2022-03-02T10:43:14+08:00">2022-03-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-12 12:39:53" itemprop="dateModified" datetime="2022-02-12T12:39:53+08:00">2022-02-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Ray-Tracing-Introduction-（L13"><a href="#Ray-Tracing-Introduction-（L13" class="headerlink" title="Ray Tracing - Introduction （L13)"></a>Ray Tracing - Introduction （L13)</h1><h2 id="0-Introduction"><a href="#0-Introduction" class="headerlink" title="0.Introduction"></a>0.Introduction</h2><h3 id="0-1-光栅化无法处理的问题"><a href="#0-1-光栅化无法处理的问题" class="headerlink" title="0.1 光栅化无法处理的问题"></a>0.1 光栅化无法处理的问题</h3><p>Rasterization couldn’t handle <strong>global effects</strong> well.</p>
+<p><img src="https://s2.loli.net/2022/02/10/AxS7jkTcFWyO6Ir.png" alt="image-20220207102546332"></p>
+<center>1.Soft Shadows（软阴影）</center>
+
+<p><img src="https://s2.loli.net/2022/02/10/cm4RWXGL9xKhbVC.png" alt="image-20220207102616490"></p>
+<center> 2.light bounces more than once（多次反射）</center>
+
+<h3 id="0-2-Rasterization-vs-Ray-Tracing"><a href="#0-2-Rasterization-vs-Ray-Tracing" class="headerlink" title="0.2 Rasterization vs. Ray Tracing"></a>0.2 Rasterization vs. Ray Tracing</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Rasterization</span><br><span class="line">-fast, but low-quality</span><br><span class="line">-real-time</span><br><span class="line"></span><br><span class="line">Ray Tracing</span><br><span class="line">-accurate, but very slow</span><br><span class="line">-offline</span><br><span class="line">-~10K CPU core hours to render one frame in production</span><br></pre></td></tr></table></figure>
+
+<p>质量和时间为“Trade-off”</p>
+<h2 id="1-Recursive-Whitted-Style-Ray-Tracing"><a href="#1-Recursive-Whitted-Style-Ray-Tracing" class="headerlink" title="1.Recursive (Whitted-Style) Ray Tracing"></a>1.Recursive (Whitted-Style) Ray Tracing</h2><h3 id="1-1-Light-Rays"><a href="#1-1-Light-Rays" class="headerlink" title="1.1 Light Rays"></a>1.1 Light Rays</h3><p>基本假设： 直线传播；不发生碰撞；<strong>光路可逆</strong></p>
+<p>（将物体发射到观察者的光线等效成由观察者发向物体一道“感知光线”，光路仍成立，这也是光线<strong>“追踪“</strong>的命名由来）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. Light travels in straight lines (though this is wrong) </span><br><span class="line">2. Light rays do not “collide” with each other if they cross (though this is still wrong) </span><br><span class="line">3. Light rays travel from the light sources to the eye (but the physics is invariant under path reversal - reciprocity[可逆性]).</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/02/11/KlBFo7HOtZgPDnr.png" alt="image-20220211191805453"></p>
+<center>Eyes send out feeling rays to the world</center>
+
+<h3 id="1-2-Ray-Casting-光线投射：生成不同的光线"><a href="#1-2-Ray-Casting-光线投射：生成不同的光线" class="headerlink" title="1.2  Ray Casting(光线投射：生成不同的光线)"></a>1.2  Ray Casting(光线投射：生成不同的光线)</h3><h4 id="1-2-1-概述"><a href="#1-2-1-概述" class="headerlink" title="1.2.1 概述"></a>1.2.1 概述</h4><p><img src="https://s2.loli.net/2022/02/11/1geGfvNPcxApE9m.png" alt="image-20220211193001892"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">基本流程：</span><br><span class="line">1. Generate an image by casting one ray per pixel </span><br><span class="line">2. Check for shadows by sending a ray to the light</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-2-An-Example："><a href="#1-2-2-An-Example：" class="headerlink" title="1.2 2 An Example："></a>1.2 2 An Example：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Assumptions</span><br><span class="line">1.光源为点光源，眼睛为针孔摄像机（即忽略光源和相机的大小和尺寸）</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/02/11/lJuayRbOqPNH2QM.png" alt="image-20220211193740056"></p>
+<center>Step 1</center>
+
+<p><img src="https://s2.loli.net/2022/02/11/3WtV8Suz1AD9pGL.png" alt="image-20220211193754261"></p>
+<center>Step 2</center>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">基本步骤：</span><br><span class="line">1.对于每个像素，与眼睛连线形成Ray，计算这条光线照亮的场景中最近的点</span><br><span class="line">2.该点与光源连线[这条连线叫做Shadow Ray]，判定是否被照亮以及计算颜色</span><br><span class="line">3.将计算结果写回原像素</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-3-Recursive-Ray-Casting-Whitted-Style-概述"><a href="#1-2-3-Recursive-Ray-Casting-Whitted-Style-概述" class="headerlink" title="1.2.3 Recursive Ray Casting(Whitted-Style) 概述"></a>1.2.3 Recursive Ray Casting(Whitted-Style) 概述</h4><p><img src="https://s2.loli.net/2022/02/11/TA8jqcZfQb5aSIB.png" alt="image-20220211195529474"></p>
+<p>模拟光线不断弹射的过程，<strong>将多次反射和折射的结果都加入到该点的像素值上</strong>。</p>
+<p><strong>注意</strong>：多次反射和折射当然要考虑能量衰减。</p>
+<p><img src="https://s2.loli.net/2022/02/11/n2l9AR3yWmqpJTB.png" alt="image-20220211195825708"></p>
+<center>效果图</center>
+
+<h3 id="1-3-Ray-surface-Intersection"><a href="#1-3-Ray-surface-Intersection" class="headerlink" title="1.3 Ray-surface Intersection"></a>1.3 Ray-surface Intersection</h3><h4 id="1-3-1-Ray-Equation"><a href="#1-3-1-Ray-Equation" class="headerlink" title="1.3.1 Ray Equation"></a>1.3.1 Ray Equation</h4><p>Ray is defined by its <strong>origin</strong> and a <strong>direction vector</strong>.<br>$$<br>\vec{r}(t)&#x3D;\vec{o}+t\vec{d}(0\leq t&lt;\infty)<br>$$<br><strong>ATTENTION：图形学中一般不纠结边界条件（如t&gt;0还是t&gt;&#x3D;0）</strong></p>
+<p> <strong>Example: Ray Intersection With Sphere</strong></p>
+<p><img src="https://s2.loli.net/2022/02/11/ZU5Q9JoA6NVIuht.png" alt="image-20220211212028153"><br>$$<br>Ray:\vec{r}(t)&#x3D;\vec{o}+t\vec{d}(0\leq t&lt;\infty)\<br>Sphere:(\vec{p}-\vec{c})^2-R^2&#x3D;0\<br>Solve\space for\space intersection:(\vec{o}+t\vec{d}-\vec{c})^2-R^2&#x3D;0<br>$$<br>最后可以化为二次方程进行求解，注意根据光线与球面的位置关系分类讨论。</p>
+<p><img src="https://s2.loli.net/2022/02/11/WkHsM57X9hveDVP.png" alt="image-20220211212559675"></p>
+<h4 id="1-3-2-For-implicit-surface"><a href="#1-3-2-For-implicit-surface" class="headerlink" title="1.3.2 For implicit surface"></a>1.3.2 <strong>For implicit surface</strong></h4><p>$$<br>General\space implicit\space surface:f(\vec{p})&#x3D;0\<br>Substitute\space ray\space equation:f(\vec{o}+t\vec{d})&#x3D;0\<br>[Solve\space for\space positive\space roots.]<br>$$</p>
+<p><img src="https://s2.loli.net/2022/02/11/oH25ahMSsBVdGXz.png" alt="image-20220211213140679"></p>
+<center>Examples of implicit surfaces</center>
+
+<h4 id="1-3-3-For-Triangle-Mesh-Explicit-surfaces"><a href="#1-3-3-For-Triangle-Mesh-Explicit-surfaces" class="headerlink" title="1.3.3 For  Triangle Mesh(Explicit surfaces)"></a>1.3.3 For  Triangle Mesh(Explicit surfaces)</h4><p>(作为显式表示的最重要代表，选用三角形面)</p>
+<hr>
+<p><strong>[Point in polygon Test]</strong></p>
+<p>检查一点是否在多边形之内，可作一射线从该点开始往任意方向投射，如果射线与多边形边的交点个数为奇数，则该点位于多边形内部。</p>
+<p><img src="https://s2.loli.net/2022/02/10/fB7pnJt1svhyd5x.png" alt="img"></p>
+<hr>
+<p>但是直接按此方法判定光线和三角形面的位置关系计算量过大。</p>
+<p>改进：问题转化为<strong>求出光线和三角形所在平面的交点，再判断交点是否在三角形内部</strong>。</p>
+<p><img src="https://s2.loli.net/2022/02/10/GiMUtZN541rSkQo.png" alt="image-20220207193014512"></p>
+<center>示意</center>
+
+<p>定义平面：<strong>法线</strong>+<strong>平面上任意一点P’</strong></p>
+<p><img src="https://s2.loli.net/2022/02/10/BNVu4v7xUREcbot.png" alt="image-20220207194031126"><br>$$<br>Plane\space Equation:(\vec{p}-\vec{p’})\cdot \vec{N}&#x3D;0\<br>可以写成\space ax+by+cz+d&#x3D;0<br>$$<br>至此已经可以解出光线与平面的交点，再判定是否在三角形内部。</p>
+<p>改进：（可以直接解出光线和三角形的交点，并验证其解的合理性）</p>
+<p><img src="https://s2.loli.net/2022/02/10/47ngwolWMQjtZxS.png" alt="image-20220207200051961"></p>
+<center>重心坐标均非负，则交点在三角形内</center>
+
+<h3 id="1-4-Accelerating-Ray-Surface-Intersection"><a href="#1-4-Accelerating-Ray-Surface-Intersection" class="headerlink" title="1.4 Accelerating Ray-Surface Intersection"></a>1.4 Accelerating Ray-Surface Intersection</h3><p>在像素数过多、光线弹射情况复杂时，上述方法效率过低。</p>
+<p><img src="https://s2.loli.net/2022/02/11/w2TuIC91AtgSadX.png" alt="image-20220211220424258"></p>
+<center>San Miguel Scene(经典场景), 10.7M triangles</center>
+
+<h5 id="1-4-1-Bounding-Volumes"><a href="#1-4-1-Bounding-Volumes" class="headerlink" title="1.4.1 Bounding Volumes"></a>1.4.1 Bounding Volumes</h5><p>引入”包围盒“Bounding Volumes，即<strong>光线如果不会碰到Bounding Volumes，则它一定不会碰到物体</strong>。</p>
+<p><img src="https://s2.loli.net/2022/02/10/qRCiDIWaduA49EB.png" alt="image-20220207202144038"></p>
+<p>对于Bounding Volumes的进一步定义：<strong>Bounding Box is the intersection of 3 pairs of slabs</strong></p>
+<p>即：<strong>包围盒是三组平面的交集</strong>。</p>
+<p>常用包围盒：<strong>Axis-Aligned Bounding Box(AABB，轴对齐包围盒)</strong></p>
+<p><img src="https://s2.loli.net/2022/02/11/3tIAwFzyGkCJpBv.png" alt="image-20220211220932624"></p>
+<h5 id="1-4-2-Ray-Intersection-with-AABB"><a href="#1-4-2-Ray-Intersection-with-AABB" class="headerlink" title="1.4.2 Ray Intersection with AABB"></a>1.4.2 Ray Intersection with AABB</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">KEY ideas</span><br><span class="line">The ray enters the box only when it enters all pairs of slabs </span><br><span class="line">The ray exits the box as long as it exits any pair of slabs</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/02/11/52KdmB3ItLF4cao.png" alt="image-20220211223237789"></p>
+<p>即：进入任何一对平面即认为进入box，离开所有平面才认为离开box。</p>
+<p>因此对于每一对平面计算$t_{min}$和$t_{max}$，求出进入时间和离开时间：<br>$$<br>For\space 3D\space box,\ t_{enter}&#x3D;max{t_{min}}\t_{exit}&#x3D;min{t_{max}}\<br>$$<br>再考虑由于光线实际为射线带来的正负号问题。<br>$$<br>若t_{exit}&lt;0,\space则box在光线后方\Rightarrow无交点\<br>若t_{exit}\geq0,t_{enter}&lt;0,\space则光线起点位于box内部\Rightarrow有交点<br>$$<br>综上，得到结论：<br>$$<br>Ray\space and\space AABB\space intersect\space iff (if\space and\space only\space if)\<br>t_{enter}&lt;t_{exit}\t_{exit}\geq0<br>$$</p>
+<h5 id="1-4-3-Why-Axis-Aligned"><a href="#1-4-3-Why-Axis-Aligned" class="headerlink" title="1.4.3 Why Axis-Aligned?"></a>1.4.3 Why Axis-Aligned?</h5><p>因为计算更方便。</p>
+<p><img src="https://s2.loli.net/2022/02/10/S6T7pvQ9NKHrZlk.png" alt="image-20220207212226703"></p>
+<hr>
+<h1 id="Ray-Tracing-Acceleration"><a href="#Ray-Tracing-Acceleration" class="headerlink" title="Ray Tracing - Acceleration"></a>Ray Tracing - Acceleration</h1><h2 id="1-Uniform-Spatial-Partitions-Grids"><a href="#1-Uniform-Spatial-Partitions-Grids" class="headerlink" title="1.Uniform Spatial Partitions (Grids)"></a>1.Uniform Spatial Partitions (Grids)</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Assumptions:</span><br><span class="line">- 判断光线是否与物体相交是耗时的</span><br><span class="line">- 判断光线是否与bounding box相交是容易的</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/02/10/GyDajLnXSZsv9bu.png" alt="image-20220208214130374"></p>
+<p>预处理结束后，求出光线穿过的每个盒子，判断盒子里是否有物体，如果有，则判断光线是否与物体相交，这样避免了和空间中所有物体计算是否相交。</p>
+<p><img src="https://s2.loli.net/2022/02/10/Xzm8leqBQHICanU.png" alt="image-20220208214151307"></p>
+<p>加速结构基本思想：多做光线和盒子求交，避免做光线和物体求交。</p>
+<p>缺陷：仍需要计算所有光线走过的格子。</p>
+<h2 id="2-Spatial-Partitions（空间划分）"><a href="#2-Spatial-Partitions（空间划分）" class="headerlink" title="2.Spatial Partitions（空间划分）"></a>2.Spatial Partitions（空间划分）</h2><p>基本想法：改进（1.）中的格子划分方式，对于空旷的地方少用一些格子（即格子设置更大），密集的地方多用一些格子（即格子设置更小），有利于处理下面这一经典案例（图中存在着大量空旷区域，用统一的格子划分方式会比较慢）</p>
+<p><img src="https://s2.loli.net/2022/02/12/12HpWysEKamQo7J.png" alt="image-20220211220424258"></p>
+<center>San Miguel Scene(经典场景), 10.7M triangles</center>
+
+<p>Examples：（<strong>重点：KD-Tree</strong>）</p>
+<p><img src="https://s2.loli.net/2022/02/10/NcgW79zGX4jPu5U.png" alt="image-20220208222552071"></p>
+<p><strong>场景的加速结构预处理要在光线追踪计算之前做完！</strong></p>
+<p><img src="https://s2.loli.net/2022/02/10/UH58yEIMXrb7VJx.png" alt="image-20220209164215429"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">执行流程：</span><br><span class="line">对当前节点采用某种划分方式(x\y\z),得到两个子节点，然后对于子节点继续划分。</span><br><span class="line">实际的物体\三角形只存放在叶子节点上</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">问题：</span><br><span class="line">1.一个物体可能出现在多个叶子节点中</span><br><span class="line">2.KD-Tree的建立需要考虑三角和盒子的求交（复杂）</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Bounding-Volume-Hierarchy-BVH"><a href="#3-Bounding-Volume-Hierarchy-BVH" class="headerlink" title="3.Bounding Volume Hierarchy (BVH)"></a>3.Bounding Volume Hierarchy (BVH)</h2><p>属于Object Partitions（物体划分），应用广泛！</p>
+<p><img src="https://s2.loli.net/2022/02/10/1dUzhKJTXAHo8bu.png" alt="image-20220210221401987"></p>
+<h3 id="3-1-基本流程"><a href="#3-1-基本流程" class="headerlink" title="3.1 基本流程"></a>3.1 基本流程</h3><p>BVH对物体进行划分，每次划分为两堆，然后分别求出bounding box，继续划分，再次重新计算bounding box，重复以上过程，划分方式可以竖直\水平等不做限制（如依次选择X轴，Y轴，Z轴），最终使得每个叶子节点中三角形数量较少，空间中物体的划分尽量均匀。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Summary: Building BVHs</span><br><span class="line">• Find bounding box </span><br><span class="line">找到当前节点物体的包围盒</span><br><span class="line">• Recursively split set of objects in two subsets </span><br><span class="line">递归地将当前物体分为两堆</span><br><span class="line">• Recompute the bounding box of the subsets </span><br><span class="line">重新计算两堆物体的包围盒</span><br><span class="line">• Stop when necessary </span><br><span class="line">适合的时候停止（每个叶子节点中三角形数量较少，空间中物体的划分尽量均匀）</span><br><span class="line">• Store objects in each leaf node</span><br><span class="line">物体存储在叶子节点中</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-性能分析"><a href="#3-2-性能分析" class="headerlink" title="3.2 性能分析"></a>3.2 性能分析</h3><p>相较于KD-Tree的优势：<strong>每一个物体一定严格属于一个节点</strong>。因此省去了三角形和bounding box求交的问题。</p>
+<p>存在的问题：并没有严格将空间”划分开“，即bounding box可能相交。因此在”划分”方面比较讲究。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Heuristics of subdivision</span><br><span class="line">Choose a dimension to split </span><br><span class="line">• Heuristic #1: Always choose the longest axis in node </span><br><span class="line">• Heuristic #2: Split node at location of median object</span><br><span class="line">即选定最长轴划分，划分界限为排序后位于中位的物体。</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>【补充：快速选择算法】</p>
+<p>问题：对于n个无序数组成的序列，找出其中第i大的数。<br>时间复杂度：O(n)</p>
+<hr>
+<p>BVH中用这一算法实现对于大小居中物体的查找。</p>
+<h3 id="3-3-存储结构"><a href="#3-3-存储结构" class="headerlink" title="3.3 存储结构"></a>3.3 存储结构</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Data Structure for BVHs</span><br><span class="line">[Internal nodes store]</span><br><span class="line">• Bounding box </span><br><span class="line">• Children: pointers to child nodes </span><br><span class="line">[Leaf nodes store]</span><br><span class="line">• Bounding box </span><br><span class="line">• List of objects</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-4-伪代码"><a href="#3-4-伪代码" class="headerlink" title="3.4 伪代码"></a>3.4 伪代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Intersect</span>(Ray ray, BVH node) </span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (ray misses node.bbox) <span class="keyword">return</span>; <span class="comment">//若光线与bounding box不相交，结束</span></span><br><span class="line">	<span class="comment">//若相交，分为是否是叶子节点</span></span><br><span class="line"> 	<span class="keyword">if</span> (node is a leaf node)</span><br><span class="line"> 	&#123;</span><br><span class="line"> 		test intersection with all objs;</span><br><span class="line"> 		<span class="keyword">return</span> closest intersection;</span><br><span class="line"> 	&#125; <span class="comment">//叶子节点，判断节点内部所有物体，返回最近的交点</span></span><br><span class="line"> 	hit1 = <span class="built_in">Intersect</span>(ray, node.child1);</span><br><span class="line"> 	hit2 = <span class="built_in">Intersect</span>(ray, node.child2);</span><br><span class="line">    <span class="comment">//若节点不是叶子节点，返回两个子节点交点的最近值</span></span><br><span class="line"> 	<span class="keyword">return</span> the closer of hit1, hit2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-加速结构的比较：Spatial-vs-Object-Partitions"><a href="#4-加速结构的比较：Spatial-vs-Object-Partitions" class="headerlink" title="4.加速结构的比较：Spatial vs Object Partitions"></a>4.加速结构的比较：Spatial vs Object Partitions</h2><h3 id="4-1-Spatial-partition-e-g-KD-tree"><a href="#4-1-Spatial-partition-e-g-KD-tree" class="headerlink" title="4.1 Spatial partition (e.g.KD-tree)"></a>4.1 Spatial partition (e.g.KD-tree)</h3><p><img src="https://s2.loli.net/2022/02/10/aIA2MqdP9wUYv71.png" alt="image-20220210225343386"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">• Partition space into non-overlapping regions </span><br><span class="line">空间划分，划分的节点之间不重叠</span><br><span class="line">• An object can be contained in multiple regions</span><br><span class="line">缺点：一个物体可能被划分到多个区域中</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2-Object-partition-e-g-BVH"><a href="#4-2-Object-partition-e-g-BVH" class="headerlink" title="4.2 Object partition (e.g. BVH)"></a>4.2 Object partition (e.g. BVH)</h3><p><img src="https://s2.loli.net/2022/02/10/LbqKlvmUxSir2Y3.png" alt="image-20220210225528898"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">• Partition set of objects into disjoint subsets </span><br><span class="line">优点：物体划分到不相交的子集，不会出现同一个物体被划分到不同的节点</span><br><span class="line">• Bounding boxes for each set may overlap in space</span><br><span class="line">缺点：不同节点所占空间可能重叠</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="Ray-Tracing-Basic-radiometry"><a href="#Ray-Tracing-Basic-radiometry" class="headerlink" title="Ray Tracing -  Basic radiometry"></a>Ray Tracing -  Basic radiometry</h1><h2 id="0-Introduction-1"><a href="#0-Introduction-1" class="headerlink" title="0.Introduction"></a>0.Introduction</h2><p>辐射度量学可以提供光线的物理参数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">• Measurement system and units for illumination</span><br><span class="line">• Perform lighting calculations in a physically correct manner</span><br><span class="line">• New terms: Radiant flux, intensity, irradiance, radiance（无准确中文翻译）</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-Basic-Concepts"><a href="#1-Basic-Concepts" class="headerlink" title="1.Basic Concepts"></a>1.Basic Concepts</h2><h3 id="1-1-Radiant-energy-（电磁辐射能量）"><a href="#1-1-Radiant-energy-（电磁辐射能量）" class="headerlink" title="1.1 Radiant energy （电磁辐射能量）"></a>1.1 Radiant energy （电磁辐射能量）</h3><p> Radiant energy is the <strong>energy of electromagnetic radiation.</strong><br>$$<br>Q[J(Joule)]<br>$$</p>
+<h3 id="1-2-Radiant-flux-power-（辐射功率）"><a href="#1-2-Radiant-flux-power-（辐射功率）" class="headerlink" title="1.2 Radiant flux (power) （辐射功率）"></a>1.2 Radiant flux (power) （辐射功率）</h3><p>Radiant flux (power) is the <strong>energy</strong> emitted, reflected, transmitted or received, <strong>per unit time.</strong><br>$$<br>\phi&#x3D;\frac{dQ}{dT}[W(Watt)&#x2F;lm(lumen)]<br>$$<br>其中流明（lumen，符号lm）是光通量的国际单位。</p>
+<p>另可以定义为：<strong>photons flowing through a sensor in unit time</strong>，见下图。</p>
+<p><img src="https://s2.loli.net/2022/02/11/JM6PjgfCc5Wul8Y.png" alt="image-20220211111945007"></p>
+<h3 id="1-3-Radiant-Intensity"><a href="#1-3-Radiant-Intensity" class="headerlink" title="1.3 Radiant Intensity"></a>1.3 Radiant Intensity</h3><p>The radiant (luminous) intensity is the power per unit <strong>solid angle</strong> emitted by a point light source.</p>
+<p>考虑的是光源在方向上的量度。</p>
+<p><img src="https://s2.loli.net/2022/02/11/Or9AcZjHx8wQ31G.png" alt="image-20220211114908451"></p>
+<p>即：单位立体角的功率<br>$$<br>I(\omega)\equiv\frac{d\phi}{d\omega}<br>$$</p>
+<p>$$<br>[\frac{W}{sr} or \frac{lm}{sr}&#x3D;cd&#x3D;candela]<br>$$</p>
+<p>（单位的不同取决于是在热学范围内定义还是光学范围内定义）</p>
+<hr>
+<p>【复习：立体角 Solid angle】</p>
+<p><img src="https://s2.loli.net/2022/02/11/zPFNEwUCivXMa5d.png" alt="image-20220211115144683"><br>$$<br>\Omega&#x3D;\frac{A}{r^2}<br>$$<br>Sphere has $4\pi$ steradians.</p>
+<p>单位立体角的计算：</p>
+<p><img src="https://s2.loli.net/2022/02/11/oqVMOCuyJXmlgNK.png" alt="image-20220211135625265"><br>$$<br>dA&#x3D;(rd\theta)(rsin\theta d\phi)r^2sin\theta d\theta d\phi<br>$$</p>
+<p>$$<br>\Rightarrow d\omega&#x3D;\frac{dA}{r^2}&#x3D;sin\theta d\theta d\phi<br>$$</p>
+<p>因此可以用单位向量$\omega$去表示一个立体角。</p>
+<p><img src="https://s2.loli.net/2022/02/11/QCP7KVkjghybNOo.png" alt="image-20220211120155931"></p>
+<hr>
+<p>Intensity具有的性质（根据定义）：<br>$$<br>\phi&#x3D; \int_{s^2} I {\rm d}\omega&#x3D;4\pi I<br>$$</p>
+<p>$$<br>\Rightarrow I &#x3D; \frac{\phi}{4\pi}<br>$$</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/02/Shadow%20Mapping/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/02/Shadow%20Mapping/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-03-02 10:43:14" itemprop="dateCreated datePublished" datetime="2022-03-02T10:43:14+08:00">2022-03-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-06 10:52:10" itemprop="dateModified" datetime="2022-02-06T10:52:10+08:00">2022-02-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Shadow-Mapping"><a href="#Shadow-Mapping" class="headerlink" title="Shadow Mapping"></a>Shadow Mapping</h1><h2 id="1-Basic"><a href="#1-Basic" class="headerlink" title="1.Basic"></a>1.Basic</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">阴影：提供“物体接触”的效果</span><br><span class="line">基于image-space的算法，可能产生走样现象</span><br><span class="line">核心思想：没有阴影的点必须同时满足：(1)被光源照射;(2)被相机看到</span><br><span class="line">经典的Shadow Mapping对应点光源</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-基本流程"><a href="#2-基本流程" class="headerlink" title="2.基本流程"></a>2.基本流程</h2><h3 id="2-1-Render-from-light"><a href="#2-1-Render-from-light" class="headerlink" title="2.1 Render from light"></a>2.1 Render from light</h3><p>从光源看向场景，记录看到点的深度。</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220206095943423.png" alt="image-20220206095943423"></p>
+<h3 id="2-2-Render-from-Eye"><a href="#2-2-Render-from-Eye" class="headerlink" title="2.2  Render from Eye"></a>2.2  Render from Eye</h3><p>先从实际眼睛（或摄像机）出发进行投影</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220206100950257.png" alt="image-20220206100950257"></p>
+<p>对于一个点投影回像素平面以获取上一步中光源处它的深度，与相机获取的深度进行比较，如果一致则没有被遮挡，反之被遮挡。</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220206101129482.png" alt="image-20220206101129482"></p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220206101144983.png" alt="image-20220206101144983"></p>
+<h2 id="3-实例"><a href="#3-实例" class="headerlink" title="3.实例"></a>3.实例</h2><p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220206101433770.png" alt="image-20220206101433770"></p>
+<h3 id="1-Render-from-Light"><a href="#1-Render-from-Light" class="headerlink" title="1.Render from Light"></a>1.Render from Light</h3><p>光源角度看到的图像：</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220206101512691.png" alt="image-20220206101512691"></p>
+<p>获取的深度图：</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220206101556872.png" alt="image-20220206101556872"></p>
+<h3 id="2-Render-from-eyes"><a href="#2-Render-from-eyes" class="headerlink" title="2.Render from eyes"></a>2.Render from eyes</h3><p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220206103123199.png" alt="image-20220206103123199"></p>
+<p>为什么看起来“脏”？涉及阴影图分辨率和数值精度问题。</p>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a>4.总结</h2><p><strong>Well-known rendering technique</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Problems:</span><br><span class="line">1.Hard/Soft Shadows</span><br><span class="line">硬阴影针对严格的点光源而言，实际光源如果不能近似为点光源（有大小）则会形成软阴影（边缘不锐利）</span><br><span class="line">2.Quality depends on shadow map resolution</span><br><span class="line">游戏中的“阴影质量”与此相同</span><br></pre></td></tr></table></figure>
+
+<p>理论上，Shadow Mapping只能做Hard Shadows</p>
+<p><img src="C:\Users\86156\AppData\Roaming\Typora\typora-user-images\image-20220206105120481.png" alt="image-20220206105120481"></p>
 
       
     </div>
@@ -412,13 +952,9 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
-      </div>
-      <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">tags</span>
       </div>
   </nav>
 </div>
