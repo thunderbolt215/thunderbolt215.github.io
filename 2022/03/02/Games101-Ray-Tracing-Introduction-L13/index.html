@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Ray Tracing - Introduction （L13)0.Introduction0.1 光栅化无法处理的问题Rasterization couldn’t handle global effects well.  1.Soft Shadows（软阴影）    2.light bounces more than once（多次反射）  0.2 Rasterization vs. Ray T">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Games101-Ray Tracing (Introduction) -L13">
+<meta property="og:url" content="http://example.com/2022/03/02/Games101-Ray-Tracing-Introduction-L13/index.html">
+<meta property="og:site_name" content="Thunderbolt">
+<meta property="og:description" content="Ray Tracing - Introduction （L13)0.Introduction0.1 光栅化无法处理的问题Rasterization couldn’t handle global effects well.  1.Soft Shadows（软阴影）    2.light bounces more than once（多次反射）  0.2 Rasterization vs. Ray T">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/DEnw1SuXAicHlUa.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/10/cm4RWXGL9xKhbVC.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/jnWSJ2Hy4blI7kq.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/naDQ7JRlkxjXKe2.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/Vj4cNBLhFGZWXeu.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/NQ2M7ge1rHYVB6u.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/56F3LJ2yVGI1fZH.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/d24Lyag1HJCf9Bo.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/11/ZU5Q9JoA6NVIuht.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/6YLoH19dVSg5NrE.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/11/oH25ahMSsBVdGXz.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/4esKFxDCm6BQNn5.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/tHLlbFUOyMpPm2f.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/fHhBOosKaiNEkpA.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/10/47ngwolWMQjtZxS.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/gsf8yZhT9rGzIAn.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/ezKqXG8gYIDV2R3.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/11/3tIAwFzyGkCJpBv.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/7ThdrcLwoyNjGaC.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/oYpn68VjlRMWdxb.png">
+<meta property="article:published_time" content="2022-03-02T10:36:11.000Z">
+<meta property="article:modified_time" content="2022-03-02T10:39:07.961Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="graphics">
+<meta property="article:tag" content="Ray Tracing">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/03/02/DEnw1SuXAicHlUa.png">
+
+<link rel="canonical" href="http://example.com/2022/03/02/Games101-Ray-Tracing-Introduction-L13/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Games101-Ray Tracing (Introduction) -L13 | Thunderbolt</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Thunderbolt</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">A colour pen</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/02/Games101-Ray-Tracing-Introduction-L13/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="Kiana Kaslana 's dog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Thunderbolt">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Games101-Ray Tracing (Introduction) -L13
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-02 18:36:11 / 修改时间：18:39:07" itemprop="dateCreated datePublished" datetime="2022-03-02T18:36:11+08:00">2022-03-02</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Ray-Tracing-Introduction-（L13"><a href="#Ray-Tracing-Introduction-（L13" class="headerlink" title="Ray Tracing - Introduction （L13)"></a>Ray Tracing - Introduction （L13)</h1><h2 id="0-Introduction"><a href="#0-Introduction" class="headerlink" title="0.Introduction"></a>0.Introduction</h2><h3 id="0-1-光栅化无法处理的问题"><a href="#0-1-光栅化无法处理的问题" class="headerlink" title="0.1 光栅化无法处理的问题"></a>0.1 光栅化无法处理的问题</h3><p>Rasterization couldn’t handle <strong>global effects</strong> well.</p>
+<p><img src="https://s2.loli.net/2022/03/02/DEnw1SuXAicHlUa.png" alt="image-20220207102546332"></p>
+<center>1.Soft Shadows（软阴影）</center>
+
+<p><img src="https://s2.loli.net/2022/02/10/cm4RWXGL9xKhbVC.png" alt="image-20220207102616490"></p>
+<center> 2.light bounces more than once（多次反射）</center>
+
+<h3 id="0-2-Rasterization-vs-Ray-Tracing"><a href="#0-2-Rasterization-vs-Ray-Tracing" class="headerlink" title="0.2 Rasterization vs. Ray Tracing"></a>0.2 Rasterization vs. Ray Tracing</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Rasterization</span><br><span class="line">-fast, but low-quality</span><br><span class="line">-real-time</span><br><span class="line"></span><br><span class="line">Ray Tracing</span><br><span class="line">-accurate, but very slow</span><br><span class="line">-offline</span><br><span class="line">-~10K CPU core hours to render one frame in production</span><br></pre></td></tr></table></figure>
+<p>质量和时间为“Trade-off”</p>
+<h2 id="1-Recursive-Whitted-Style-Ray-Tracing"><a href="#1-Recursive-Whitted-Style-Ray-Tracing" class="headerlink" title="1.Recursive (Whitted-Style) Ray Tracing"></a>1.Recursive (Whitted-Style) Ray Tracing</h2><h3 id="1-1-Light-Rays"><a href="#1-1-Light-Rays" class="headerlink" title="1.1 Light Rays"></a>1.1 Light Rays</h3><p>基本假设： 直线传播；不发生碰撞；<strong>光路可逆</strong></p>
+<p>（将物体发射到观察者的光线等效成由观察者发向物体一道“感知光线”，光路仍成立，这也是光线<strong>“追踪“</strong>的命名由来）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. Light travels in straight lines (though this is wrong) </span><br><span class="line">2. Light rays do not “collide” with each other if they cross (though this is still wrong) </span><br><span class="line">3. Light rays travel from the light sources to the eye (but the physics is invariant under path reversal - reciprocity[可逆性]).</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/03/02/jnWSJ2Hy4blI7kq.png" alt="image-20220211191805453"></p>
+<center>Eyes send out feeling rays to the world</center>
+
+<h3 id="1-2-Ray-Casting-光线投射：生成不同的光线"><a href="#1-2-Ray-Casting-光线投射：生成不同的光线" class="headerlink" title="1.2  Ray Casting(光线投射：生成不同的光线)"></a>1.2  Ray Casting(光线投射：生成不同的光线)</h3><h4 id="1-2-1-概述"><a href="#1-2-1-概述" class="headerlink" title="1.2.1 概述"></a>1.2.1 概述</h4><p><img src="https://s2.loli.net/2022/03/02/naDQ7JRlkxjXKe2.png" alt="image-20220211193001892"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">基本流程：</span><br><span class="line">1. Generate an image by casting one ray per pixel </span><br><span class="line">2. Check for shadows by sending a ray to the light</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-2-An-Example："><a href="#1-2-2-An-Example：" class="headerlink" title="1.2 2 An Example："></a>1.2 2 An Example：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Assumptions</span><br><span class="line">1.光源为点光源，眼睛为针孔摄像机（即忽略光源和相机的大小和尺寸）</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/03/02/Vj4cNBLhFGZWXeu.png" alt="image-20220211193740056"></p>
+<center>Step 1</center>
+
+<p><img src="https://s2.loli.net/2022/03/02/NQ2M7ge1rHYVB6u.png" alt="image-20220211193754261"></p>
+<center>Step 2</center>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">基本步骤：</span><br><span class="line">1.对于每个像素，与眼睛连线形成Ray，计算这条光线照亮的场景中最近的点</span><br><span class="line">2.该点与光源连线[这条连线叫做Shadow Ray]，判定是否被照亮以及计算颜色</span><br><span class="line">3.将计算结果写回原像素</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-3-Recursive-Ray-Casting-Whitted-Style-概述"><a href="#1-2-3-Recursive-Ray-Casting-Whitted-Style-概述" class="headerlink" title="1.2.3 Recursive Ray Casting(Whitted-Style) 概述"></a>1.2.3 Recursive Ray Casting(Whitted-Style) 概述</h4><p><img src="https://s2.loli.net/2022/03/02/56F3LJ2yVGI1fZH.png" alt="image-20220211195529474"></p>
+<p>模拟光线不断弹射的过程，<strong>将多次反射和折射的结果都加入到该点的像素值上</strong>。</p>
+<p><strong>注意</strong>：多次反射和折射当然要考虑能量衰减。</p>
+<p><img src="https://s2.loli.net/2022/03/02/d24Lyag1HJCf9Bo.png" alt="image-20220211195825708"></p>
+<center>效果图</center>
+
+<h3 id="1-3-Ray-surface-Intersection"><a href="#1-3-Ray-surface-Intersection" class="headerlink" title="1.3 Ray-surface Intersection"></a>1.3 Ray-surface Intersection</h3><h4 id="1-3-1-Ray-Equation"><a href="#1-3-1-Ray-Equation" class="headerlink" title="1.3.1 Ray Equation"></a>1.3.1 Ray Equation</h4><p>Ray is defined by its <strong>origin</strong> and a <strong>direction vector</strong>.</p>
+<script type="math/tex; mode=display">
+\vec{r}(t)=\vec{o}+t\vec{d}(0\leq t<\infty)</script><p><strong>ATTENTION：图形学中一般不纠结边界条件（如t&gt;0还是t&gt;=0）</strong></p>
+<p> <strong>Example: Ray Intersection With Sphere</strong></p>
+<p><img src="https://s2.loli.net/2022/02/11/ZU5Q9JoA6NVIuht.png" alt="image-20220211212028153"></p>
+<script type="math/tex; mode=display">
+Ray:\vec{r}(t)=\vec{o}+t\vec{d}(0\leq t<\infty)\\
+Sphere:(\vec{p}-\vec{c})^2-R^2=0\\
+Solve\space for\space intersection:(\vec{o}+t\vec{d}-\vec{c})^2-R^2=0</script><p>最后可以化为二次方程进行求解，注意根据光线与球面的位置关系分类讨论。</p>
+<p><img src="https://s2.loli.net/2022/03/02/6YLoH19dVSg5NrE.png" alt="image-20220211212559675"></p>
+<h4 id="1-3-2-For-implicit-surface"><a href="#1-3-2-For-implicit-surface" class="headerlink" title="1.3.2 For implicit surface"></a>1.3.2 <strong>For implicit surface</strong></h4><script type="math/tex; mode=display">
+General\space implicit\space surface:f(\vec{p})=0\\
+Substitute\space ray\space equation:f(\vec{o}+t\vec{d})=0\\
+[Solve\space for\space positive\space roots.]</script><p><img src="https://s2.loli.net/2022/02/11/oH25ahMSsBVdGXz.png" alt="image-20220211213140679"></p>
+<center>Examples of implicit surfaces</center>
+
+<h4 id="1-3-3-For-Triangle-Mesh-Explicit-surfaces"><a href="#1-3-3-For-Triangle-Mesh-Explicit-surfaces" class="headerlink" title="1.3.3 For  Triangle Mesh(Explicit surfaces)"></a>1.3.3 For  Triangle Mesh(Explicit surfaces)</h4><p>(作为显式表示的最重要代表，选用三角形面)</p>
+<hr>
+<p><strong>[Point in polygon Test]</strong></p>
+<p>检查一点是否在多边形之内，可作一射线从该点开始往任意方向投射，如果射线与多边形边的交点个数为奇数，则该点位于多边形内部。</p>
+<p><img src="https://s2.loli.net/2022/03/02/4esKFxDCm6BQNn5.png" alt="img"></p>
+<hr>
+<p>但是直接按此方法判定光线和三角形面的位置关系计算量过大。</p>
+<p>改进：问题转化为<strong>求出光线和三角形所在平面的交点，再判断交点是否在三角形内部</strong>。</p>
+<p><img src="https://s2.loli.net/2022/03/02/tHLlbFUOyMpPm2f.png" alt="image-20220207193014512"></p>
+<center>示意</center>
+
+<p>定义平面：<strong>法线</strong>+<strong>平面上任意一点P’</strong></p>
+<p><img src="https://s2.loli.net/2022/03/02/fHhBOosKaiNEkpA.png" alt="image-20220207194031126"></p>
+<script type="math/tex; mode=display">
+Plane\space Equation:(\vec{p}-\vec{p'})\cdot \vec{N}=0\\
+可以写成\space ax+by+cz+d=0</script><p>至此已经可以解出光线与平面的交点，再判定是否在三角形内部。</p>
+<p>改进：（可以直接解出光线和三角形的交点，并验证其解的合理性）</p>
+<p><img src="https://s2.loli.net/2022/02/10/47ngwolWMQjtZxS.png" alt="image-20220207200051961"></p>
+<center>重心坐标均非负，则交点在三角形内</center>
+
+<h3 id="1-4-Accelerating-Ray-Surface-Intersection"><a href="#1-4-Accelerating-Ray-Surface-Intersection" class="headerlink" title="1.4 Accelerating Ray-Surface Intersection"></a>1.4 Accelerating Ray-Surface Intersection</h3><p>在像素数过多、光线弹射情况复杂时，上述方法效率过低。</p>
+<p><img src="https://s2.loli.net/2022/03/02/gsf8yZhT9rGzIAn.png" alt="image-20220211220424258"></p>
+<center>San Miguel Scene(经典场景), 10.7M triangles</center>
+
+<h5 id="1-4-1-Bounding-Volumes"><a href="#1-4-1-Bounding-Volumes" class="headerlink" title="1.4.1 Bounding Volumes"></a>1.4.1 Bounding Volumes</h5><p>引入”包围盒“Bounding Volumes，即<strong>光线如果不会碰到Bounding Volumes，则它一定不会碰到物体</strong>。</p>
+<p><img src="https://s2.loli.net/2022/03/02/ezKqXG8gYIDV2R3.png" alt="image-20220207202144038"></p>
+<p>对于Bounding Volumes的进一步定义：<strong>Bounding Box is the intersection of 3 pairs of slabs</strong></p>
+<p>即：<strong>包围盒是三组平面的交集</strong>。</p>
+<p>常用包围盒：<strong>Axis-Aligned Bounding Box(AABB，轴对齐包围盒)</strong></p>
+<p><img src="https://s2.loli.net/2022/02/11/3tIAwFzyGkCJpBv.png" alt="image-20220211220932624"></p>
+<h5 id="1-4-2-Ray-Intersection-with-AABB"><a href="#1-4-2-Ray-Intersection-with-AABB" class="headerlink" title="1.4.2 Ray Intersection with AABB"></a>1.4.2 Ray Intersection with AABB</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">KEY ideas</span><br><span class="line">The ray enters the box only when it enters all pairs of slabs </span><br><span class="line">The ray exits the box as long as it exits any pair of slabs</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/03/02/7ThdrcLwoyNjGaC.png" alt="image-20220211223237789"></p>
+<p>即：进入任何一对平面即认为进入box，离开所有平面才认为离开box。</p>
+<p>因此对于每一对平面计算$t_{min}$和$t_{max}$，求出进入时间和离开时间：</p>
+<script type="math/tex; mode=display">
+For\space 3D\space box,\\ t_{enter}=max\{t_{min}\}\\t_{exit}=min\{t_{max}\}\\</script><p>再考虑由于光线实际为射线带来的正负号问题。</p>
+<script type="math/tex; mode=display">
+若t_{exit}<0,\space则box在光线后方\Rightarrow无交点\\
+若t_{exit}\geq0,t_{enter}<0,\space则光线起点位于box内部\Rightarrow有交点</script><p>综上，得到结论：</p>
+<script type="math/tex; mode=display">
+Ray\space and\space AABB\space intersect\space iff (if\space and\space only\space if)\\
+t_{enter}<t_{exit}\\t_{exit}\geq0</script><h5 id="1-4-3-Why-Axis-Aligned"><a href="#1-4-3-Why-Axis-Aligned" class="headerlink" title="1.4.3 Why Axis-Aligned?"></a>1.4.3 Why Axis-Aligned?</h5><p>因为计算更方便。</p>
+<p><img src="https://s2.loli.net/2022/03/02/oYpn68VjlRMWdxb.png" alt="image-20220207212226703"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/graphics/" rel="tag"># graphics</a>
+              <a href="/tags/Ray-Tracing/" rel="tag"># Ray Tracing</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/02/Games101-hw6/" rel="prev" title="Games101-hw6">
+      <i class="fa fa-chevron-left"></i> Games101-hw6
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/03/02/Games101-Ray-Tracing-Acceleration-L14/" rel="next" title="Games101-Ray Tracing (Acceleration) -L14">
+      Games101-Ray Tracing (Acceleration) -L14 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Ray-Tracing-Introduction-%EF%BC%88L13"><span class="nav-number">1.</span> <span class="nav-text">Ray Tracing - Introduction （L13)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">0.Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0-1-%E5%85%89%E6%A0%85%E5%8C%96%E6%97%A0%E6%B3%95%E5%A4%84%E7%90%86%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.1.</span> <span class="nav-text">0.1 光栅化无法处理的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0-2-Rasterization-vs-Ray-Tracing"><span class="nav-number">1.1.2.</span> <span class="nav-text">0.2 Rasterization vs. Ray Tracing</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Recursive-Whitted-Style-Ray-Tracing"><span class="nav-number">1.2.</span> <span class="nav-text">1.Recursive (Whitted-Style) Ray Tracing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Light-Rays"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.1 Light Rays</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Ray-Casting-%E5%85%89%E7%BA%BF%E6%8A%95%E5%B0%84%EF%BC%9A%E7%94%9F%E6%88%90%E4%B8%8D%E5%90%8C%E7%9A%84%E5%85%89%E7%BA%BF"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2  Ray Casting(光线投射：生成不同的光线)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-%E6%A6%82%E8%BF%B0"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">1.2.1 概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-2-An-Example%EF%BC%9A"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">1.2 2 An Example：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-3-Recursive-Ray-Casting-Whitted-Style-%E6%A6%82%E8%BF%B0"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">1.2.3 Recursive Ray Casting(Whitted-Style) 概述</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Ray-surface-Intersection"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.3 Ray-surface Intersection</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-1-Ray-Equation"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">1.3.1 Ray Equation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-2-For-implicit-surface"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">1.3.2 For implicit surface</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-3-For-Triangle-Mesh-Explicit-surfaces"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">1.3.3 For  Triangle Mesh(Explicit surfaces)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-Accelerating-Ray-Surface-Intersection"><span class="nav-number">1.2.4.</span> <span class="nav-text">1.4 Accelerating Ray-Surface Intersection</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-1-Bounding-Volumes"><span class="nav-number">1.2.4.0.1.</span> <span class="nav-text">1.4.1 Bounding Volumes</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-2-Ray-Intersection-with-AABB"><span class="nav-number">1.2.4.0.2.</span> <span class="nav-text">1.4.2 Ray Intersection with AABB</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-3-Why-Axis-Aligned"><span class="nav-number">1.2.4.0.3.</span> <span class="nav-text">1.4.3 Why Axis-Aligned?</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description">Kiana Kaslana 's dog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
