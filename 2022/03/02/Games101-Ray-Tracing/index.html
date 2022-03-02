@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -22,51 +22,52 @@
 
   <meta name="description" content="Ray Tracing - Introduction （L13)0.Introduction0.1 光栅化无法处理的问题Rasterization couldn’t handle global effects well.  1.Soft Shadows（软阴影）    2.light bounces more than once（多次反射）  0.2 Rasterization vs. Ray T">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/2022/03/02/Ray%20Tracing/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:title" content="Games101-Ray Tracing">
+<meta property="og:url" content="http://example.com/2022/03/02/Games101-Ray-Tracing/index.html">
+<meta property="og:site_name" content="Thunderbolt">
 <meta property="og:description" content="Ray Tracing - Introduction （L13)0.Introduction0.1 光栅化无法处理的问题Rasterization couldn’t handle global effects well.  1.Soft Shadows（软阴影）    2.light bounces more than once（多次反射）  0.2 Rasterization vs. Ray T">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://s2.loli.net/2022/02/10/AxS7jkTcFWyO6Ir.png">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/YfaH2bAjykTRXg8.png">
 <meta property="og:image" content="https://s2.loli.net/2022/02/10/cm4RWXGL9xKhbVC.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/11/KlBFo7HOtZgPDnr.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/11/1geGfvNPcxApE9m.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/11/lJuayRbOqPNH2QM.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/11/3WtV8Suz1AD9pGL.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/11/TA8jqcZfQb5aSIB.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/11/n2l9AR3yWmqpJTB.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/11/ZU5Q9JoA6NVIuht.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/11/WkHsM57X9hveDVP.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/tOMiaBflWK7TsLn.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/KgtYhdnjicAHfyr.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/Dgkrb1aZMcsyiwf.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/4F3YqSmMclfA8H2.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/DnVyXZpQeATflvd.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/649qgQRMh1ipZy7.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/MgcuErNxno1wjdv.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/OenthHVaoL1bmZv.png">
 <meta property="og:image" content="https://s2.loli.net/2022/02/11/oH25ahMSsBVdGXz.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/10/fB7pnJt1svhyd5x.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/EvpRoLwn1IDiJYl.png">
 <meta property="og:image" content="https://s2.loli.net/2022/02/10/GiMUtZN541rSkQo.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/10/BNVu4v7xUREcbot.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/qPQn5sSbTMGDd3h.png">
 <meta property="og:image" content="https://s2.loli.net/2022/02/10/47ngwolWMQjtZxS.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/11/w2TuIC91AtgSadX.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/10/qRCiDIWaduA49EB.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/FP5wVaqgodhAU16.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/2Jl5PfRCqzac3yF.png">
 <meta property="og:image" content="https://s2.loli.net/2022/02/11/3tIAwFzyGkCJpBv.png">
 <meta property="og:image" content="https://s2.loli.net/2022/02/11/52KdmB3ItLF4cao.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/10/S6T7pvQ9NKHrZlk.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/10/GyDajLnXSZsv9bu.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/10/Xzm8leqBQHICanU.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/GvghufQELdw3jI2.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/qmsUcAZ7huYEXP3.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/BaMLCVPUnhHFeYw.png">
 <meta property="og:image" content="https://s2.loli.net/2022/02/12/12HpWysEKamQo7J.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/10/NcgW79zGX4jPu5U.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/10/UH58yEIMXrb7VJx.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/Wa7FVdZOKjyYP2x.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/3zNM6xmlYVTCjrd.png">
 <meta property="og:image" content="https://s2.loli.net/2022/02/10/1dUzhKJTXAHo8bu.png">
 <meta property="og:image" content="https://s2.loli.net/2022/02/10/aIA2MqdP9wUYv71.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/10/LbqKlvmUxSir2Y3.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/PfS51wdrXZx3Fn9.png">
 <meta property="og:image" content="https://s2.loli.net/2022/02/11/JM6PjgfCc5Wul8Y.png">
 <meta property="og:image" content="https://s2.loli.net/2022/02/11/Or9AcZjHx8wQ31G.png">
 <meta property="og:image" content="https://s2.loli.net/2022/02/11/zPFNEwUCivXMa5d.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/11/oqVMOCuyJXmlgNK.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/11/QCP7KVkjghybNOo.png">
-<meta property="article:published_time" content="2022-03-02T02:43:14.190Z">
-<meta property="article:modified_time" content="2022-02-12T04:39:53.634Z">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/7WPBbw9kSiF5V4u.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/02/nSdXU5fp2GARzjV.png">
+<meta property="article:published_time" content="2022-03-02T02:56:25.000Z">
+<meta property="article:modified_time" content="2022-03-02T02:58:59.823Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="graphics">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s2.loli.net/2022/02/10/AxS7jkTcFWyO6Ir.png">
+<meta name="twitter:image" content="https://s2.loli.net/2022/03/02/YfaH2bAjykTRXg8.png">
 
-<link rel="canonical" href="http://example.com/2022/03/02/Ray%20Tracing/">
+<link rel="canonical" href="http://example.com/2022/03/02/Games101-Ray-Tracing/">
 
 
 <script id="page-configurations">
@@ -75,11 +76,11 @@
     sidebar: "",
     isHome : false,
     isPost : true,
-    lang   : 'en'
+    lang   : 'zh-CN'
   };
 </script>
 
-  <title> | Hexo</title>
+  <title>Games101-Ray Tracing | Thunderbolt</title>
   
 
 
@@ -119,7 +120,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="切换导航栏">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -130,9 +131,10 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Hexo</h1>
+      <h1 class="site-title">Thunderbolt</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
+      <p class="site-subtitle" itemprop="description">A colour pen</p>
   </div>
 
   <div class="site-nav-right">
@@ -148,12 +150,12 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
   </ul>
@@ -183,21 +185,21 @@
     
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/02/Ray%20Tracing/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/02/Games101-Ray-Tracing/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="Kiana Kaslana 's dog">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="Thunderbolt">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
+          Games101-Ray Tracing
         </h1>
 
         <div class="post-meta">
@@ -205,17 +207,11 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="Created: 2022-03-02 10:43:14" itemprop="dateCreated datePublished" datetime="2022-03-02T10:43:14+08:00">2022-03-02</time>
+              <time title="创建时间：2022-03-02 10:56:25 / 修改时间：10:58:59" itemprop="dateCreated datePublished" datetime="2022-03-02T10:56:25+08:00">2022-03-02</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-12 12:39:53" itemprop="dateModified" datetime="2022-02-12T12:39:53+08:00">2022-02-12</time>
-              </span>
 
           
 
@@ -229,7 +225,7 @@
 
       
         <h1 id="Ray-Tracing-Introduction-（L13"><a href="#Ray-Tracing-Introduction-（L13" class="headerlink" title="Ray Tracing - Introduction （L13)"></a>Ray Tracing - Introduction （L13)</h1><h2 id="0-Introduction"><a href="#0-Introduction" class="headerlink" title="0.Introduction"></a>0.Introduction</h2><h3 id="0-1-光栅化无法处理的问题"><a href="#0-1-光栅化无法处理的问题" class="headerlink" title="0.1 光栅化无法处理的问题"></a>0.1 光栅化无法处理的问题</h3><p>Rasterization couldn’t handle <strong>global effects</strong> well.</p>
-<p><img src="https://s2.loli.net/2022/02/10/AxS7jkTcFWyO6Ir.png" alt="image-20220207102546332"></p>
+<p><img src="https://s2.loli.net/2022/03/02/YfaH2bAjykTRXg8.png" alt="image-20220207102546332"></p>
 <center>1.Soft Shadows（软阴影）</center>
 
 <p><img src="https://s2.loli.net/2022/02/10/cm4RWXGL9xKhbVC.png" alt="image-20220207102616490"></p>
@@ -242,32 +238,32 @@
 <p>（将物体发射到观察者的光线等效成由观察者发向物体一道“感知光线”，光路仍成立，这也是光线<strong>“追踪“</strong>的命名由来）</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. Light travels in straight lines (though this is wrong) </span><br><span class="line">2. Light rays do not “collide” with each other if they cross (though this is still wrong) </span><br><span class="line">3. Light rays travel from the light sources to the eye (but the physics is invariant under path reversal - reciprocity[可逆性]).</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/02/11/KlBFo7HOtZgPDnr.png" alt="image-20220211191805453"></p>
+<p><img src="https://s2.loli.net/2022/03/02/tOMiaBflWK7TsLn.png" alt="image-20220211191805453"></p>
 <center>Eyes send out feeling rays to the world</center>
 
-<h3 id="1-2-Ray-Casting-光线投射：生成不同的光线"><a href="#1-2-Ray-Casting-光线投射：生成不同的光线" class="headerlink" title="1.2  Ray Casting(光线投射：生成不同的光线)"></a>1.2  Ray Casting(光线投射：生成不同的光线)</h3><h4 id="1-2-1-概述"><a href="#1-2-1-概述" class="headerlink" title="1.2.1 概述"></a>1.2.1 概述</h4><p><img src="https://s2.loli.net/2022/02/11/1geGfvNPcxApE9m.png" alt="image-20220211193001892"></p>
+<h3 id="1-2-Ray-Casting-光线投射：生成不同的光线"><a href="#1-2-Ray-Casting-光线投射：生成不同的光线" class="headerlink" title="1.2  Ray Casting(光线投射：生成不同的光线)"></a>1.2  Ray Casting(光线投射：生成不同的光线)</h3><h4 id="1-2-1-概述"><a href="#1-2-1-概述" class="headerlink" title="1.2.1 概述"></a>1.2.1 概述</h4><p><img src="https://s2.loli.net/2022/03/02/KgtYhdnjicAHfyr.png" alt="image-20220211193001892"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">基本流程：</span><br><span class="line">1. Generate an image by casting one ray per pixel </span><br><span class="line">2. Check for shadows by sending a ray to the light</span><br></pre></td></tr></table></figure>
 
 <h4 id="1-2-2-An-Example："><a href="#1-2-2-An-Example：" class="headerlink" title="1.2 2 An Example："></a>1.2 2 An Example：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Assumptions</span><br><span class="line">1.光源为点光源，眼睛为针孔摄像机（即忽略光源和相机的大小和尺寸）</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/02/11/lJuayRbOqPNH2QM.png" alt="image-20220211193740056"></p>
+<p><img src="https://s2.loli.net/2022/03/02/Dgkrb1aZMcsyiwf.png" alt="image-20220211193740056"></p>
 <center>Step 1</center>
 
-<p><img src="https://s2.loli.net/2022/02/11/3WtV8Suz1AD9pGL.png" alt="image-20220211193754261"></p>
+<p><img src="https://s2.loli.net/2022/03/02/4F3YqSmMclfA8H2.png" alt="image-20220211193754261"></p>
 <center>Step 2</center>
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">基本步骤：</span><br><span class="line">1.对于每个像素，与眼睛连线形成Ray，计算这条光线照亮的场景中最近的点</span><br><span class="line">2.该点与光源连线[这条连线叫做Shadow Ray]，判定是否被照亮以及计算颜色</span><br><span class="line">3.将计算结果写回原像素</span><br></pre></td></tr></table></figure>
 
-<h4 id="1-2-3-Recursive-Ray-Casting-Whitted-Style-概述"><a href="#1-2-3-Recursive-Ray-Casting-Whitted-Style-概述" class="headerlink" title="1.2.3 Recursive Ray Casting(Whitted-Style) 概述"></a>1.2.3 Recursive Ray Casting(Whitted-Style) 概述</h4><p><img src="https://s2.loli.net/2022/02/11/TA8jqcZfQb5aSIB.png" alt="image-20220211195529474"></p>
+<h4 id="1-2-3-Recursive-Ray-Casting-Whitted-Style-概述"><a href="#1-2-3-Recursive-Ray-Casting-Whitted-Style-概述" class="headerlink" title="1.2.3 Recursive Ray Casting(Whitted-Style) 概述"></a>1.2.3 Recursive Ray Casting(Whitted-Style) 概述</h4><p><img src="https://s2.loli.net/2022/03/02/DnVyXZpQeATflvd.png" alt="image-20220211195529474"></p>
 <p>模拟光线不断弹射的过程，<strong>将多次反射和折射的结果都加入到该点的像素值上</strong>。</p>
 <p><strong>注意</strong>：多次反射和折射当然要考虑能量衰减。</p>
-<p><img src="https://s2.loli.net/2022/02/11/n2l9AR3yWmqpJTB.png" alt="image-20220211195825708"></p>
+<p><img src="https://s2.loli.net/2022/03/02/649qgQRMh1ipZy7.png" alt="image-20220211195825708"></p>
 <center>效果图</center>
 
 <h3 id="1-3-Ray-surface-Intersection"><a href="#1-3-Ray-surface-Intersection" class="headerlink" title="1.3 Ray-surface Intersection"></a>1.3 Ray-surface Intersection</h3><h4 id="1-3-1-Ray-Equation"><a href="#1-3-1-Ray-Equation" class="headerlink" title="1.3.1 Ray Equation"></a>1.3.1 Ray Equation</h4><p>Ray is defined by its <strong>origin</strong> and a <strong>direction vector</strong>.<br>$$<br>\vec{r}(t)&#x3D;\vec{o}+t\vec{d}(0\leq t&lt;\infty)<br>$$<br><strong>ATTENTION：图形学中一般不纠结边界条件（如t&gt;0还是t&gt;&#x3D;0）</strong></p>
 <p> <strong>Example: Ray Intersection With Sphere</strong></p>
-<p><img src="https://s2.loli.net/2022/02/11/ZU5Q9JoA6NVIuht.png" alt="image-20220211212028153"><br>$$<br>Ray:\vec{r}(t)&#x3D;\vec{o}+t\vec{d}(0\leq t&lt;\infty)\<br>Sphere:(\vec{p}-\vec{c})^2-R^2&#x3D;0\<br>Solve\space for\space intersection:(\vec{o}+t\vec{d}-\vec{c})^2-R^2&#x3D;0<br>$$<br>最后可以化为二次方程进行求解，注意根据光线与球面的位置关系分类讨论。</p>
-<p><img src="https://s2.loli.net/2022/02/11/WkHsM57X9hveDVP.png" alt="image-20220211212559675"></p>
+<p><img src="https://s2.loli.net/2022/03/02/MgcuErNxno1wjdv.png" alt="image-20220211212028153"><br>$$<br>Ray:\vec{r}(t)&#x3D;\vec{o}+t\vec{d}(0\leq t&lt;\infty)\<br>Sphere:(\vec{p}-\vec{c})^2-R^2&#x3D;0\<br>Solve\space for\space intersection:(\vec{o}+t\vec{d}-\vec{c})^2-R^2&#x3D;0<br>$$<br>最后可以化为二次方程进行求解，注意根据光线与球面的位置关系分类讨论。</p>
+<p><img src="https://s2.loli.net/2022/03/02/OenthHVaoL1bmZv.png" alt="image-20220211212559675"></p>
 <h4 id="1-3-2-For-implicit-surface"><a href="#1-3-2-For-implicit-surface" class="headerlink" title="1.3.2 For implicit surface"></a>1.3.2 <strong>For implicit surface</strong></h4><p>$$<br>General\space implicit\space surface:f(\vec{p})&#x3D;0\<br>Substitute\space ray\space equation:f(\vec{o}+t\vec{d})&#x3D;0\<br>[Solve\space for\space positive\space roots.]<br>$$</p>
 <p><img src="https://s2.loli.net/2022/02/11/oH25ahMSsBVdGXz.png" alt="image-20220211213140679"></p>
 <center>Examples of implicit surfaces</center>
@@ -276,7 +272,7 @@
 <hr>
 <p><strong>[Point in polygon Test]</strong></p>
 <p>检查一点是否在多边形之内，可作一射线从该点开始往任意方向投射，如果射线与多边形边的交点个数为奇数，则该点位于多边形内部。</p>
-<p><img src="https://s2.loli.net/2022/02/10/fB7pnJt1svhyd5x.png" alt="img"></p>
+<p><img src="https://s2.loli.net/2022/03/02/EvpRoLwn1IDiJYl.png" alt="img"></p>
 <hr>
 <p>但是直接按此方法判定光线和三角形面的位置关系计算量过大。</p>
 <p>改进：问题转化为<strong>求出光线和三角形所在平面的交点，再判断交点是否在三角形内部</strong>。</p>
@@ -284,17 +280,17 @@
 <center>示意</center>
 
 <p>定义平面：<strong>法线</strong>+<strong>平面上任意一点P’</strong></p>
-<p><img src="https://s2.loli.net/2022/02/10/BNVu4v7xUREcbot.png" alt="image-20220207194031126"><br>$$<br>Plane\space Equation:(\vec{p}-\vec{p’})\cdot \vec{N}&#x3D;0\<br>可以写成\space ax+by+cz+d&#x3D;0<br>$$<br>至此已经可以解出光线与平面的交点，再判定是否在三角形内部。</p>
+<p><img src="https://s2.loli.net/2022/03/02/qPQn5sSbTMGDd3h.png" alt="image-20220207194031126"><br>$$<br>Plane\space Equation:(\vec{p}-\vec{p’})\cdot \vec{N}&#x3D;0\<br>可以写成\space ax+by+cz+d&#x3D;0<br>$$<br>至此已经可以解出光线与平面的交点，再判定是否在三角形内部。</p>
 <p>改进：（可以直接解出光线和三角形的交点，并验证其解的合理性）</p>
 <p><img src="https://s2.loli.net/2022/02/10/47ngwolWMQjtZxS.png" alt="image-20220207200051961"></p>
 <center>重心坐标均非负，则交点在三角形内</center>
 
 <h3 id="1-4-Accelerating-Ray-Surface-Intersection"><a href="#1-4-Accelerating-Ray-Surface-Intersection" class="headerlink" title="1.4 Accelerating Ray-Surface Intersection"></a>1.4 Accelerating Ray-Surface Intersection</h3><p>在像素数过多、光线弹射情况复杂时，上述方法效率过低。</p>
-<p><img src="https://s2.loli.net/2022/02/11/w2TuIC91AtgSadX.png" alt="image-20220211220424258"></p>
+<p><img src="https://s2.loli.net/2022/03/02/FP5wVaqgodhAU16.png" alt="image-20220211220424258"></p>
 <center>San Miguel Scene(经典场景), 10.7M triangles</center>
 
 <h5 id="1-4-1-Bounding-Volumes"><a href="#1-4-1-Bounding-Volumes" class="headerlink" title="1.4.1 Bounding Volumes"></a>1.4.1 Bounding Volumes</h5><p>引入”包围盒“Bounding Volumes，即<strong>光线如果不会碰到Bounding Volumes，则它一定不会碰到物体</strong>。</p>
-<p><img src="https://s2.loli.net/2022/02/10/qRCiDIWaduA49EB.png" alt="image-20220207202144038"></p>
+<p><img src="https://s2.loli.net/2022/03/02/2Jl5PfRCqzac3yF.png" alt="image-20220207202144038"></p>
 <p>对于Bounding Volumes的进一步定义：<strong>Bounding Box is the intersection of 3 pairs of slabs</strong></p>
 <p>即：<strong>包围盒是三组平面的交集</strong>。</p>
 <p>常用包围盒：<strong>Axis-Aligned Bounding Box(AABB，轴对齐包围盒)</strong></p>
@@ -305,13 +301,13 @@
 <p>即：进入任何一对平面即认为进入box，离开所有平面才认为离开box。</p>
 <p>因此对于每一对平面计算$t_{min}$和$t_{max}$，求出进入时间和离开时间：<br>$$<br>For\space 3D\space box,\ t_{enter}&#x3D;max{t_{min}}\t_{exit}&#x3D;min{t_{max}}\<br>$$<br>再考虑由于光线实际为射线带来的正负号问题。<br>$$<br>若t_{exit}&lt;0,\space则box在光线后方\Rightarrow无交点\<br>若t_{exit}\geq0,t_{enter}&lt;0,\space则光线起点位于box内部\Rightarrow有交点<br>$$<br>综上，得到结论：<br>$$<br>Ray\space and\space AABB\space intersect\space iff (if\space and\space only\space if)\<br>t_{enter}&lt;t_{exit}\t_{exit}\geq0<br>$$</p>
 <h5 id="1-4-3-Why-Axis-Aligned"><a href="#1-4-3-Why-Axis-Aligned" class="headerlink" title="1.4.3 Why Axis-Aligned?"></a>1.4.3 Why Axis-Aligned?</h5><p>因为计算更方便。</p>
-<p><img src="https://s2.loli.net/2022/02/10/S6T7pvQ9NKHrZlk.png" alt="image-20220207212226703"></p>
+<p><img src="https://s2.loli.net/2022/03/02/GvghufQELdw3jI2.png" alt="image-20220207212226703"></p>
 <hr>
 <h1 id="Ray-Tracing-Acceleration"><a href="#Ray-Tracing-Acceleration" class="headerlink" title="Ray Tracing - Acceleration"></a>Ray Tracing - Acceleration</h1><h2 id="1-Uniform-Spatial-Partitions-Grids"><a href="#1-Uniform-Spatial-Partitions-Grids" class="headerlink" title="1.Uniform Spatial Partitions (Grids)"></a>1.Uniform Spatial Partitions (Grids)</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Assumptions:</span><br><span class="line">- 判断光线是否与物体相交是耗时的</span><br><span class="line">- 判断光线是否与bounding box相交是容易的</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2022/02/10/GyDajLnXSZsv9bu.png" alt="image-20220208214130374"></p>
+<p><img src="https://s2.loli.net/2022/03/02/qmsUcAZ7huYEXP3.png" alt="image-20220208214130374"></p>
 <p>预处理结束后，求出光线穿过的每个盒子，判断盒子里是否有物体，如果有，则判断光线是否与物体相交，这样避免了和空间中所有物体计算是否相交。</p>
-<p><img src="https://s2.loli.net/2022/02/10/Xzm8leqBQHICanU.png" alt="image-20220208214151307"></p>
+<p><img src="https://s2.loli.net/2022/03/02/BaMLCVPUnhHFeYw.png" alt="image-20220208214151307"></p>
 <p>加速结构基本思想：多做光线和盒子求交，避免做光线和物体求交。</p>
 <p>缺陷：仍需要计算所有光线走过的格子。</p>
 <h2 id="2-Spatial-Partitions（空间划分）"><a href="#2-Spatial-Partitions（空间划分）" class="headerlink" title="2.Spatial Partitions（空间划分）"></a>2.Spatial Partitions（空间划分）</h2><p>基本想法：改进（1.）中的格子划分方式，对于空旷的地方少用一些格子（即格子设置更大），密集的地方多用一些格子（即格子设置更小），有利于处理下面这一经典案例（图中存在着大量空旷区域，用统一的格子划分方式会比较慢）</p>
@@ -319,9 +315,9 @@
 <center>San Miguel Scene(经典场景), 10.7M triangles</center>
 
 <p>Examples：（<strong>重点：KD-Tree</strong>）</p>
-<p><img src="https://s2.loli.net/2022/02/10/NcgW79zGX4jPu5U.png" alt="image-20220208222552071"></p>
+<p><img src="https://s2.loli.net/2022/03/02/Wa7FVdZOKjyYP2x.png" alt="image-20220208222552071"></p>
 <p><strong>场景的加速结构预处理要在光线追踪计算之前做完！</strong></p>
-<p><img src="https://s2.loli.net/2022/02/10/UH58yEIMXrb7VJx.png" alt="image-20220209164215429"></p>
+<p><img src="https://s2.loli.net/2022/03/02/3zNM6xmlYVTCjrd.png" alt="image-20220209164215429"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">执行流程：</span><br><span class="line">对当前节点采用某种划分方式(x\y\z),得到两个子节点，然后对于子节点继续划分。</span><br><span class="line">实际的物体\三角形只存放在叶子节点上</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">问题：</span><br><span class="line">1.一个物体可能出现在多个叶子节点中</span><br><span class="line">2.KD-Tree的建立需要考虑三角和盒子的求交（复杂）</span><br></pre></td></tr></table></figure>
@@ -347,7 +343,7 @@
 <h2 id="4-加速结构的比较：Spatial-vs-Object-Partitions"><a href="#4-加速结构的比较：Spatial-vs-Object-Partitions" class="headerlink" title="4.加速结构的比较：Spatial vs Object Partitions"></a>4.加速结构的比较：Spatial vs Object Partitions</h2><h3 id="4-1-Spatial-partition-e-g-KD-tree"><a href="#4-1-Spatial-partition-e-g-KD-tree" class="headerlink" title="4.1 Spatial partition (e.g.KD-tree)"></a>4.1 Spatial partition (e.g.KD-tree)</h3><p><img src="https://s2.loli.net/2022/02/10/aIA2MqdP9wUYv71.png" alt="image-20220210225343386"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">• Partition space into non-overlapping regions </span><br><span class="line">空间划分，划分的节点之间不重叠</span><br><span class="line">• An object can be contained in multiple regions</span><br><span class="line">缺点：一个物体可能被划分到多个区域中</span><br></pre></td></tr></table></figure>
 
-<h3 id="4-2-Object-partition-e-g-BVH"><a href="#4-2-Object-partition-e-g-BVH" class="headerlink" title="4.2 Object partition (e.g. BVH)"></a>4.2 Object partition (e.g. BVH)</h3><p><img src="https://s2.loli.net/2022/02/10/LbqKlvmUxSir2Y3.png" alt="image-20220210225528898"></p>
+<h3 id="4-2-Object-partition-e-g-BVH"><a href="#4-2-Object-partition-e-g-BVH" class="headerlink" title="4.2 Object partition (e.g. BVH)"></a>4.2 Object partition (e.g. BVH)</h3><p><img src="https://s2.loli.net/2022/03/02/PfS51wdrXZx3Fn9.png" alt="image-20220210225528898"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">• Partition set of objects into disjoint subsets </span><br><span class="line">优点：物体划分到不相交的子集，不会出现同一个物体被划分到不同的节点</span><br><span class="line">• Bounding boxes for each set may overlap in space</span><br><span class="line">缺点：不同节点所占空间可能重叠</span><br></pre></td></tr></table></figure>
 
 <hr>
@@ -368,10 +364,10 @@
 <p>【复习：立体角 Solid angle】</p>
 <p><img src="https://s2.loli.net/2022/02/11/zPFNEwUCivXMa5d.png" alt="image-20220211115144683"><br>$$<br>\Omega&#x3D;\frac{A}{r^2}<br>$$<br>Sphere has $4\pi$ steradians.</p>
 <p>单位立体角的计算：</p>
-<p><img src="https://s2.loli.net/2022/02/11/oqVMOCuyJXmlgNK.png" alt="image-20220211135625265"><br>$$<br>dA&#x3D;(rd\theta)(rsin\theta d\phi)r^2sin\theta d\theta d\phi<br>$$</p>
+<p><img src="https://s2.loli.net/2022/03/02/7WPBbw9kSiF5V4u.png" alt="image-20220211135625265"><br>$$<br>dA&#x3D;(rd\theta)(rsin\theta d\phi)r^2sin\theta d\theta d\phi<br>$$</p>
 <p>$$<br>\Rightarrow d\omega&#x3D;\frac{dA}{r^2}&#x3D;sin\theta d\theta d\phi<br>$$</p>
 <p>因此可以用单位向量$\omega$去表示一个立体角。</p>
-<p><img src="https://s2.loli.net/2022/02/11/QCP7KVkjghybNOo.png" alt="image-20220211120155931"></p>
+<p><img src="https://s2.loli.net/2022/03/02/nSdXU5fp2GARzjV.png" alt="image-20220211120155931"></p>
 <hr>
 <p>Intensity具有的性质（根据定义）：<br>$$<br>\phi&#x3D; \int_{s^2} I {\rm d}\omega&#x3D;4\pi I<br>$$</p>
 <p>$$<br>\Rightarrow I &#x3D; \frac{\phi}{4\pi}<br>$$</p>
@@ -383,6 +379,9 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/graphics/" rel="tag"># graphics</a>
+          </div>
 
         
 
@@ -390,13 +389,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/03/02/Shadow%20Mapping/" rel="prev" title="">
-      <i class="fa fa-chevron-left"></i> 
+    <a href="/2022/03/01/hello-world/" rel="prev" title="Hello World">
+      <i class="fa fa-chevron-left"></i> Hello World
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/03/02/Geometry/" rel="next" title="">
-       <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -446,10 +442,10 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Table of Contents
+          文章目录
         </li>
         <li class="sidebar-nav-overview">
-          Overview
+          站点概览
         </li>
       </ul>
 
@@ -462,16 +458,20 @@
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">John Doe</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">Kiana Kaslana 's dog</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
-          <span class="site-state-item-name">posts</span>
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
       </div>
   </nav>
 </div>
@@ -503,7 +503,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">John Doe</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
 
         
