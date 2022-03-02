@@ -24,7 +24,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Games101-Ray Tracing (Introduction) -L13">
 <meta property="og:url" content="http://example.com/2022/03/02/Games101-Ray-Tracing-Introduction-L13/index.html">
-<meta property="og:site_name" content="Thunderbolt">
+<meta property="og:site_name" content="Thunderbolt&#39;s Blog">
 <meta property="og:description" content="Ray Tracing - Introduction （L13)0.Introduction0.1 光栅化无法处理的问题Rasterization couldn’t handle global effects well.  1.Soft Shadows（软阴影）    2.light bounces more than once（多次反射）  0.2 Rasterization vs. Ray T">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2022/03/02/DEnw1SuXAicHlUa.png">
@@ -49,7 +49,7 @@
 <meta property="og:image" content="https://s2.loli.net/2022/03/02/oYpn68VjlRMWdxb.png">
 <meta property="article:published_time" content="2022-03-02T10:36:11.000Z">
 <meta property="article:modified_time" content="2022-03-02T11:32:02.425Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="Cao Shuo">
 <meta property="article:tag" content="graphics">
 <meta property="article:tag" content="Ray Tracing">
 <meta name="twitter:card" content="summary">
@@ -68,7 +68,7 @@
   };
 </script>
 
-  <title>Games101-Ray Tracing (Introduction) -L13 | Thunderbolt</title>
+  <title>Games101-Ray Tracing (Introduction) -L13 | Thunderbolt's Blog</title>
   
 
 
@@ -119,10 +119,10 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Thunderbolt</h1>
+      <h1 class="site-title">Thunderbolt's Blog</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">A colour pen</p>
+      <p class="site-subtitle" itemprop="description">My vegetable has exploded</p>
   </div>
 
   <div class="site-nav-right">
@@ -138,12 +138,27 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">2</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">1</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">3</span></a>
 
   </li>
   </ul>
@@ -178,12 +193,12 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="Kiana Kaslana 's dog">
+      <meta itemprop="name" content="Cao Shuo">
+      <meta itemprop="description" content="When the darkness seized the long night\n Did it envisage its end at the hands of a shooting star?">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Thunderbolt">
+      <meta itemprop="name" content="Thunderbolt's Blog">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -228,24 +243,24 @@
 <p><img src="https://s2.loli.net/2022/02/10/cm4RWXGL9xKhbVC.png" alt="image-20220207102616490"></p>
 <center> 2.light bounces more than once（多次反射）</center>
 
-<h3 id="0-2-Rasterization-vs-Ray-Tracing"><a href="#0-2-Rasterization-vs-Ray-Tracing" class="headerlink" title="0.2 Rasterization vs. Ray Tracing"></a>0.2 Rasterization vs. Ray Tracing</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Rasterization</span><br><span class="line">-fast, but low-quality</span><br><span class="line">-real-time</span><br><span class="line"></span><br><span class="line">Ray Tracing</span><br><span class="line">-accurate, but very slow</span><br><span class="line">-offline</span><br><span class="line">-~10K CPU core hours to render one frame in production</span><br></pre></td></tr></table></figure>
+<h3 id="0-2-Rasterization-vs-Ray-Tracing"><a href="#0-2-Rasterization-vs-Ray-Tracing" class="headerlink" title="0.2 Rasterization vs. Ray Tracing"></a>0.2 Rasterization vs. Ray Tracing</h3><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Rasterization</span><br><span class="line">-fast, <span class="keyword">but</span> low-quality</span><br><span class="line">-<span class="built_in">real</span>-<span class="built_in">time</span></span><br><span class="line"></span><br><span class="line">Ray Tracing</span><br><span class="line">-accurate, <span class="keyword">but</span> very slow</span><br><span class="line">-offline</span><br><span class="line">-~<span class="number">10</span>K CPU core hours <span class="keyword">to</span> render one frame <span class="keyword">in</span> production</span><br></pre></td></tr></table></figure>
 <p>质量和时间为“Trade-off”</p>
 <h2 id="1-Recursive-Whitted-Style-Ray-Tracing"><a href="#1-Recursive-Whitted-Style-Ray-Tracing" class="headerlink" title="1.Recursive (Whitted-Style) Ray Tracing"></a>1.Recursive (Whitted-Style) Ray Tracing</h2><h3 id="1-1-Light-Rays"><a href="#1-1-Light-Rays" class="headerlink" title="1.1 Light Rays"></a>1.1 Light Rays</h3><p>基本假设： 直线传播；不发生碰撞；<strong>光路可逆</strong></p>
 <p>（将物体发射到观察者的光线等效成由观察者发向物体一道“感知光线”，光路仍成立，这也是光线<strong>“追踪“</strong>的命名由来）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. Light travels in straight lines (though this is wrong) </span><br><span class="line">2. Light rays do not “collide” with each other if they cross (though this is still wrong) </span><br><span class="line">3. Light rays travel from the light sources to the eye (but the physics is invariant under path reversal - reciprocity[可逆性]).</span><br></pre></td></tr></table></figure>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> Light travels <span class="keyword">in</span> straight lines (though this <span class="keyword">is</span> wrong) </span><br><span class="line"><span class="number">2.</span> Light rays <span class="keyword">do</span> <span class="keyword">not</span> “collide” <span class="keyword">with</span> <span class="keyword">each</span> other <span class="keyword">if</span> they <span class="keyword">cross</span> (though this <span class="keyword">is</span> still wrong) </span><br><span class="line"><span class="number">3.</span> Light rays travel <span class="keyword">from</span> the light sources <span class="keyword">to</span> the eye (but the physics <span class="keyword">is</span> invariant under <span class="type">path</span> reversal - reciprocity[可逆性]).</span><br></pre></td></tr></table></figure>
 <p><img src="https://s2.loli.net/2022/03/02/jnWSJ2Hy4blI7kq.png" alt="image-20220211191805453"></p>
 <center>Eyes send out feeling rays to the world</center>
 
 <h3 id="1-2-Ray-Casting-光线投射：生成不同的光线"><a href="#1-2-Ray-Casting-光线投射：生成不同的光线" class="headerlink" title="1.2  Ray Casting(光线投射：生成不同的光线)"></a>1.2  Ray Casting(光线投射：生成不同的光线)</h3><h4 id="1-2-1-概述"><a href="#1-2-1-概述" class="headerlink" title="1.2.1 概述"></a>1.2.1 概述</h4><p><img src="https://s2.loli.net/2022/03/02/naDQ7JRlkxjXKe2.png" alt="image-20220211193001892"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">基本流程：</span><br><span class="line">1. Generate an image by casting one ray per pixel </span><br><span class="line">2. Check for shadows by sending a ray to the light</span><br></pre></td></tr></table></figure>
-<h4 id="1-2-2-An-Example："><a href="#1-2-2-An-Example：" class="headerlink" title="1.2 2 An Example："></a>1.2 2 An Example：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Assumptions</span><br><span class="line">1.光源为点光源，眼睛为针孔摄像机（即忽略光源和相机的大小和尺寸）</span><br></pre></td></tr></table></figure>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">基本流程：</span><br><span class="line"><span class="number">1.</span> Generate <span class="keyword">an</span> image <span class="keyword">by</span> casting <span class="literal">one</span> ray per pixel </span><br><span class="line"><span class="number">2.</span> Check <span class="keyword">for</span> shadows <span class="keyword">by</span> sending <span class="keyword">a</span> ray <span class="built_in">to</span> <span class="keyword">the</span> light</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-2-An-Example："><a href="#1-2-2-An-Example：" class="headerlink" title="1.2 2 An Example："></a>1.2 2 An Example：</h4><figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Assumptions</span></span><br><span class="line"><span class="number">1.</span>光源为点光源，眼睛为针孔摄像机（即忽略光源和相机的大小和尺寸）</span><br></pre></td></tr></table></figure>
 <p><img src="https://s2.loli.net/2022/03/02/Vj4cNBLhFGZWXeu.png" alt="image-20220211193740056"></p>
 <center>Step 1</center>
 
 <p><img src="https://s2.loli.net/2022/03/02/NQ2M7ge1rHYVB6u.png" alt="image-20220211193754261"></p>
 <center>Step 2</center>
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">基本步骤：</span><br><span class="line">1.对于每个像素，与眼睛连线形成Ray，计算这条光线照亮的场景中最近的点</span><br><span class="line">2.该点与光源连线[这条连线叫做Shadow Ray]，判定是否被照亮以及计算颜色</span><br><span class="line">3.将计算结果写回原像素</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">基本步骤：</span><br><span class="line"><span class="number">1</span>.对于每个像素，与眼睛连线形成Ray，计算这条光线照亮的场景中最近的点</span><br><span class="line"><span class="number">2</span>.该点与光源连线<span class="selector-attr">[这条连线叫做Shadow Ray]</span>，判定是否被照亮以及计算颜色</span><br><span class="line"><span class="number">3</span>.将计算结果写回原像素</span><br></pre></td></tr></table></figure>
 <h4 id="1-2-3-Recursive-Ray-Casting-Whitted-Style-概述"><a href="#1-2-3-Recursive-Ray-Casting-Whitted-Style-概述" class="headerlink" title="1.2.3 Recursive Ray Casting(Whitted-Style) 概述"></a>1.2.3 Recursive Ray Casting(Whitted-Style) 概述</h4><p><img src="https://s2.loli.net/2022/03/02/56F3LJ2yVGI1fZH.png" alt="image-20220211195529474"></p>
 <p>模拟光线不断弹射的过程，<strong>将多次反射和折射的结果都加入到该点的像素值上</strong>。</p>
 <p><strong>注意</strong>：多次反射和折射当然要考虑能量衰减。</p>
@@ -298,7 +313,7 @@ Plane\space Equation:(\vec{p}-\vec{p'})\cdot \vec{N}=0 \\
 <p>即：<strong>包围盒是三组平面的交集</strong>。</p>
 <p>常用包围盒：<strong>Axis-Aligned Bounding Box(AABB，轴对齐包围盒)</strong></p>
 <p><img src="https://s2.loli.net/2022/02/11/3tIAwFzyGkCJpBv.png" alt="image-20220211220932624"></p>
-<h5 id="1-4-2-Ray-Intersection-with-AABB"><a href="#1-4-2-Ray-Intersection-with-AABB" class="headerlink" title="1.4.2 Ray Intersection with AABB"></a>1.4.2 Ray Intersection with AABB</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">KEY ideas</span><br><span class="line">The ray enters the box only when it enters all pairs of slabs </span><br><span class="line">The ray exits the box as long as it exits any pair of slabs</span><br></pre></td></tr></table></figure>
+<h5 id="1-4-2-Ray-Intersection-with-AABB"><a href="#1-4-2-Ray-Intersection-with-AABB" class="headerlink" title="1.4.2 Ray Intersection with AABB"></a>1.4.2 Ray Intersection with AABB</h5><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">KEY ideas</span><br><span class="line">The ray enters <span class="keyword">the</span> box only when <span class="keyword">it</span> enters all pairs <span class="keyword">of</span> slabs </span><br><span class="line">The ray exits <span class="keyword">the</span> box <span class="keyword">as</span> <span class="keyword">long</span> <span class="keyword">as</span> <span class="keyword">it</span> exits <span class="keyword">any</span> pair <span class="keyword">of</span> slabs</span><br></pre></td></tr></table></figure>
 <p><img src="https://s2.loli.net/2022/03/02/7ThdrcLwoyNjGaC.png" alt="image-20220211223237789"></p>
 <p>即：进入任何一对平面即认为进入box，离开所有平面才认为离开box。</p>
 <p>因此对于每一对平面计算$t_{min}$和$t_{max}$，求出进入时间和离开时间：</p>
@@ -404,8 +419,8 @@ t_{exit}\geq0</script><h5 id="1-4-3-Why-Axis-Aligned"><a href="#1-4-3-Why-Axis-A
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">John Doe</p>
-  <div class="site-description" itemprop="description">Kiana Kaslana 's dog</div>
+  <p class="site-author-name" itemprop="name">Cao Shuo</p>
+  <div class="site-description" itemprop="description">When the darkness seized the long night\n Did it envisage its end at the hands of a shooting star?</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
@@ -452,7 +467,7 @@ t_{exit}\geq0</script><h5 id="1-4-3-Why-Axis-Aligned"><a href="#1-4-3-Why-Axis-A
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">Cao Shuo</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>

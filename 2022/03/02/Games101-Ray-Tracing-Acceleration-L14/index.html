@@ -24,7 +24,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Games101-Ray Tracing (Acceleration) -L14">
 <meta property="og:url" content="http://example.com/2022/03/02/Games101-Ray-Tracing-Acceleration-L14/index.html">
-<meta property="og:site_name" content="Thunderbolt">
+<meta property="og:site_name" content="Thunderbolt&#39;s Blog">
 <meta property="og:description" content="Ray Tracing - Acceleration1.Uniform Spatial Partitions (Grids)123Assumptions:- 判断光线是否与物体相交是耗时的- 判断光线是否与bounding box相交是容易的  预处理结束后，求出光线穿过的每个盒子，判断盒子里是否有物体，如果有，则判断光线是否与物体相交，这样避免了和空间中所有物体计算是否相交。  加速结构基本思想">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2022/02/10/GyDajLnXSZsv9bu.png">
@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://s2.loli.net/2022/03/02/Hno1iDxwtUMRY85.png">
 <meta property="article:published_time" content="2022-03-02T10:40:58.000Z">
 <meta property="article:modified_time" content="2022-03-02T10:45:06.981Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="Cao Shuo">
 <meta property="article:tag" content="graphics">
 <meta property="article:tag" content="Ray Tracing">
 <meta name="twitter:card" content="summary">
@@ -56,7 +56,7 @@
   };
 </script>
 
-  <title>Games101-Ray Tracing (Acceleration) -L14 | Thunderbolt</title>
+  <title>Games101-Ray Tracing (Acceleration) -L14 | Thunderbolt's Blog</title>
   
 
 
@@ -107,10 +107,10 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Thunderbolt</h1>
+      <h1 class="site-title">Thunderbolt's Blog</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">A colour pen</p>
+      <p class="site-subtitle" itemprop="description">My vegetable has exploded</p>
   </div>
 
   <div class="site-nav-right">
@@ -126,12 +126,27 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">2</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">1</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">3</span></a>
 
   </li>
   </ul>
@@ -166,12 +181,12 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="Kiana Kaslana 's dog">
+      <meta itemprop="name" content="Cao Shuo">
+      <meta itemprop="description" content="When the darkness seized the long night\n Did it envisage its end at the hands of a shooting star?">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Thunderbolt">
+      <meta itemprop="name" content="Thunderbolt's Blog">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -209,7 +224,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Ray-Tracing-Acceleration"><a href="#Ray-Tracing-Acceleration" class="headerlink" title="Ray Tracing - Acceleration"></a>Ray Tracing - Acceleration</h1><h2 id="1-Uniform-Spatial-Partitions-Grids"><a href="#1-Uniform-Spatial-Partitions-Grids" class="headerlink" title="1.Uniform Spatial Partitions (Grids)"></a>1.Uniform Spatial Partitions (Grids)</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Assumptions:</span><br><span class="line">- 判断光线是否与物体相交是耗时的</span><br><span class="line">- 判断光线是否与bounding box相交是容易的</span><br></pre></td></tr></table></figure>
+        <h1 id="Ray-Tracing-Acceleration"><a href="#Ray-Tracing-Acceleration" class="headerlink" title="Ray Tracing - Acceleration"></a>Ray Tracing - Acceleration</h1><h2 id="1-Uniform-Spatial-Partitions-Grids"><a href="#1-Uniform-Spatial-Partitions-Grids" class="headerlink" title="1.Uniform Spatial Partitions (Grids)"></a>1.Uniform Spatial Partitions (Grids)</h2><figure class="highlight ldif"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Assumptions</span>:</span><br><span class="line"><span class="literal">-</span> 判断光线是否与物体相交是耗时的</span><br><span class="line"><span class="literal">-</span> 判断光线是否与bounding box相交是容易的</span><br></pre></td></tr></table></figure>
 <p><img src="https://s2.loli.net/2022/02/10/GyDajLnXSZsv9bu.png" alt="image-20220208214130374"></p>
 <p>预处理结束后，求出光线穿过的每个盒子，判断盒子里是否有物体，如果有，则判断光线是否与物体相交，这样避免了和空间中所有物体计算是否相交。</p>
 <p><img src="https://s2.loli.net/2022/03/02/HmiSj6QDGrZY1JF.png" alt="image-20220208214151307"></p>
@@ -223,26 +238,26 @@
 <p><img src="https://s2.loli.net/2022/03/02/nRlI72OBU4ijeEc.png" alt="image-20220208222552071"></p>
 <p><strong>场景的加速结构预处理要在光线追踪计算之前做完！</strong></p>
 <p><img src="https://s2.loli.net/2022/03/02/lxs6AYJPXfOc2ST.png" alt="image-20220209164215429"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">执行流程：</span><br><span class="line">对当前节点采用某种划分方式(x\y\z),得到两个子节点，然后对于子节点继续划分。</span><br><span class="line">实际的物体\三角形只存放在叶子节点上</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">问题：</span><br><span class="line">1.一个物体可能出现在多个叶子节点中</span><br><span class="line">2.KD-Tree的建立需要考虑三角和盒子的求交（复杂）</span><br></pre></td></tr></table></figure>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">执行流程：</span><br><span class="line">对当前节点采用某种划分方式(x<span class="string">\y\z),得到两个子节点，然后对于子节点继续划分。</span></span><br><span class="line">实际的物体<span class="string">\三角形只存放在叶子节点上</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">问题：</span><br><span class="line"><span class="number">1</span>.一个物体可能出现在多个叶子节点中</span><br><span class="line"><span class="number">2</span>.KD-<span class="built_in">Tree</span>的建立需要考虑三角和盒子的求交（复杂）</span><br></pre></td></tr></table></figure>
 <h2 id="3-Bounding-Volume-Hierarchy-BVH"><a href="#3-Bounding-Volume-Hierarchy-BVH" class="headerlink" title="3.Bounding Volume Hierarchy (BVH)"></a>3.Bounding Volume Hierarchy (BVH)</h2><p>属于Object Partitions（物体划分），应用广泛！</p>
 <p><img src="https://s2.loli.net/2022/03/02/1J4kYbLnmyDjZ3w.png" alt="image-20220210221401987"></p>
 <h3 id="3-1-基本流程"><a href="#3-1-基本流程" class="headerlink" title="3.1 基本流程"></a>3.1 基本流程</h3><p>BVH对物体进行划分，每次划分为两堆，然后分别求出bounding box，继续划分，再次重新计算bounding box，重复以上过程，划分方式可以竖直\水平等不做限制（如依次选择X轴，Y轴，Z轴），最终使得每个叶子节点中三角形数量较少，空间中物体的划分尽量均匀。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Summary: Building BVHs</span><br><span class="line">• Find bounding box </span><br><span class="line">找到当前节点物体的包围盒</span><br><span class="line">• Recursively split set of objects in two subsets </span><br><span class="line">递归地将当前物体分为两堆</span><br><span class="line">• Recompute the bounding box of the subsets </span><br><span class="line">重新计算两堆物体的包围盒</span><br><span class="line">• Stop when necessary </span><br><span class="line">适合的时候停止（每个叶子节点中三角形数量较少，空间中物体的划分尽量均匀）</span><br><span class="line">• Store objects in each leaf node</span><br><span class="line">物体存储在叶子节点中</span><br></pre></td></tr></table></figure>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Summary:</span> <span class="keyword">Building </span><span class="keyword">BVHs</span></span><br><span class="line"><span class="keyword"></span>• Find <span class="keyword">bounding </span><span class="keyword">box </span></span><br><span class="line">找到当前节点物体的包围盒</span><br><span class="line">• Recursively split set of objects in two <span class="keyword">subsets </span></span><br><span class="line">递归地将当前物体分为两堆</span><br><span class="line">• Recompute the <span class="keyword">bounding </span><span class="keyword">box </span>of the <span class="keyword">subsets </span></span><br><span class="line">重新计算两堆物体的包围盒</span><br><span class="line">• Stop when necessary </span><br><span class="line">适合的时候停止（每个叶子节点中三角形数量较少，空间中物体的划分尽量均匀）</span><br><span class="line">• Store objects in each leaf node</span><br><span class="line">物体存储在叶子节点中</span><br></pre></td></tr></table></figure>
 <h3 id="3-2-性能分析"><a href="#3-2-性能分析" class="headerlink" title="3.2 性能分析"></a>3.2 性能分析</h3><p>相较于KD-Tree的优势：<strong>每一个物体一定严格属于一个节点</strong>。因此省去了三角形和bounding box求交的问题。</p>
 <p>存在的问题：并没有严格将空间”划分开“，即bounding box可能相交。因此在”划分”方面比较讲究。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Heuristics of subdivision</span><br><span class="line">Choose a dimension to split </span><br><span class="line">• Heuristic #1: Always choose the longest axis in node </span><br><span class="line">• Heuristic #2: Split node at location of median object</span><br><span class="line">即选定最长轴划分，划分界限为排序后位于中位的物体。</span><br></pre></td></tr></table></figure>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Heuristics <span class="keyword">of</span> subdivision</span><br><span class="line">Choose <span class="keyword">a</span> dimension <span class="built_in">to</span> <span class="built_in">split</span> </span><br><span class="line">• Heuristic <span class="comment">#1: Always choose the longest axis in node </span></span><br><span class="line">• Heuristic <span class="comment">#2: Split node at location of median object</span></span><br><span class="line">即选定最长轴划分，划分界限为排序后位于中位的物体。</span><br></pre></td></tr></table></figure>
 <hr>
 <p>【补充：快速选择算法】</p>
 <p>问题：对于n个无序数组成的序列，找出其中第i大的数。<br>时间复杂度：O(n)</p>
 <hr>
 <p>BVH中用这一算法实现对于大小居中物体的查找。</p>
-<h3 id="3-3-存储结构"><a href="#3-3-存储结构" class="headerlink" title="3.3 存储结构"></a>3.3 存储结构</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Data Structure for BVHs</span><br><span class="line">[Internal nodes store]</span><br><span class="line">• Bounding box </span><br><span class="line">• Children: pointers to child nodes </span><br><span class="line">[Leaf nodes store]</span><br><span class="line">• Bounding box </span><br><span class="line">• List of objects</span><br></pre></td></tr></table></figure>
+<h3 id="3-3-存储结构"><a href="#3-3-存储结构" class="headerlink" title="3.3 存储结构"></a>3.3 存储结构</h3><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Data Structure for <span class="keyword">BVHs</span></span><br><span class="line"><span class="keyword"></span>[Internal nodes store]</span><br><span class="line">• <span class="keyword">Bounding </span><span class="keyword">box </span></span><br><span class="line">• Children: pointers to child nodes </span><br><span class="line">[Leaf nodes store]</span><br><span class="line">• <span class="keyword">Bounding </span><span class="keyword">box </span></span><br><span class="line">• List of objects</span><br></pre></td></tr></table></figure>
 <h3 id="3-4-伪代码"><a href="#3-4-伪代码" class="headerlink" title="3.4 伪代码"></a>3.4 伪代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Intersect</span>(Ray ray, BVH node) </span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (ray misses node.bbox) <span class="keyword">return</span>; <span class="comment">//若光线与bounding box不相交，结束</span></span><br><span class="line">	<span class="comment">//若相交，分为是否是叶子节点</span></span><br><span class="line"> 	<span class="keyword">if</span> (node is a leaf node)</span><br><span class="line"> 	&#123;</span><br><span class="line"> 		test intersection with all objs;</span><br><span class="line"> 		<span class="keyword">return</span> closest intersection;</span><br><span class="line"> 	&#125; <span class="comment">//叶子节点，判断节点内部所有物体，返回最近的交点</span></span><br><span class="line"> 	hit1 = <span class="built_in">Intersect</span>(ray, node.child1);</span><br><span class="line"> 	hit2 = <span class="built_in">Intersect</span>(ray, node.child2);</span><br><span class="line">    <span class="comment">//若节点不是叶子节点，返回两个子节点交点的最近值</span></span><br><span class="line"> 	<span class="keyword">return</span> the closer of hit1, hit2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="4-加速结构的比较：Spatial-vs-Object-Partitions"><a href="#4-加速结构的比较：Spatial-vs-Object-Partitions" class="headerlink" title="4.加速结构的比较：Spatial vs Object Partitions"></a>4.加速结构的比较：Spatial vs Object Partitions</h2><h3 id="4-1-Spatial-partition-e-g-KD-tree"><a href="#4-1-Spatial-partition-e-g-KD-tree" class="headerlink" title="4.1 Spatial partition (e.g.KD-tree)"></a>4.1 Spatial partition (e.g.KD-tree)</h3><p><img src="https://s2.loli.net/2022/03/02/CFfDekQnwgAYahp.png" alt="image-20220210225343386"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">• Partition space into non-overlapping regions </span><br><span class="line">空间划分，划分的节点之间不重叠</span><br><span class="line">• An object can be contained in multiple regions</span><br><span class="line">缺点：一个物体可能被划分到多个区域中</span><br></pre></td></tr></table></figure>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">• <span class="keyword">Partition</span> space <span class="keyword">into</span> non-overlapping regions </span><br><span class="line">空间划分，划分的节点之间不重叠</span><br><span class="line">• An <span class="keyword">object</span> can be contained <span class="keyword">in</span> multiple regions</span><br><span class="line">缺点：一个物体可能被划分到多个区域中</span><br></pre></td></tr></table></figure>
 <h3 id="4-2-Object-partition-e-g-BVH"><a href="#4-2-Object-partition-e-g-BVH" class="headerlink" title="4.2 Object partition (e.g. BVH)"></a>4.2 Object partition (e.g. BVH)</h3><p><img src="https://s2.loli.net/2022/03/02/Hno1iDxwtUMRY85.png" alt="image-20220210225528898"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">• Partition set of objects into disjoint subsets </span><br><span class="line">优点：物体划分到不相交的子集，不会出现同一个物体被划分到不同的节点</span><br><span class="line">• Bounding boxes for each set may overlap in space</span><br><span class="line">缺点：不同节点所占空间可能重叠</span><br></pre></td></tr></table></figure>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">• Partition <span class="built_in">set</span> <span class="keyword">of</span> objects <span class="keyword">into</span> disjoint subsets </span><br><span class="line">优点：物体划分到不相交的子集，不会出现同一个物体被划分到不同的节点</span><br><span class="line">• Bounding boxes <span class="keyword">for</span> <span class="keyword">each</span> <span class="built_in">set</span> may overlap <span class="keyword">in</span> <span class="literal">space</span></span><br><span class="line">缺点：不同节点所占空间可能重叠</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -330,8 +345,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">John Doe</p>
-  <div class="site-description" itemprop="description">Kiana Kaslana 's dog</div>
+  <p class="site-author-name" itemprop="name">Cao Shuo</p>
+  <div class="site-description" itemprop="description">When the darkness seized the long night\n Did it envisage its end at the hands of a shooting star?</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
@@ -378,7 +393,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">Cao Shuo</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
