@@ -1168,7 +1168,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #3bd1ff;
+  background: #ff0e6e;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2560,7 +2560,7 @@ mjx-container + br {
   }
 }
 body {
-  background: url("/images/kiana.jpg");
+  background: url("/images/TianQiong.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
