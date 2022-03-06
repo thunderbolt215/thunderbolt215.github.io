@@ -33,8 +33,16 @@
 <meta property="og:image" content="https://s2.loli.net/2022/03/05/8rhkcvxQpXl9uqJ.png">
 <meta property="og:image" content="https://s2.loli.net/2022/03/05/C359iRKLQjyw7Us.png">
 <meta property="og:image" content="https://s2.loli.net/2022/03/05/xgqfIyCGWhnAsdV.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/05/uxzTecoE4l9aWD1.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/06/KZ59iasXvpV1x8N.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/05/JZNq37PS2gtHAIX.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/05/uAE9bJ3LO2prPmz.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/06/Z5AjL9UEBN6ogwr.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/06/QxH35LcFPGgByZq.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/06/iAm6pdWyvPtrxMz.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/06/5ABmtyXKVMv1P8F.png">
 <meta property="article:published_time" content="2022-03-05T09:15:59.000Z">
-<meta property="article:modified_time" content="2022-03-06T06:09:21.284Z">
+<meta property="article:modified_time" content="2022-03-06T06:14:02.583Z">
 <meta property="article:author" content="Thunderbolt">
 <meta property="article:tag" content="graphics">
 <meta property="article:tag" content="Ray Tracing">
@@ -205,7 +213,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-06 14:09:21" itemprop="dateModified" datetime="2022-03-06T14:09:21+08:00">2022-03-06</time>
+                <time title="修改时间：2022-03-06 14:14:02" itemprop="dateModified" datetime="2022-03-06T14:14:02+08:00">2022-03-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -292,7 +300,53 @@ Unit: [\frac{W}{m^2}]/[\frac{lm}{m^2}=lux]</script><p>注意！此处的面积�
 <p>通过irradiance的衰减可以解释点光源的强度呈现平方反比律衰减。</p>
 <p><img src="https://s2.loli.net/2022/03/05/xgqfIyCGWhnAsdV.png" alt="tempsnip"></p>
 <h3 id="Radiance"><a href="#Radiance" class="headerlink" title="Radiance"></a>Radiance</h3><p>Power emitted, reflected, transmitted or received by a surface, <strong>per unit solid angle, per projected unit area</strong>.</p>
-<p>$$<br>L(p,\omega)\equiv\frac</p>
+<script type="math/tex; mode=display">
+L(p,\omega)\equiv\frac{d^2 \Phi(p,\omega)}{d\omega dAcos\theta} \\
+Unit: [\frac{W}{sr \space m^2}][\frac{cd}{m^2}=\frac{lm}{sr\space m^2}=nit]</script><p>要点：功率局限于一个<strong>很小的面</strong>，一个<strong>很小的角度范围</strong></p>
+<p><img src="https://s2.loli.net/2022/03/05/uxzTecoE4l9aWD1.png" alt="image-20220305214440845"></p>
+<p>Radiance分为发出(Incident Radiance)和接受(Exiting Radiance)，实质相同</p>
+<p>与之前概念的对比：</p>
+<p>​    Radiance = <strong>Intensity per projected unit area</strong></p>
+<p>​    Radiance = <strong>Irradiance per solid angle</strong></p>
+<script type="math/tex; mode=display">
+L(p,\omega)=\frac{dE(p)}{d\omega cos\theta}</script><p>​    <img src="https://s2.loli.net/2022/03/06/KZ59iasXvpV1x8N.png" alt="image-20220306112623404"></p>
+<p>Radiance和Irradiance的区别：<strong>方向性</strong></p>
+<p>​    Irradiance: total power received by area $\differential A$</p>
+<p>​    Radiance: power received by area $\differential A$ from “direction” $\differential \omega$</p>
+<p>​    Irradiance可以理解为来自各个方向Radiance的积分</p>
+<h2 id="Bidirectional-Reflectance-Distribution-Function-BRDF，双向反射分布函数"><a href="#Bidirectional-Reflectance-Distribution-Function-BRDF，双向反射分布函数" class="headerlink" title="Bidirectional Reflectance Distribution Function (BRDF，双向反射分布函数)"></a>Bidirectional Reflectance Distribution Function (BRDF，双向反射分布函数)</h2><p>BRDF告诉我们从某个方向来的光线如何反射到另一方向去（即各个方向的能量分布）</p>
+<p><strong>Definition</strong>: Represents how much light is reflected into each outgoing direction from each incoming direction </p>
+<p><img src="https://s2.loli.net/2022/03/05/JZNq37PS2gtHAIX.png" alt="image-20220305220700635"></p>
+<script type="math/tex; mode=display">
+f_r(\omega_i\rightarrow\omega_r)=\frac{dL_r(\omega_r)}{dE_i(\omega_i)}=\frac{dL_r(\omega_r)}{L_i(\omega_i)cos\theta d\omega_i}[\frac{1}{sr}]</script><p>通过BRDF可以定义<strong>不同的材质</strong></p>
+<h4 id="Reflection-Equation"><a href="#Reflection-Equation" class="headerlink" title="Reflection Equation"></a>Reflection Equation</h4><p><img src="https://s2.loli.net/2022/03/05/uAE9bJ3LO2prPmz.png" alt="image-20220305221540887"></p>
+<script type="math/tex; mode=display">
+L_r(p,\omega_r)=\int_{H^2}f_r(p,\omega_i\rightarrow\omega_r)L_i(p,\omega_i)cos\theta_id\omega_i</script><p>解释：计算一个出射方向的Radiance，需要对所有入射方向的Radiance计算BRDF然后求和。</p>
+<h4 id="Challenge：Recursive-Equation"><a href="#Challenge：Recursive-Equation" class="headerlink" title="Challenge：Recursive Equation"></a>Challenge：Recursive Equation</h4><p>​    Reflected radiance depends on incoming radiance, But incoming radiance depends on reflected radiance (at </p>
+<p>another point in the scene).</p>
+<p>​    即：由于光线在场景中反复弹射，会形成递归效应。</p>
+<h4 id="Rendering-Equation"><a href="#Rendering-Equation" class="headerlink" title="Rendering Equation"></a>Rendering Equation</h4><p><img src="https://s2.loli.net/2022/03/06/Z5AjL9UEBN6ogwr.png" alt="image-20220306103302254"></p>
+<script type="math/tex; mode=display">
+L_O(p,\omega_O)=L_e(p,\omega_O)+\int_{\Omega^+}L_i(p,\omega_i)f_r(p,\omega_i,\omega_O)(n\cdot\omega_i)d\omega_i</script><p>式子中假设所有向量都朝向外。</p>
+<p>解释：某一点的光 = 自己辐射出的 + 其他地方反射过来的</p>
+<p>地位：现代图形学（表面上的光线反射及传播）的基础</p>
+<h5 id="方程简化及理解"><a href="#方程简化及理解" class="headerlink" title="方程简化及理解"></a>方程简化及理解</h5><p>经过很多的简化步骤最后可以得到（简化的具体过程尚不清楚）</p>
+<script type="math/tex; mode=display">
+L=E+KL</script><p>形成了矩阵乘积（算子）的形式。</p>
+<p>目的：利用矩阵求逆类似Taylor展开的性质得到：</p>
+<script type="math/tex; mode=display">
+L=E+KE+K^2E+K^3E+...</script><p>右侧依次代表直接照射、弹射一次、弹射两次、…的光照效果。</p>
+<h5 id="效果示意"><a href="#效果示意" class="headerlink" title="效果示意"></a>效果示意</h5><p><img src="https://s2.loli.net/2022/03/06/QxH35LcFPGgByZq.png" alt="image-20220306104450782"></p>
+<p><img src="https://s2.loli.net/2022/03/06/iAm6pdWyvPtrxMz.png" alt="image-20220306111623993"></p>
+<p><img src="https://s2.loli.net/2022/03/06/5ABmtyXKVMv1P8F.png" alt="image-20220306104518766"></p>
+<h6 id="1-相较于2次反射，为什么4次反射时图片上方的灯突然变亮了？"><a href="#1-相较于2次反射，为什么4次反射时图片上方的灯突然变亮了？" class="headerlink" title="1.相较于2次反射，为什么4次反射时图片上方的灯突然变亮了？"></a>1.相较于2次反射，为什么4次反射时图片上方的灯突然变亮了？</h6><p>-有的物体需要光线在其中至少弹射若干次才能出来，如玻璃球至少弹射两次，此处的灯也是同理。</p>
+<h6 id="2-如果反射次数可以到达-infty-，最后亮度会收敛还是发散？"><a href="#2-如果反射次数可以到达-infty-，最后亮度会收敛还是发散？" class="headerlink" title="2.如果反射次数可以到达$\infty$，最后亮度会收敛还是发散？"></a>2.如果反射次数可以到达$\infty$，最后亮度会收敛还是发散？</h6><p>-收敛。可从自然界和能量守恒的角度理解（自然界恒全局光照）</p>
+<p>-但是如果考虑相机一直按住快门不放的情况，其亮度确实会不断增加而不收敛（这也印证了Radiometry中主要考虑单位时间内能量的想法是正确的）</p>
+<h2 id="概率论回顾"><a href="#概率论回顾" class="headerlink" title="概率论回顾"></a>概率论回顾</h2><p>连续情况下：概率密度函数 Probability Distribution Function (PDF)</p>
+<script type="math/tex; mode=display">
+Conditions\space on\space p(x):\space p(x)\geq0\space and \int p(x)dx=1 \\
+Expected\space value\space of\space x:E[X]=\int xp(x)dx \\
+Expected\space value\space of\space a\space function\space of\space a\space random\space variable: E[Y]=E[f(X)]=\int f(x)p(x)dx</script><hr>
 
     </div>
 
@@ -378,7 +432,7 @@ Unit: [\frac{W}{m^2}]/[\frac{lm}{m^2}=lux]</script><p>注意！此处的面积�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Ray-Tracing-Basic-radiometry%EF%BC%88%E8%BE%90%E5%B0%84%E5%BA%A6%E9%87%8F%E5%AD%A6%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">Ray Tracing -  Basic radiometry（辐射度量学）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-Concepts"><span class="nav-number">1.2.</span> <span class="nav-text">Basic Concepts</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Radiant-energy-%EF%BC%88%E7%94%B5%E7%A3%81%E8%BE%90%E5%B0%84%E8%83%BD%E9%87%8F%EF%BC%89"><span class="nav-number">1.2.1.</span> <span class="nav-text">Radiant energy （电磁辐射能量）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Radiant-flux-power-%EF%BC%88%E8%BE%90%E5%B0%84%E5%8A%9F%E7%8E%87%EF%BC%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">Radiant flux (power) （辐射功率）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Radiant-Intensity"><span class="nav-number">1.2.3.</span> <span class="nav-text">Radiant Intensity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Irradiance"><span class="nav-number">1.2.4.</span> <span class="nav-text">Irradiance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Radiance"><span class="nav-number">1.2.5.</span> <span class="nav-text">Radiance</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Ray-Tracing-Basic-radiometry%EF%BC%88%E8%BE%90%E5%B0%84%E5%BA%A6%E9%87%8F%E5%AD%A6%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">Ray Tracing -  Basic radiometry（辐射度量学）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-Concepts"><span class="nav-number">1.2.</span> <span class="nav-text">Basic Concepts</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Radiant-energy-%EF%BC%88%E7%94%B5%E7%A3%81%E8%BE%90%E5%B0%84%E8%83%BD%E9%87%8F%EF%BC%89"><span class="nav-number">1.2.1.</span> <span class="nav-text">Radiant energy （电磁辐射能量）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Radiant-flux-power-%EF%BC%88%E8%BE%90%E5%B0%84%E5%8A%9F%E7%8E%87%EF%BC%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">Radiant flux (power) （辐射功率）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Radiant-Intensity"><span class="nav-number">1.2.3.</span> <span class="nav-text">Radiant Intensity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Irradiance"><span class="nav-number">1.2.4.</span> <span class="nav-text">Irradiance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Radiance"><span class="nav-number">1.2.5.</span> <span class="nav-text">Radiance</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bidirectional-Reflectance-Distribution-Function-BRDF%EF%BC%8C%E5%8F%8C%E5%90%91%E5%8F%8D%E5%B0%84%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.</span> <span class="nav-text">Bidirectional Reflectance Distribution Function (BRDF，双向反射分布函数)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Reflection-Equation"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">Reflection Equation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Challenge%EF%BC%9ARecursive-Equation"><span class="nav-number">1.3.0.2.</span> <span class="nav-text">Challenge：Recursive Equation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Rendering-Equation"><span class="nav-number">1.3.0.3.</span> <span class="nav-text">Rendering Equation</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B9%E7%A8%8B%E7%AE%80%E5%8C%96%E5%8F%8A%E7%90%86%E8%A7%A3"><span class="nav-number">1.3.0.3.1.</span> <span class="nav-text">方程简化及理解</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%88%E6%9E%9C%E7%A4%BA%E6%84%8F"><span class="nav-number">1.3.0.3.2.</span> <span class="nav-text">效果示意</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-%E7%9B%B8%E8%BE%83%E4%BA%8E2%E6%AC%A1%E5%8F%8D%E5%B0%84%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%884%E6%AC%A1%E5%8F%8D%E5%B0%84%E6%97%B6%E5%9B%BE%E7%89%87%E4%B8%8A%E6%96%B9%E7%9A%84%E7%81%AF%E7%AA%81%E7%84%B6%E5%8F%98%E4%BA%AE%E4%BA%86%EF%BC%9F"><span class="nav-number">1.3.0.3.2.1.</span> <span class="nav-text">1.相较于2次反射，为什么4次反射时图片上方的灯突然变亮了？</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-%E5%A6%82%E6%9E%9C%E5%8F%8D%E5%B0%84%E6%AC%A1%E6%95%B0%E5%8F%AF%E4%BB%A5%E5%88%B0%E8%BE%BE-infty-%EF%BC%8C%E6%9C%80%E5%90%8E%E4%BA%AE%E5%BA%A6%E4%BC%9A%E6%94%B6%E6%95%9B%E8%BF%98%E6%98%AF%E5%8F%91%E6%95%A3%EF%BC%9F"><span class="nav-number">1.3.0.3.2.2.</span> <span class="nav-text">2.如果反射次数可以到达$\infty$，最后亮度会收敛还是发散？</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E7%8E%87%E8%AE%BA%E5%9B%9E%E9%A1%BE"><span class="nav-number">1.4.</span> <span class="nav-text">概率论回顾</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
