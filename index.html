@@ -128,7 +128,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">4</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">5</span></a>
 
   </li>
         <li class="menu-item menu-item-guestbook">
@@ -159,6 +159,84 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/06/Games101-Ray-Tracing-Path-Tracing-L16/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/shooting_star.jpg">
+      <meta itemprop="name" content="Thunderbolt">
+      <meta itemprop="description" content="When the darkness seized the long night, did it envisage its end at the hands of a shooting star?">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Thunderbolt's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/06/Games101-Ray-Tracing-Path-Tracing-L16/" class="post-title-link" itemprop="url">Games101-Ray-Tracing-Path Tracing-L16</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-03-06 11:19:24" itemprop="dateCreated datePublished" datetime="2022-03-06T11:19:24+08:00">2022-03-06</time>
+            </span>
+
+          
+            <span id="/2022/03/06/Games101-Ray-Tracing-Path-Tracing-L16/" class="post-meta-item leancloud_visitors" data-flag-title="Games101-Ray-Tracing-Path Tracing-L16" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/03/06/Games101-Ray-Tracing-Path-Tracing-L16/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/03/06/Games101-Ray-Tracing-Path-Tracing-L16/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -194,7 +272,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-06 11:16:43" itemprop="dateModified" datetime="2022-03-06T11:16:43+08:00">2022-03-06</time>
+                <time title="修改时间：2022-03-06 11:33:32" itemprop="dateModified" datetime="2022-03-06T11:33:32+08:00">2022-03-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -248,40 +326,14 @@ Q[J(Joule)]</script><p>(Barely used in CG.)</p>
 \phi=\frac{dQ}{dT}[W(Watt)/lm(lumen)]</script><p>其中流明（lumen，符号lm）是光通量的国际单位。</p>
 <p>另可以定义为：<strong>photons flowing through a sensor in unit time</strong>，见下图。</p>
 <p><img src="https://s2.loli.net/2022/03/05/AR3Heb29a5Try7U.png" alt="image-20220211111945007"></p>
-<h3 id="Radiant-Intensity"><a href="#Radiant-Intensity" class="headerlink" title="Radiant Intensity"></a>Radiant Intensity</h3><p>The radiant (luminous) intensity is the power per unit <strong>solid angle</strong> emitted by a point light source.</p>
-<p>考虑的是光源在方向上的量度。</p>
-<p><img src="https://s2.loli.net/2022/02/11/Or9AcZjHx8wQ31G.png" alt="image-20220211114908451"></p>
-<p>即：<strong>单位立体角的功率</strong></p>
-<script type="math/tex; mode=display">
-I(\omega)\equiv\frac{d\phi}{d\omega}</script><script type="math/tex; mode=display">
-[\frac{W}{sr} or \frac{lm}{sr}=cd=candela]</script><p>（单位的不同取决于是在热学范围内定义还是光学范围内定义）</p>
-<hr>
-<p>【复习：立体角 Solid angle】</p>
-<p><img src="https://s2.loli.net/2022/03/05/1OQkV69FvhHPrt8.png" alt="image-20220211115144683"></p>
-<script type="math/tex; mode=display">
-\Omega=\frac{A}{r^2}</script><p>Sphere has $4\pi$ steradians.</p>
-<p>单位立体角的计算：</p>
-<p><img src="https://s2.loli.net/2022/03/05/8rhkcvxQpXl9uqJ.png" alt="image-20220211135625265"></p>
-<script type="math/tex; mode=display">
-dA=(rd\theta)(rsin\theta d\phi)r^2sin\theta d\theta d\phi</script><script type="math/tex; mode=display">
-\Rightarrow d\omega=\frac{dA}{r^2}=sin\theta d\theta d\phi</script><p>因此可以用单位向量$\omega$去表示一个立体角。</p>
-<p>对于此公式的理解：</p>
-<script type="math/tex; mode=display">
-1.微分立体角的大小和所处方位\theta有关，因此在极点和赤道处\theta和\phi的变化引起的立体角变化是不同的。 \\
-2.由上可知，\theta 和 \phi 对于球面面积的划分是不均匀的。</script><p><img src="https://s2.loli.net/2022/03/05/C359iRKLQjyw7Us.png" alt="image-20220211120155931"></p>
-<hr>
-<p>Intensity具有的性质（根据定义）：</p>
-<script type="math/tex; mode=display">
-\phi= \int_{s^2} I {\rm d}\omega=4\pi I</script><script type="math/tex; mode=display">
-\Rightarrow I = \frac{\phi}{4\pi}</script><h3 id="Irradiance"><a href="#Irradiance" class="headerlink" title="Irradiance"></a>Irradiance</h3><p><strong>Power per unit area</strong> incident on a surface point.</p>
-<script type="math/tex; mode=display">
-E(x)\equiv \frac{d\phi(x)}{dA} \\
-Unit: [\frac{W}{m^2}]/[\frac{lm}{m^2}=lux]</script><p>注意！此处的面积其实指<strong>投影之后的面积</strong>。</p>
-<p>通过irradiance的衰减可以解释点光源的强度呈现平方反比律衰减。</p>
-<p><img src="https://s2.loli.net/2022/03/05/xgqfIyCGWhnAsdV.png" alt="tempsnip"></p>
-<h3 id="Radiance"><a href="#Radiance" class="headerlink" title="Radiance"></a>Radiance</h3><p>Power emitted, reflected, transmitted or received by a surface, <strong>per unit solid angle, per projected unit area</strong>.</p>
-<p>$$<br>L(p,\omega)\equiv\frac</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/05/Games101-Ray-Tracing-Radiometry-L15/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -660,7 +712,7 @@ Unit: [\frac{W}{m^2}]/[\frac{lm}{m^2}=lux]</script><p>注意！此处的面积�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
