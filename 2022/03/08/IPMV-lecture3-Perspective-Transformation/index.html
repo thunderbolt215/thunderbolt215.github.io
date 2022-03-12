@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="03. Perspective TransformationPreliminaries范数$l_p$-Norm (p范数) ||a||_p&#x3D;(\sum_{k&#x3D;1}^n |a_k|^p)^\frac{1}{p}Infinity Norm (无穷范数) ||a||_{+\infty}&#x3D;\max_i |x_i| \\ ||a||_{-\infty}&#x3D;\min_i |x_i|证明：令  a_{max}&#x3D;m">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IPMV lecture3 Perspective Transformation">
+<meta property="og:url" content="http://example.com/2022/03/08/IPMV-lecture3-Perspective-Transformation/index.html">
+<meta property="og:site_name" content="Thunderbolt&#39;s Blog">
+<meta property="og:description" content="03. Perspective TransformationPreliminaries范数$l_p$-Norm (p范数) ||a||_p&#x3D;(\sum_{k&#x3D;1}^n |a_k|^p)^\frac{1}{p}Infinity Norm (无穷范数) ||a||_{+\infty}&#x3D;\max_i |x_i| \\ ||a||_{-\infty}&#x3D;\min_i |x_i|证明：令  a_{max}&#x3D;m">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-03-08T13:35:35.000Z">
+<meta property="article:modified_time" content="2022-03-08T15:10:50.784Z">
+<meta property="article:author" content="Thunderbolt">
+<meta property="article:tag" content="CV">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/03/08/IPMV-lecture3-Perspective-Transformation/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>IPMV lecture3 Perspective Transformation | Thunderbolt's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Thunderbolt's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">A shooting star voyage of the Dawn</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">2</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">6</span></a>
+
+  </li>
+        <li class="menu-item menu-item-guestbook">
+
+    <a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言板</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/08/IPMV-lecture3-Perspective-Transformation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/shooting_star.jpg">
+      <meta itemprop="name" content="Thunderbolt">
+      <meta itemprop="description" content="When the darkness seized the long night, did it envisage its end at the hands of a shooting star?">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Thunderbolt's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          IPMV lecture3 Perspective Transformation
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-08 21:35:35 / 修改时间：23:10:50" itemprop="dateCreated datePublished" datetime="2022-03-08T21:35:35+08:00">2022-03-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IPMV-courses/" itemprop="url" rel="index"><span itemprop="name">IPMV courses</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2022/03/08/IPMV-lecture3-Perspective-Transformation/" class="post-meta-item leancloud_visitors" data-flag-title="IPMV lecture3 Perspective Transformation" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/03/08/IPMV-lecture3-Perspective-Transformation/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/03/08/IPMV-lecture3-Perspective-Transformation/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="03-Perspective-Transformation"><a href="#03-Perspective-Transformation" class="headerlink" title="03. Perspective Transformation"></a>03. Perspective Transformation</h1><h2 id="Preliminaries"><a href="#Preliminaries" class="headerlink" title="Preliminaries"></a>Preliminaries</h2><h3 id="范数"><a href="#范数" class="headerlink" title="范数"></a>范数</h3><h4 id="l-p-Norm-p范数"><a href="#l-p-Norm-p范数" class="headerlink" title="$l_p$-Norm (p范数)"></a>$l_p$-Norm (p范数)</h4><script type="math/tex; mode=display">
+||a||_p=(\sum_{k=1}^n |a_k|^p)^\frac{1}{p}</script><h4 id="Infinity-Norm-无穷范数"><a href="#Infinity-Norm-无穷范数" class="headerlink" title="Infinity Norm (无穷范数)"></a>Infinity Norm (无穷范数)</h4><script type="math/tex; mode=display">
+||a||_{+\infty}=\max_i |x_i| \\
+||a||_{-\infty}=\min_i |x_i|</script><p>证明：令</p>
+<script type="math/tex; mode=display">
+a_{max}=max(|x_1|,|x_2|,...,|x_n|) \\
+\Rightarrow ||a||_p=a_{max}(\sum_{k=1}^n (\frac{|a_k|}{a_{max}})^p)^\frac{1}{p}</script><p>又</p>
+<script type="math/tex; mode=display">
+1\leq \sum_{k=1}^n(\frac{|a_k|}{a_{max}})^p\leq n \\
+\Rightarrow 1^{\frac{1}{p}}\leq (\sum_{k=1}^n(\frac{|a_k|}{a_{max}})^p)^{\frac{1}{p}}\leq n^{\frac{1}{p}}</script><p>根据夹逼定理(Squeeze Theorem)</p>
+<script type="math/tex; mode=display">
+\lim_{p\rightarrow\infty}||a||_p=\lim_{p\rightarrow\infty} a_{max}(\sum_{k=1}^n (\frac{|a_k|}{a_{max}})^p)^\frac{1}{p}=a_{max}</script><p>Q.E.D.</p>
+<h3 id="斜对称矩阵-skew-symmetric-matrix"><a href="#斜对称矩阵-skew-symmetric-matrix" class="headerlink" title="斜对称矩阵(skew-symmetric matrix)"></a>斜对称矩阵(skew-symmetric matrix)</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>如果一个矩阵A是方阵，并且满足</p>
+<script type="math/tex; mode=display">
+A^T=-A</script><p>则为斜对称矩阵。</p>
+<p>例如：</p>
+<script type="math/tex; mode=display">
+a=\left[
+\matrix{
+  a_1  \\
+  a_2  \\
+  a_3 
+}
+\right]</script><p>的斜对称矩阵为</p>
+<script type="math/tex; mode=display">
+[a]_X=\left[
+\matrix{
+0 & -a_3 & a_2 \\
+a_3 & 0 & -a_1 \\
+-a_2 & a_1 & 0
+}
+\right]</script><h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><script type="math/tex; mode=display">
+1.\space [a]_X=-[a]_X^T \\
+2.\space a^T[a]_X=0^T and [a]_Xa=0 \\
+(0\space is\space a\space zero-vector)
+3.</script><p>基于定义</p>
+<script type="math/tex; mode=display">
+[a]_X=-[a]_X^T</script><p>【还不会证明】：</p>
+<script type="math/tex; mode=display">
+a^T[a]_X=0^T \\ [a]_Xa=0</script><p>叉积</p>
+<script type="math/tex; mode=display">
+a\crossproduct b=[a]_Xb=-[b]_Xa</script><p>【还不会证明】：</p>
+<script type="math/tex; mode=display">
+det([a]_X^T)=(-1)^n det{[a]_X}</script><h3 id="旋转矩阵"><a href="#旋转矩阵" class="headerlink" title="旋转矩阵"></a>旋转矩阵</h3><p>【待填坑】</p>
+<h3 id="矩阵运算"><a href="#矩阵运算" class="headerlink" title="矩阵运算"></a>矩阵运算</h3><p>【待填坑】</p>
+<h3 id="WCS-vs-CCS"><a href="#WCS-vs-CCS" class="headerlink" title="WCS vs. CCS"></a>WCS vs. CCS</h3><p>WCS可以位于任何位置，CCS必须设置在相机光心。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CV/" rel="tag"># CV</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/06/Games101-Ray-Tracing-Path-Tracing-L16/" rel="prev" title="Games101-Ray-Tracing-Path Tracing-L16">
+      <i class="fa fa-chevron-left"></i> Games101-Ray-Tracing-Path Tracing-L16
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#03-Perspective-Transformation"><span class="nav-number">1.</span> <span class="nav-text">03. Perspective Transformation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Preliminaries"><span class="nav-number">1.1.</span> <span class="nav-text">Preliminaries</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8C%83%E6%95%B0"><span class="nav-number">1.1.1.</span> <span class="nav-text">范数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#l-p-Norm-p%E8%8C%83%E6%95%B0"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">$l_p$-Norm (p范数)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Infinity-Norm-%E6%97%A0%E7%A9%B7%E8%8C%83%E6%95%B0"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">Infinity Norm (无穷范数)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%9C%E5%AF%B9%E7%A7%B0%E7%9F%A9%E9%98%B5-skew-symmetric-matrix"><span class="nav-number">1.1.2.</span> <span class="nav-text">斜对称矩阵(skew-symmetric matrix)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">性质</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%8B%E8%BD%AC%E7%9F%A9%E9%98%B5"><span class="nav-number">1.1.3.</span> <span class="nav-text">旋转矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97"><span class="nav-number">1.1.4.</span> <span class="nav-text">矩阵运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WCS-vs-CCS"><span class="nav-number">1.1.5.</span> <span class="nav-text">WCS vs. CCS</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Thunderbolt"
+      src="/images/shooting_star.jpg">
+  <p class="site-author-name" itemprop="name">Thunderbolt</p>
+  <div class="site-description" itemprop="description">When the darkness seized the long night, did it envisage its end at the hands of a shooting star?</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Thunderbolt</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        processEscapes: true
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'Yr6oXhLTG9zn2uFbgw8ANqUa-gzGzoHsz',
+      appKey     : '6kkGTWvzzkPSVwhEInk2okdc',
+      placeholder: "请输入您的评论\n昵称为必填项目，输入QQ号可以直接获取用户名和头像，并且省去了填写邮箱的麻烦！\n虽然email不是必选，但是填写了email可以收到推送通知哦！o(*￣▽￣*)ブ",
+      avatar     : '',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
