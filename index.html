@@ -186,10 +186,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-03-08 21:35:35 / 修改时间：23:10:50" itemprop="dateCreated datePublished" datetime="2022-03-08T21:35:35+08:00">2022-03-08</time>
+              <time title="创建时间：2022-03-08 21:35:35" itemprop="dateCreated datePublished" datetime="2022-03-08T21:35:35+08:00">2022-03-08</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-03-14 21:52:51" itemprop="dateModified" datetime="2022-03-14T21:52:51+08:00">2022-03-14</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -263,21 +269,55 @@ a=\left[
 a_3 & 0 & -a_1 \\
 -a_2 & a_1 & 0
 }
-\right]</script><h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><script type="math/tex; mode=display">
-1.\space [a]_X=-[a]_X^T \\
-2.\space a^T[a]_X=0^T and [a]_Xa=0 \\
-(0\space is\space a\space zero-vector)
-3.</script><p>基于定义</p>
+\right]</script><h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><p>1.基于定义</p>
 <script type="math/tex; mode=display">
-[a]_X=-[a]_X^T</script><p>【还不会证明】：</p>
+[a]_X=-[a]_X^T</script><p>2.【还不会证明】</p>
 <script type="math/tex; mode=display">
-a^T[a]_X=0^T \\ [a]_Xa=0</script><p>叉积</p>
+a^T[a]_X=0^T \\ [a]_Xa=0</script><p>3.叉积</p>
 <script type="math/tex; mode=display">
-a\crossproduct b=[a]_Xb=-[b]_Xa</script><p>【还不会证明】：</p>
+a\crossproduct b=[a]_Xb=-[b]_Xa</script><p>4.【还不会证明】</p>
 <script type="math/tex; mode=display">
-det([a]_X^T)=(-1)^n det{[a]_X}</script><h3 id="旋转矩阵"><a href="#旋转矩阵" class="headerlink" title="旋转矩阵"></a>旋转矩阵</h3><p>【待填坑】</p>
-<h3 id="矩阵运算"><a href="#矩阵运算" class="headerlink" title="矩阵运算"></a>矩阵运算</h3><p>【待填坑】</p>
-<h3 id="WCS-vs-CCS"><a href="#WCS-vs-CCS" class="headerlink" title="WCS vs. CCS"></a>WCS vs. CCS</h3><p>WCS可以位于任何位置，CCS必须设置在相机光心。</p>
+det([a]_X^T)=(-1)^n det{[a]_X}</script><h3 id="旋转矩阵"><a href="#旋转矩阵" class="headerlink" title="旋转矩阵"></a>旋转矩阵</h3><h4 id="形式"><a href="#形式" class="headerlink" title="形式"></a>形式</h4><p>沿着三根轴旋转的旋转矩阵依次为</p>
+<script type="math/tex; mode=display">
+[R]_\theta=\left[
+\matrix{
+cos\theta & sin\theta & 0 \\
+-sin\theta & cos\theta & 0 \\
+0 & 0 & 1
+}
+\right]</script><script type="math/tex; mode=display">
+[R]_\phi=\left[
+\matrix{
+1 & 0 & 0 \\
+0 & cos\phi & sin\phi \\
+0 & -sin\phi & cos\phi
+}
+\right]</script><script type="math/tex; mode=display">
+[R]_\Phi=\left[
+\matrix{
+-sin\Phi & 0 & cos\Phi \\
+0 & 1 & 0 \\
+cos\Phi & 0 & sin\Phi
+}
+\right]</script><h4 id="性质-1"><a href="#性质-1" class="headerlink" title="性质"></a>性质</h4><script type="math/tex; mode=display">
+RR^T=I \\
+R^TR=I \\
+|det(R)|=1</script><p>所有旋转矩阵组成的群称为<strong>特殊正交群(special orthogonal group, SO3)</strong></p>
+<h3 id="矩阵运算"><a href="#矩阵运算" class="headerlink" title="矩阵运算"></a>矩阵运算</h3><h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><p>以下讨论中标量(scalar)表示：</p>
+<script type="math/tex; mode=display">
+x</script><p>向量(Vector)表示：</p>
+<script type="math/tex; mode=display">
+y=[y_1,y_2,...,y_m]^T</script><p>矩阵(Matrix)表示：</p>
+<script type="math/tex; mode=display">
+【待填坑】</script><h2 id="WCS-vs-CCS"><a href="#WCS-vs-CCS" class="headerlink" title="WCS vs. CCS"></a>WCS vs. CCS</h2><p>WCS可以位于任何位置，CCS必须设置在相机光心。</p>
+<p>【待填坑】</p>
+<h2 id="Pinhole-camera-model"><a href="#Pinhole-camera-model" class="headerlink" title="Pinhole camera model"></a>Pinhole camera model</h2><p><img src="https://s2.loli.net/2022/03/14/vqywfTEZB49HgKC.png" alt="image-20220314213506296"></p>
+<p><img src="https://s2.loli.net/2022/03/14/LazDdOgKNIUuwW7.png" alt="image-20220314213537695"></p>
+<p>重要关系</p>
+<script type="math/tex; mode=display">
+\overline{p}=f\widehat{p}^C=\frac{f}{z_i^C}p^C</script><h2 id="Intrinsic-matrix"><a href="#Intrinsic-matrix" class="headerlink" title="Intrinsic matrix"></a>Intrinsic matrix</h2><p>用来连接<strong>image plane coordinate system</strong> &amp;&amp; <strong>pixel coordinate system</strong></p>
+<p><img src="https://s2.loli.net/2022/03/14/ZJMAsrPfdnEDuXa.png" alt="image-20220314214253178"></p>
+<p>【待填坑】</p>
 
       
     </div>
