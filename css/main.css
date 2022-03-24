@@ -1168,7 +1168,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #fffa54;
+  background: #6016ff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2557,7 +2557,7 @@ mjx-container + br {
   }
 }
 body {
-  background: url("/images/TianQiong.png");
+  background: url("/images/star1.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
