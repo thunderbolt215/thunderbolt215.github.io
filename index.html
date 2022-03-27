@@ -118,7 +118,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">4</span></a>
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">5</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -128,7 +128,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">7</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">8</span></a>
 
   </li>
         <li class="menu-item menu-item-guestbook">
@@ -159,6 +159,99 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/27/pytorch%E5%85%A5%E9%97%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/shooting_star.jpg">
+      <meta itemprop="name" content="Thunderbolt">
+      <meta itemprop="description" content="When the darkness seized the long night, did it envisage its end at the hands of a shooting star?">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Thunderbolt's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/27/pytorch%E5%85%A5%E9%97%A8/" class="post-title-link" itemprop="url">pytorch入门</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-27 09:48:57 / 修改时间：12:41:27" itemprop="dateCreated datePublished" datetime="2022-03-27T09:48:57+08:00">2022-03-27</time>
+            </span>
+
+          
+            <span id="/2022/03/27/pytorch%E5%85%A5%E9%97%A8/" class="post-meta-item leancloud_visitors" data-flag-title="pytorch入门" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/03/27/pytorch%E5%85%A5%E9%97%A8/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/03/27/pytorch%E5%85%A5%E9%97%A8/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="pytorch入门"><a href="#pytorch入门" class="headerlink" title="pytorch入门"></a>pytorch入门</h1><h2 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h2><p>shift+enter 换行（可以在console中换行）</p>
+<h2 id="基本说明"><a href="#基本说明" class="headerlink" title="基本说明"></a>基本说明</h2><p>jupyter适合于查看帮助文档等</p>
+<p>windows下文件路径使用\\</p>
+<h2 id="3-27"><a href="#3-27" class="headerlink" title="3.27"></a>3.27</h2><h2 id="PyCharm控制台python-shell与IPython-shell的切换"><a href="#PyCharm控制台python-shell与IPython-shell的切换" class="headerlink" title="PyCharm控制台python shell与IPython shell的切换"></a>PyCharm控制台python shell与IPython shell的切换</h2><p>详见<a target="_blank" rel="noopener" href="https://www.cnblogs.com/miaoning/p/11069224.html">https://www.cnblogs.com/miaoning/p/11069224.html</a></p>
+<p>但是要注意需要在conda的环境中安装IPython</p>
+<h2 id="Anaconda-Prompt-切换工作路径"><a href="#Anaconda-Prompt-切换工作路径" class="headerlink" title="Anaconda Prompt 切换工作路径"></a>Anaconda Prompt 切换工作路径</h2><p>首先切到C盘根目录下，然后直接输入对应盘符号即可</p>
+<p><img src="https://s2.loli.net/2022/03/27/2MnYlUpbsi51FzG.png" alt="image-20220327100336654"></p>
+<h2 id="Tensorboard"><a href="#Tensorboard" class="headerlink" title="Tensorboard"></a>Tensorboard</h2><p>打开log文件并指定端口(此处为 <a target="_blank" rel="noopener" href="http://localhost:6007/">http://localhost:6007/</a>)</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensorboard <span class="attribute">--logdir</span>=logs <span class="attribute">--port</span>=6007</span><br></pre></td></tr></table></figure>
+<p>demo1:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br><span class="line"></span><br><span class="line">writer = SummaryWriter(<span class="string">&quot;logs&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># writer.add_image()</span></span><br><span class="line"><span class="comment"># y=x</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">100</span>):</span><br><span class="line">    writer.add_scalar(<span class="string">&quot;y=2x&quot;</span>,<span class="number">2</span>*i,i)</span><br><span class="line"></span><br><span class="line">writer.close()</span><br></pre></td></tr></table></figure>
+<p>效果图</p>
+<p><img src="https://s2.loli.net/2022/03/27/OePvM3taE5UxznY.png" alt="image-20220327124109596"></p>
+<hr>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -298,7 +391,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-20 19:15:23" itemprop="dateModified" datetime="2022-03-20T19:15:23+08:00">2022-03-20</time>
+                <time title="修改时间：2022-03-27 21:31:50" itemprop="dateModified" datetime="2022-03-27T21:31:50+08:00">2022-03-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -949,7 +1042,7 @@ Q[J(Joule)]</script><p>(Barely used in CG.)</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -962,7 +1055,7 @@ Q[J(Joule)]</script><p>(Barely used in CG.)</p>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
