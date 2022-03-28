@@ -123,7 +123,7 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">3</span></a>
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">4</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
@@ -448,9 +448,24 @@ P_{dist}=[x_{dist},y_{dist}]^T\rightarrow P_{undist}=[x_{undist},y_{undist}]^T</
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-03-27 09:48:57 / 修改时间：12:41:27" itemprop="dateCreated datePublished" datetime="2022-03-27T09:48:57+08:00">2022-03-27</time>
+              <time title="创建时间：2022-03-27 09:48:57" itemprop="dateCreated datePublished" datetime="2022-03-27T09:48:57+08:00">2022-03-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-03-28 14:58:23" itemprop="dateModified" datetime="2022-03-28T14:58:23+08:00">2022-03-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DL/" itemprop="url" rel="index"><span itemprop="name">DL</span></a>
+                </span>
             </span>
 
           
@@ -485,10 +500,16 @@ P_{dist}=[x_{dist},y_{dist}]^T\rightarrow P_{undist}=[x_{undist},y_{undist}]^T</
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="pytorch入门"><a href="#pytorch入门" class="headerlink" title="pytorch入门"></a>pytorch入门</h1><h2 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h2><p>shift+enter 换行（可以在console中换行）</p>
+          <h1 id="pytorch入门"><a href="#pytorch入门" class="headerlink" title="pytorch入门"></a>pytorch入门</h1><h2 id="视频链接"><a href="#视频链接" class="headerlink" title="视频链接"></a>视频链接</h2><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1hE411t7RN?p=12&amp;spm_id_from=pageDriver">https://www.bilibili.com/video/BV1hE411t7RN?p=12&amp;spm_id_from=pageDriver</a></p>
+<h2 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h2><p>shift+enter 换行（可以在console中换行）</p>
+<p>ctrl+p 看到当前函数需要哪些参数</p>
 <h2 id="基本说明"><a href="#基本说明" class="headerlink" title="基本说明"></a>基本说明</h2><p>jupyter适合于查看帮助文档等</p>
-<p>windows下文件路径使用\\</p>
-<h2 id="3-27"><a href="#3-27" class="headerlink" title="3.27"></a>3.27</h2><h2 id="PyCharm控制台python-shell与IPython-shell的切换"><a href="#PyCharm控制台python-shell与IPython-shell的切换" class="headerlink" title="PyCharm控制台python shell与IPython shell的切换"></a>PyCharm控制台python shell与IPython shell的切换</h2><p>详见<a target="_blank" rel="noopener" href="https://www.cnblogs.com/miaoning/p/11069224.html">https://www.cnblogs.com/miaoning/p/11069224.html</a></p>
+<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><h3 id="文件路径"><a href="#文件路径" class="headerlink" title="文件路径"></a>文件路径</h3><p>windows下文件路径使用\\\\</p>
+<p>尽量使用相对路径，绝对路径在windows下可能被当成转义符：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># absolute path = &quot;E:\coding\torch_test\images\5e233a14c9334a84a879795ee679d2c1.jpg&quot;</span></span><br><span class="line"><span class="comment"># relative path = &quot;images/5e233a14c9334a84a879795ee679d2c1.jpg&quot;</span></span><br><span class="line">img_path = <span class="string">&quot;images/5e233a14c9334a84a879795ee679d2c1.jpg&quot;</span></span><br><span class="line">img_path_abs = <span class="string">&quot;E:\coding\torch_test\images\5e233a14c9334a84a879795ee679d2c1.jpg&quot;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/03/28/gih2H698MoN1ElB.png" alt="image-20220328105947199"></p>
+<hr>
+<h2 id="2022-3-27"><a href="#2022-3-27" class="headerlink" title="2022.3.27"></a>2022.3.27</h2><h2 id="PyCharm控制台python-shell与IPython-shell的切换"><a href="#PyCharm控制台python-shell与IPython-shell的切换" class="headerlink" title="PyCharm控制台python shell与IPython shell的切换"></a>PyCharm控制台python shell与IPython shell的切换</h2><p>详见<a target="_blank" rel="noopener" href="https://www.cnblogs.com/miaoning/p/11069224.html">https://www.cnblogs.com/miaoning/p/11069224.html</a></p>
 <p>但是要注意需要在conda的环境中安装IPython</p>
 <h2 id="Anaconda-Prompt-切换工作路径"><a href="#Anaconda-Prompt-切换工作路径" class="headerlink" title="Anaconda Prompt 切换工作路径"></a>Anaconda Prompt 切换工作路径</h2><p>首先切到C盘根目录下，然后直接输入对应盘符号即可</p>
 <p><img src="https://s2.loli.net/2022/03/27/2MnYlUpbsi51FzG.png" alt="image-20220327100336654"></p>
@@ -499,6 +520,14 @@ P_{dist}=[x_{dist},y_{dist}]^T\rightarrow P_{undist}=[x_{undist},y_{undist}]^T</
 <p>效果图</p>
 <p><img src="https://s2.loli.net/2022/03/27/OePvM3taE5UxznY.png" alt="image-20220327124109596"></p>
 <hr>
+<h2 id="2022-3-28"><a href="#2022-3-28" class="headerlink" title="2022.3.28"></a>2022.3.28</h2><h2 id="Transforms"><a href="#Transforms" class="headerlink" title="Transforms"></a>Transforms</h2><h3 id="基本结构"><a href="#基本结构" class="headerlink" title="基本结构"></a>基本结构</h3><p><img src="https://s2.loli.net/2022/03/28/c2sz5tXZdorIQAe.png" alt="image-20220328110649328"> </p>
+<p>关注官方文档，函数的输入输出，使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>())</span><br></pre></td></tr></table></figure>
+<p>等方式尝试了解数据类型。</p>
+<p>demo：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br><span class="line"></span><br><span class="line"><span class="comment"># absolute path = &quot;E:\coding\torch_test\images\5e233a14c9334a84a879795ee679d2c1.jpg&quot;</span></span><br><span class="line"><span class="comment"># relative path = &quot;images/5e233a14c9334a84a879795ee679d2c1.jpg&quot;</span></span><br><span class="line">img_path = <span class="string">&quot;images/5e233a14c9334a84a879795ee679d2c1.jpg&quot;</span></span><br><span class="line"><span class="comment"># img_path_abs = &quot;E:\coding\torch_test\images\5e233a14c9334a84a879795ee679d2c1.jpg&quot;</span></span><br><span class="line">img = Image.<span class="built_in">open</span>(img_path)</span><br><span class="line"></span><br><span class="line">writer = SummaryWriter(<span class="string">&quot;cslogs&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ToTensor</span></span><br><span class="line">tensor_ToTensor = transforms.ToTensor()  <span class="comment"># 创建ToTensor对象</span></span><br><span class="line">img_tensor = tensor_ToTensor(img)        <span class="comment"># 这里其实调用了ToTensor的内置函数</span></span><br><span class="line">writer.add_image(<span class="string">&quot;ToTensor&quot;</span>, img_tensor)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Normalize</span></span><br><span class="line">tensor_norm = transforms.Normalize([<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">0.5</span>], [<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">0.5</span>])</span><br><span class="line">img_norm = tensor_norm(img_tensor)</span><br><span class="line">writer.add_image(<span class="string">&quot;Normalize&quot;</span>, img_norm)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Resize</span></span><br><span class="line">tensor_resize = transforms.Resize([<span class="number">512</span>, <span class="number">512</span>])</span><br><span class="line"><span class="comment"># PIL --&gt;Resize--&gt; resize PIL --&gt;ToTensor--&gt; resize tensor</span></span><br><span class="line">img_resize = tensor_ToTensor(tensor_resize(img))</span><br><span class="line">writer.add_image(<span class="string">&quot;Resize&quot;</span>, img_resize, <span class="number">0</span>)</span><br><span class="line"><span class="comment"># Compose style</span></span><br><span class="line">tensor_resize_2 = transforms.Resize(<span class="number">512</span>)</span><br><span class="line">tensor_compose = transforms.Compose([tensor_resize_2, tensor_ToTensor])</span><br><span class="line">img_resize_compose = tensor_compose(img)</span><br><span class="line">writer.add_image(<span class="string">&quot;Resize&quot;</span>, img_resize_compose, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># RandomCrop</span></span><br><span class="line">tensor_random = transforms.RandomCrop(<span class="number">512</span>)</span><br><span class="line">tensor_compose_2 = transforms.Compose([tensor_random, tensor_ToTensor])</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">25</span>):</span><br><span class="line">    img_crop = tensor_compose_2(img)</span><br><span class="line">    writer.add_image(<span class="string">&quot;RamdomCrop&quot;</span>, img_crop, i)</span><br><span class="line"></span><br><span class="line">writer.close()</span><br></pre></td></tr></table></figure>
+<h2 id="Torchvision数据集使用"><a href="#Torchvision数据集使用" class="headerlink" title="Torchvision数据集使用"></a>Torchvision数据集使用</h2><p>以<a target="_blank" rel="noopener" href="https://pytorch.org/vision/stable/generated/torchvision.datasets.CIFAR10.html#torchvision.datasets.CIFAR10"><code>CIFAR10</code></a>为例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br><span class="line"></span><br><span class="line">dataset_transform = torchvision.transforms.Compose([</span><br><span class="line">    torchvision.transforms.ToTensor()</span><br><span class="line">])</span><br><span class="line"><span class="comment"># 一般download选项都设置为true</span></span><br><span class="line">train_set = torchvision.datasets.CIFAR10(root=<span class="string">&quot;./dataset&quot;</span>, train=<span class="literal">True</span>, transform=dataset_transform, download=<span class="literal">True</span>)</span><br><span class="line">test_set = torchvision.datasets.CIFAR10(root=<span class="string">&quot;./dataset&quot;</span>, train=<span class="literal">False</span>, transform=dataset_transform, download=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">writer = SummaryWriter(<span class="string">&quot;P10&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    img, tatget = train_set[i]</span><br><span class="line">    writer.add_image(<span class="string">&quot;Train Images&quot;</span>, img, i)</span><br><span class="line"></span><br><span class="line">writer.close()</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1311,7 +1340,7 @@ Q[J(Joule)]</script><p>(Barely used in CG.)</p>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
