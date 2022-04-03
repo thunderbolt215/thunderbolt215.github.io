@@ -186,10 +186,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-04-02 11:25:37 / 修改时间：18:00:13" itemprop="dateCreated datePublished" datetime="2022-04-02T11:25:37+08:00">2022-04-02</time>
+              <time title="创建时间：2022-04-02 11:25:37" itemprop="dateCreated datePublished" datetime="2022-04-02T11:25:37+08:00">2022-04-02</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-04-03 11:23:11" itemprop="dateModified" datetime="2022-04-03T11:23:11+08:00">2022-04-03</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -238,24 +244,14 @@
 
 <p><img src="https://s2.loli.net/2022/04/02/eG1hOUksz9IHpMq.jpg" alt=""></p>
 <center>浮雕效果图</center>
-
-<h3 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h3><p>本作业中采用二维傅里叶变换实现浮雕效果。</p>
-<p>二维傅里叶变换（离散）是一种将图像从空间域转换到频域的变换方法。图像可看作二维矩阵，本作业中的图像为彩色，包含RGB三个通道的灰度信息。利用二维离散傅里叶变换可以将图像从空间域（即二维灰度数表）转换到频域（即频率数表），便于进行频域滤波等操作。</p>
-<p>变换具体公式为：</p>
-<script type="math/tex; mode=display">
-f(x,y)=\frac{1}{MN}\sum_{u=0}^{M-1}\sum_{v=0}^{N-1}F(u,v)e^{j2\pi(\frac{ux}{M}+\frac{vy}{N})}</script><p>其中$f(x,y)$ 代表大小为 M x N 的图像矩阵(其中$ x = 0,1,2,···,M-1$ 和 $y = 0,1,2,···,N-1$)；$F(u,v)$ 表示 $f(x,y)$ 的傅里叶变换。</p>
-<p>变换完成后，在时域上分别对x、y方向上进行差分叠加，然后借助不同的灰度等级逐步调节矩阵，即可得到浮雕效果。</p>
-<h2 id="Matlab源代码"><a href="#Matlab源代码" class="headerlink" title="Matlab源代码"></a>Matlab源代码</h2><h3 id="relief函数"><a href="#relief函数" class="headerlink" title="relief函数"></a>relief函数</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">result</span> = <span class="title">relief</span><span class="params">(image, num)</span>     % <span class="title">num</span>为通道数</span></span><br><span class="line">    [h, w, ~]=<span class="built_in">size</span>(image);       </span><br><span class="line">    <span class="comment">% 生成每一列对应的jw_x和jw_y</span></span><br><span class="line">    fx = <span class="built_in">linspace</span>(<span class="built_in">floor</span>(-w/<span class="number">2</span>)+<span class="number">1</span>, <span class="built_in">floor</span>(w/<span class="number">2</span>), w);               </span><br><span class="line">    fx = fx / w * <span class="number">2</span> * <span class="built_in">pi</span> * <span class="number">1</span><span class="built_in">i</span>;                                   </span><br><span class="line">    fy = <span class="built_in">linspace</span>(<span class="built_in">floor</span>(-h/<span class="number">2</span>)+<span class="number">1</span>, <span class="built_in">floor</span>(h/<span class="number">2</span>), h);</span><br><span class="line">    fy = fy&#x27; / h * <span class="number">2</span> * <span class="built_in">pi</span> * <span class="number">1</span><span class="built_in">i</span>;</span><br><span class="line">    <span class="comment">% 结果初始化</span></span><br><span class="line">    result = <span class="built_in">zeros</span>(<span class="built_in">size</span>(image));</span><br><span class="line">    <span class="comment">% 逐个通道处理</span></span><br><span class="line">    <span class="keyword">for</span> channel = <span class="number">1</span>:num                </span><br><span class="line">        s = double(image(:, :, channel));</span><br><span class="line">        f = fftshift(fft2(s));          </span><br><span class="line">        <span class="comment">% 求差分并叠加</span></span><br><span class="line">        df = f.*(<span class="number">1</span> - <span class="built_in">exp</span>(-fx)) + f.*(<span class="number">1</span> - <span class="built_in">exp</span>(-fy));    </span><br><span class="line">        result(:, :, channel)=<span class="built_in">real</span>(ifft2(ifftshift(df)));</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="comment">% 中心化与规范化</span></span><br><span class="line">    result = double(result)./(<span class="built_in">max</span>(result) - <span class="built_in">min</span>(result))*<span class="number">255.0</span> + <span class="number">128.0</span>; </span><br><span class="line">    result = uint8(result);</span><br><span class="line">    imshow(result)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<h3 id="主程序-调用relief函数"><a href="#主程序-调用relief函数" class="headerlink" title="主程序(调用relief函数)"></a>主程序(调用relief函数)</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">image_input = imread(<span class="string">&quot;test.jpg&quot;</span>);</span><br><span class="line">image_output = relief(image_input, <span class="number">3</span>);</span><br><span class="line">imshow(image_output);</span><br></pre></td></tr></table></figure>
-<h2 id="测试图片"><a href="#测试图片" class="headerlink" title="测试图片"></a>测试图片</h2><h3 id="测试1-1024-683"><a href="#测试1-1024-683" class="headerlink" title="测试1(1024*683)"></a>测试1(1024*683)</h3><p><img src="https://s2.loli.net/2022/04/02/lTZ53GdSmavW86I.jpg" alt="test"></p>
-<p><img src="https://s2.loli.net/2022/04/02/nHGCoA21lM6Dc5R.jpg" alt="result1"></p>
-<h3 id="测试2-532-300"><a href="#测试2-532-300" class="headerlink" title="测试2(532*300)"></a>测试2(532*300)</h3><p><img src="https://s2.loli.net/2022/04/02/HphNCwv2LRuBdSU.jpg" alt="test2"></p>
-<p><img src="https://s2.loli.net/2022/04/02/lTJCcNjK7GYLuHi.jpg" alt="res2"></p>
-<h3 id="测试3-3840-2160"><a href="#测试3-3840-2160" class="headerlink" title="测试3(3840*2160)"></a>测试3(3840*2160)</h3><p><img src="https://s2.loli.net/2022/04/02/TFGp5gWCBHMIqos.jpg" alt="test4"></p>
-<p><img src="https://s2.loli.net/2022/04/02/43efsyhF5lck9H2.jpg" alt="res4"></p>
-<h3 id="测试4-681-517"><a href="#测试4-681-517" class="headerlink" title="测试4(681*517)"></a>测试4(681*517)</h3><p><img src="https://s2.loli.net/2022/04/02/iFZemb2G38ty5Ld.jpg" alt="test3"></p>
-<p><img src="https://s2.loli.net/2022/04/02/zUSytTfIqwJHjFE.jpg" alt="res3"></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/04/02/Image-relief-effect/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -305,7 +301,7 @@ f(x,y)=\frac{1}{MN}\sum_{u=0}^{M-1}\sum_{v=0}^{N-1}F(u,v)e^{j2\pi(\frac{ux}{M}+\
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-04-02 11:07:57" itemprop="dateModified" datetime="2022-04-02T11:07:57+08:00">2022-04-02</time>
+                <time title="修改时间：2022-04-03 11:22:57" itemprop="dateModified" datetime="2022-04-03T11:22:57+08:00">2022-04-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -352,117 +348,14 @@ f(x,y)=\frac{1}{MN}\sum_{u=0}^{M-1}\sum_{v=0}^{N-1}F(u,v)e^{j2\pi(\frac{ux}{M}+\
           <h1 id="Kalman滤波算法简介"><a href="#Kalman滤波算法简介" class="headerlink" title="Kalman滤波算法简介"></a>Kalman滤波算法简介</h1><h2 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h2><p>卡尔曼滤波（也称为线性二次型估计），是一种最优化自回归数据处理算法，它的主要功能是：从一系列不完全且包含噪声的数据测量值序列中，估计出动态系统的状态。由于其效率高且所占空间较小，在雷达、计算机视觉、机器人导航等很多工程应用领域中都有应用。</p>
 <p>卡尔曼滤波的一个典型实例是：现在有一组有限时间内、包含噪声的数据，记录了物体运动中若干时刻的位置和速度，通过卡尔曼滤波算法可以根据这些数据预测出物体不同时刻的位置以及速度。</p>
 <p><img src="https://s2.loli.net/2022/04/01/VrKt98wXmGWlsJi.png" alt="image-20220401212609431"></p>
-<h2 id="约定及说明"><a href="#约定及说明" class="headerlink" title="约定及说明"></a>约定及说明</h2><h3 id="适用性"><a href="#适用性" class="headerlink" title="适用性"></a>适用性</h3><p>卡尔曼滤波适合于<strong>线性系统</strong>，且要求误差满足<strong>高斯分布</strong>。</p>
-<h3 id="状态空间表达式"><a href="#状态空间表达式" class="headerlink" title="状态空间表达式"></a>状态空间表达式</h3><p>本文中状态空间方程定义如下：</p>
-<h4 id="状态方程"><a href="#状态方程" class="headerlink" title="状态方程"></a>状态方程</h4><script type="math/tex; mode=display">
-x_k=Ax_{k-1}+Bu_k+w_k</script><p>表示了由上一状态到当前状态的转移关系。其中$x_k$表示当前时刻状态量，$u_k$表示当前时刻输入量，A,B均为系数矩阵，$w_k$为<strong>过程噪声</strong>(即真实的运动与理论方程所不相符的部分)。</p>
-<h4 id="观测方程"><a href="#观测方程" class="headerlink" title="观测方程"></a>观测方程</h4><script type="math/tex; mode=display">
-y_k=Cx_k+v_k</script><p>表示了当前时刻观测量的计算方式。其中$y_k$表示当前时刻的观测量，C为系数矩阵，$x_k$含义不变，$v_k$表示<strong>观测噪声</strong>(即由于观测仪器引起的噪声，如传感器带来的误差波动)。</p>
-<h3 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h3><p>上述噪声$w_k$和$v_k$均符合高斯分布，为高斯白噪声，即</p>
-<script type="math/tex; mode=display">
-w_k \sim N(0;Q_k) \\
-v_k \sim N(0;R_k)</script><p><img src="https://s2.loli.net/2022/04/01/9KyuJGZdsEcfeNR.png" alt="image-20220401214819864"></p>
-<p>约定：</p>
-<script type="math/tex; mode=display">
-\hat{x}_{k}代表最优估计值 \\
-\hat{x}_{k}^-先验估计值(预测值) \\
-x_k观测值</script><h2 id="算法理解"><a href="#算法理解" class="headerlink" title="算法理解"></a>算法理解</h2><h3 id="宏观理解"><a href="#宏观理解" class="headerlink" title="宏观理解"></a>宏观理解</h3><p>卡尔曼滤波算法的实现过程是：使用上一次的最优结果（即先验估计值）预测当前的值，同时使用观测值（如通过传感器获得的数据）修正当前值，得到最优结果。</p>
-<p>图解：</p>
-<p><img src="https://s2.loli.net/2022/04/01/JnDyqAz5bcldRhs.png" alt="image-20220401215455064"></p>
-<h3 id="具体公式"><a href="#具体公式" class="headerlink" title="具体公式"></a>具体公式</h3><p>本部分先逐个介绍各个公式的含义，最后再统一说明他们之间的关系。</p>
-<h4 id="预测部分"><a href="#预测部分" class="headerlink" title="预测部分"></a>预测部分</h4><h5 id="先验估计"><a href="#先验估计" class="headerlink" title="先验估计"></a>先验估计</h5><script type="math/tex; mode=display">
-\hat{x}_t^- = F\hat{x-1} + Bu_{t-1}</script><p>仍考虑第一部分中提到的小车的例子，假定小车做匀加速直线运动：</p>
-<p><img src="https://s2.loli.net/2022/04/01/G2Of8FBMZResJou.png" alt="image-20220401220002938">        预测模型可以写成</p>
-<script type="math/tex; mode=display">
-P_i=P_{i-1}+v_{i-1}\Delta t+\frac{a}{2}\Delta t^2 \\
-v_i=v_{i-1}+a\Delta t</script><p>写成矩阵形式为</p>
-<script type="math/tex; mode=display">
-\left[
-\matrix{
-  p_i  \\
-  v_i   
-}
-\right]
-=
-\left[
-\matrix{
-  1 & \Delta t \\
-  0 & 1  
-}
-\right]
-\left[
-\matrix{
-  p_{i-1}  \\
-  v_{i-1}   
-}
-\right]+
-\left[
-\matrix{
-  \frac{1}{2}\Delta t^2  \\
-  \Delta t  
-}
-\right]a_i</script><p>则已经化成了上面先验估计方程的形式。</p>
-<h5 id="先验估计协方差"><a href="#先验估计协方差" class="headerlink" title="先验估计协方差"></a>先验估计协方差</h5><script type="math/tex; mode=display">
-P_t^-=FP_{t-1}F^T+Q</script><p>可根据先验估计方程推导，如下：</p>
-<script type="math/tex; mode=display">
-根据协方差计算公式： \\
-cov(Ax+k,Ax+k)=Acov(x,x)A^T \\
-先验过程中补上过程噪声：\\
-\hat{x}_t^-=F\hat{x}_{t-1}+Bu_{t-1}+w_t \\
-\begin{align*}
-\Rightarrow P_t^- &=cov(\hat{x}_t^-,\hat{x}_t^-) \\
-&= cov(F\hat{x}_{t-1}+Bu_{t-1}+w_t,F\hat{x}_{t-1}+Bu_{t-1}+w_t) \\
-&= Fcov(\hat{x}_{t-1},\hat{x}_{t-1})F^T+cov(w_t,w_t) \\
-&= FP_{t-1}F^T+Q
-\end{align*}</script><h5 id="测量方程"><a href="#测量方程" class="headerlink" title="测量方程"></a>测量方程</h5><script type="math/tex; mode=display">
-z_t=Hx_t+V</script><p>沿用上面小车的例子，这里的测量方程可以写为</p>
-<script type="math/tex; mode=display">
-z_P=P_t+\Delta P_t \\
-z_v=0 \\
-\Rightarrow
-\left[
-\matrix{
-  z_P  \\
-  z_v   
-}
-\right]
-=
-\left[
-\matrix{
-  1 & 0   
-}
-\right]
-\left[
-\matrix{
-  p_t  \\
-  v_t  
-}
-\right]+
-\left[
-\matrix{
-  1 & 0   
-}
-\right]
-\left[
-\matrix{
-  \Delta p_t  \\
-  \Delta v_t  
-}
-\right]</script><p>注意：<strong>$z_t$的维数未必与$\hat{x}_t$相同</strong></p>
-<h4 id="状态更新部分"><a href="#状态更新部分" class="headerlink" title="状态更新部分"></a>状态更新部分</h4><h5 id="修正估计"><a href="#修正估计" class="headerlink" title="修正估计"></a>修正估计</h5><script type="math/tex; mode=display">
-\hat{x}_t=\hat{x}_t^-+K_t(z_t-H\hat{x}_t^-)</script><p>可以根据需求调整$K_t$的大小（如：更信任观测值还是估计值）</p>
-<h5 id="卡尔曼增益"><a href="#卡尔曼增益" class="headerlink" title="卡尔曼增益"></a>卡尔曼增益</h5><script type="math/tex; mode=display">
-K_t=\frac{P_t^-H^T}{HP_t^-H^T+R}</script><p>一维情况下(F=1,H=1)可以化简为</p>
-<script type="math/tex; mode=display">
-K_t=\frac{P_{t-1}+Q}{P_{t-1}+Q+R}</script><h5 id="更新后验估计协方差"><a href="#更新后验估计协方差" class="headerlink" title="更新后验估计协方差"></a>更新后验估计协方差</h5><script type="math/tex; mode=display">
-P_t=(I-K_tH)P_t^-</script><h4 id="关系图"><a href="#关系图" class="headerlink" title="关系图"></a>关系图</h4><p><img src="https://s2.loli.net/2022/04/01/6fPISNbgkZMAnuF.png" alt="image-20220401221540966"></p>
-<h3 id="信号流图（转载）"><a href="#信号流图（转载）" class="headerlink" title="信号流图（转载）"></a>信号流图（转载）</h3><p><img src="https://s2.loli.net/2022/04/01/fpDdjO3LmWPV19X.jpg" alt="img"></p>
-<h2 id="实例：小车匀加速运动"><a href="#实例：小车匀加速运动" class="headerlink" title="实例：小车匀加速运动"></a>实例：小车匀加速运动</h2><p>我们将上面所述的实例代码如下：</p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 说明</span></span><br><span class="line"><span class="comment">% 模型：匀加速运动</span></span><br><span class="line"><span class="comment">% x_optimal 最优估计值</span></span><br><span class="line"><span class="comment">% x_observe 观测值</span></span><br><span class="line"><span class="comment">% x_predict 先验估计值（预测值）</span></span><br><span class="line"></span><br><span class="line">total = <span class="number">300</span>;</span><br><span class="line">delta = <span class="number">0.1</span>;</span><br><span class="line">x_observe(<span class="number">1</span>) = <span class="number">0</span>;</span><br><span class="line">w = <span class="built_in">randn</span>(<span class="number">1</span>, total);</span><br><span class="line">Q = (std(w)).^<span class="number">2</span>;</span><br><span class="line">v = <span class="built_in">randn</span>(<span class="number">1</span>, total);</span><br><span class="line">R = (std(v)).^<span class="number">2</span>;</span><br><span class="line">a = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">for</span> n = <span class="number">2</span>:total</span><br><span class="line">    REF(n) = <span class="number">1</span>/<span class="number">2</span>*a*(n*delta).^<span class="number">2</span>;</span><br><span class="line">    x_observe(n) = x_observe(n<span class="number">-1</span>) + a*(n<span class="number">-1</span>/<span class="number">2</span>)*delta.^<span class="number">2</span>  + w(n);</span><br><span class="line">    y(n) = x_observe(n) + v(n);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">p_observe(<span class="number">1</span>) = <span class="number">1</span>;  </span><br><span class="line">x_optimal(<span class="number">1</span>) = <span class="number">0</span>;  </span><br><span class="line"><span class="keyword">for</span> n = <span class="number">2</span>:total</span><br><span class="line">    <span class="comment">% 预测</span></span><br><span class="line">    x_predict(n) = x_optimal(n<span class="number">-1</span>) + a*(n<span class="number">-1</span>/<span class="number">2</span>)*delta.^<span class="number">2</span>;</span><br><span class="line">    p_predict(n) = p_observe(n<span class="number">-1</span>) + Q;</span><br><span class="line">    <span class="comment">% 更新</span></span><br><span class="line">    k(n) = p_predict(n) / (p_predict(n) + R);</span><br><span class="line">    x_optimal(n) = x_predict(n) + k(n) * (y(n) - x_predict(n))</span><br><span class="line">    p_observe(n) = (<span class="number">1</span> - k(n))*p_predict(n); </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">n = <span class="number">1</span>:total;</span><br><span class="line"><span class="built_in">plot</span>(n, x_optimal, <span class="string">&#x27;r&#x27;</span>, n ,y, <span class="string">&#x27;g&#x27;</span>, n, REF, <span class="string">&#x27;b&#x27;</span>);</span><br><span class="line"><span class="built_in">legend</span>(<span class="string">&#x27;最优估计值&#x27;</span>, <span class="string">&#x27;实际观测值&#x27;</span>, <span class="string">&quot;理论值&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>结果如下：</p>
-<p><img src="https://s2.loli.net/2022/04/02/7OUPCQlzW6dREhg.jpg" alt=""></p>
-<p><img src="https://s2.loli.net/2022/04/02/HuKPfpjh6TkEXwA.jpg" alt=""></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/04/01/Kalman-Filter/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
