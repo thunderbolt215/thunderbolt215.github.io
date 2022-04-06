@@ -118,7 +118,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">7</span></a>
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">8</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -128,7 +128,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">13</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">15</span></a>
 
   </li>
         <li class="menu-item menu-item-guestbook">
@@ -159,6 +159,303 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/06/%E9%99%8D%E7%BB%B4%E8%A7%82%E6%B5%8B%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/shooting_star.jpg">
+      <meta itemprop="name" content="Thunderbolt">
+      <meta itemprop="description" content="When the darkness seized the long night, did it envisage its end at the hands of a shooting star?">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Thunderbolt's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/06/%E9%99%8D%E7%BB%B4%E8%A7%82%E6%B5%8B%E5%99%A8/" class="post-title-link" itemprop="url">降维观测器</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-04-06 08:36:42 / 修改时间：10:20:41" itemprop="dateCreated datePublished" datetime="2022-04-06T08:36:42+08:00">2022-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Control/" itemprop="url" rel="index"><span itemprop="name">Control</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2022/04/06/%E9%99%8D%E7%BB%B4%E8%A7%82%E6%B5%8B%E5%99%A8/" class="post-meta-item leancloud_visitors" data-flag-title="降维观测器" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/04/06/%E9%99%8D%E7%BB%B4%E8%A7%82%E6%B5%8B%E5%99%A8/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/04/06/%E9%99%8D%E7%BB%B4%E8%A7%82%E6%B5%8B%E5%99%A8/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="降维观测器简介"><a href="#降维观测器简介" class="headerlink" title="降维观测器简介"></a>降维观测器简介</h1><h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>对于系统</p>
+<script type="math/tex; mode=display">
+\dot{x}=Ax+Bu \\
+y=Cx</script><p>假设其中x的维数为n，y的维数为m。</p>
+<p>全维观测器对全部变量x进行重构。但是如果状态的某些线性组合可以直接作为输出被测量出来(这由矩阵C决定)，就不需要进行估计，则可以降低其维数，仅需要额外获得n-m个维度的信息，之后配合观测得到的m个维度的信息，通过线性组合，就可以获得状态x的信息，由此引入降维观测器。</p>
+<p>若C矩阵秩为m，则只需要重构余下的n-m个状态分量。</p>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>给定线性系统$\sum(A,B,C):$</p>
+<script type="math/tex; mode=display">
+\dot{x}=Ax+Bu \\
+y=Cx</script><p>其中C为$m\times n$矩阵，假定$rank(C)=m$，则一定存在线性变换</p>
+<script type="math/tex; mode=display">
+\overline{x}=Tx,where\space T=[D\space C]^T</script><p>其中D为使得$T^{-1}$存在的任意$(n-m)\times n$阵。</p>
+<p>通过这一线性变换，系统变换为：</p>
+<script type="math/tex; mode=display">
+\dot{\overline{x} }=TAT^{-1}\overline{x}+TBu \\
+y=CT^{-1}\overline{x}=[0\space I_m][\overline{x}_1\space \overline{x}_2]^T=\overline{x}_2</script><p>其中$\overline{x}_2$为m维，可以直接量测，因此只需要观测$(n-m)$维状态变量$\overline{x}_1$。</p>
+<h2 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h2><p>为避免输出量的微分，重新定义观测器的状态</p>
+<script type="math/tex; mode=display">
+令W=\hat{x}_1+M_1\dot{y} \\
+=(A_{11}+M_1A_{21})w+(B_1+M_1B_2)u+ \\ (A_{12}+M_1A{22}-(A_{11}+M_1A_{21})M_1)y \\
+=(A_{11}+M_1A_{21})w+B_0u+Ey \\
+其中 \\
+B_0=B_1+M_1B_2 \\
+E=A_{12}+M_1A_{22}-(A_{11}+M_1A_{21})M_1 \\</script><p>上述称为Luenberger观测器。</p>
+<p>由此得到原系统的状态重构：</p>
+<script type="math/tex; mode=display">
+\hat{x}=\left[
+\matrix{
+  \hat{x} \\
+  y \\
+}
+\right]=\left[
+\matrix{
+  w-M_1 y \\
+  y \\
+}\right]=\left[
+\matrix{
+  I \\
+  0 \\
+}\right]w+\left[
+\matrix{
+  -M_1 \\
+  I \\
+}\right]y</script><h2 id="误差分析"><a href="#误差分析" class="headerlink" title="误差分析"></a>误差分析</h2><p>降维观测器的测量值y通过$M_1$直接反映在状态$\hat{x}_1$上，如图所示：</p>
+<p><img src="https://s2.loli.net/2022/04/06/A2aGVTJFpSro4bB.png" alt="image-20220406100227560"></p>
+<p>这样会将测量噪声带入，使得$M_1$的误差直接影响到$\hat{x}_1$稳态值，在全维观测器中则不存在这种误差。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/03/Signals-Systems-Review-CH1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/shooting_star.jpg">
+      <meta itemprop="name" content="Thunderbolt">
+      <meta itemprop="description" content="When the darkness seized the long night, did it envisage its end at the hands of a shooting star?">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Thunderbolt's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/03/Signals-Systems-Review-CH1/" class="post-title-link" itemprop="url">Signals & Systems Review-CH1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-04-03 14:30:48 / 修改时间：17:11:02" itemprop="dateCreated datePublished" datetime="2022-04-03T14:30:48+08:00">2022-04-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/courses/" itemprop="url" rel="index"><span itemprop="name">courses</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2022/04/03/Signals-Systems-Review-CH1/" class="post-meta-item leancloud_visitors" data-flag-title="Signals & Systems Review-CH1" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/04/03/Signals-Systems-Review-CH1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/04/03/Signals-Systems-Review-CH1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Signals-and-Systems-Review-CH1"><a href="#Signals-and-Systems-Review-CH1" class="headerlink" title="Signals and Systems Review - CH1"></a>Signals and Systems Review - CH1</h1><h2 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h2><h3 id="信息-消息-信号"><a href="#信息-消息-信号" class="headerlink" title="信息.消息.信号"></a>信息.消息.信号</h3><p>例子：<strong>电信号</strong>传递<strong>声音、图像、文字</strong></p>
+<p>信号是消息的表现形式，消息是信号的具体内容</p>
+<h3 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h3><p>包括变换器、处理器等</p>
+<p>$\Leftrightarrow$网络$\Leftrightarrow$电路</p>
+<h3 id="信号分析"><a href="#信号分析" class="headerlink" title="信号分析"></a>信号分析</h3><p>目的：揭示信号特性及其改变方式</p>
+<p>思想：分解成<strong>简单基本单元信号</strong></p>
+<h3 id="系统分析"><a href="#系统分析" class="headerlink" title="系统分析"></a>系统分析</h3><p>对指定输入激励的输出响应</p>
+<h2 id="1-2-信号描述"><a href="#1-2-信号描述" class="headerlink" title="1.2 信号描述"></a>1.2 信号描述</h2><h3 id="确定性信号-amp-随机信号"><a href="#确定性信号-amp-随机信号" class="headerlink" title="确定性信号&amp;随机信号"></a>确定性信号&amp;随机信号</h3><p>确定性信号：对于指定的某一时刻t，可确定一相应的函数值f(t)，<strong>若干不连续点除外</strong></p>
+<h3 id="连续信号-amp-离散信号"><a href="#连续信号-amp-离散信号" class="headerlink" title="连续信号&amp;离散信号"></a>连续信号&amp;离散信号</h3><p>连续时间信号：自变量的取值范围是连续的（实数域），用t表示连续时间变量</p>
+<p><img src="https://s2.loli.net/2022/04/03/4n1XgovF9skeYxf.png" alt="image-20220403145759285"></p>
+<p>离散时间信号：自变量只取整数值的信号，用n表示离散时间变量</p>
+<p><img src="https://s2.loli.net/2022/04/03/AT9Lcu6gwNjzt5n.png" alt="image-20220403145826087"></p>
+<h3 id="周期信号-amp-非周期信号"><a href="#周期信号-amp-非周期信号" class="headerlink" title="周期信号&amp;非周期信号"></a>周期信号&amp;非周期信号</h3><p>周期信号：满足$x(t+T)=x(t)\space or\space x(n+N)=x(n)$</p>
+<p><img src="https://s2.loli.net/2022/04/03/BSGRMUk9y7hz3qv.png" alt="image-20220403150009283"></p>
+<h3 id="模拟、量化、抽样"><a href="#模拟、量化、抽样" class="headerlink" title="模拟、量化、抽样"></a>模拟、量化、抽样</h3><p>模拟信号：时间和幅值均连续</p>
+<p><img src="https://s2.loli.net/2022/04/03/FzBOlVEjmLMw6UI.png" alt="image-20220403150055042"></p>
+<p>抽样信号：时间离散，幅值连续</p>
+<p><img src="https://s2.loli.net/2022/04/03/ydisMXkzvrFhPAE.png" alt="image-20220403150125448"></p>
+<p>数字信号：时间和幅值均为离散</p>
+<p><img src="https://s2.loli.net/2022/04/03/ewizHKBP49g5Dh2.png" alt="image-20220403150143318"></p>
+<p>【模拟】$\rightarrow$抽样$\rightarrow$【抽样】$\rightarrow$量化$\rightarrow$【数字】</p>
+<p>时间离散性$\Rightarrow$连续、离散</p>
+<p>幅度离散型$\Rightarrow$(离散)抽样、数字</p>
+<h3 id="能量信号-amp-功率信号"><a href="#能量信号-amp-功率信号" class="headerlink" title="能量信号&amp;功率信号"></a>能量信号&amp;功率信号</h3><p><strong>周期信号为功率信号</strong>，通常用它的平均功率来表征；</p>
+<p>非周期信号可能为能量信号，也可能为功率信号，与函数形式有关。</p>
+<h3 id="典型确定性信号"><a href="#典型确定性信号" class="headerlink" title="典型确定性信号"></a>典型确定性信号</h3><h4 id="指数信号"><a href="#指数信号" class="headerlink" title="指数信号"></a>指数信号</h4><script type="math/tex; mode=display">
+f(t)=e^{\alpha t}</script><p><img src="https://s2.loli.net/2022/04/03/rMvd6plFLuqRQJj.png" alt="image-20220403150704589"></p>
+<p>单边指数信号</p>
+<p><img src="https://s2.loli.net/2022/04/03/lmI4JewqxkBbhE2.png" alt="image-20220403150841141"></p>
+<p>时间常数：$\tau = \frac{1}{|\alpha|}$，量纲为时间，代表衰减速度</p>
+<p>重要特性：积分、微分仍是指数形式</p>
+<h4 id="复指数信号"><a href="#复指数信号" class="headerlink" title="复指数信号"></a>复指数信号</h4><script type="math/tex; mode=display">
+f(t)=Ke^{st}</script><p>其中$s=\sigma + j\omega$为复数，称为<strong>复频率</strong></p>
+<script type="math/tex; mode=display">
+f(t)=Ke^{\sigma t}cos(\omega t)+jKe^{\sigma t}sin{\omega t}</script><p><img src="https://s2.loli.net/2022/04/03/RzL5ltykH7YdSZn.png" alt="image-20220403152631396"></p>
+<p><img src="https://s2.loli.net/2022/04/03/Xif2SUOuL5jtaQc.png" alt="image-20220403152644234"></p>
+<p><img src="https://s2.loli.net/2022/04/03/qjpdZNm9OWzU8iv.png" alt="image-20220403152650531"></p>
+<p><img src="https://s2.loli.net/2022/04/03/B6sfcMivy7NUCFQ.png" alt="image-20220403152712908"></p>
+<h4 id="抽样信号"><a href="#抽样信号" class="headerlink" title="抽样信号"></a>抽样信号</h4><script type="math/tex; mode=display">
+Sa(t)=\frac{sin t}{t}</script><p><img src="https://s2.loli.net/2022/04/03/2IPsxX4wRUOe713.png" alt="image-20220403152927876"></p>
+<p>性质：</p>
+<script type="math/tex; mode=display">
+Sa(t)=Sa(-t)\space (偶函数)\\
+lim_{t\rightarrow0}Sa(t)=1 \\
+lim_{t\rightarrow \pm \infty}Sa(t)=0 \space(正负无穷都满足)\\
+Sa(\pm n\pi)=0\space,n=1,2,3,...(没有0！注意！) \\
+\int_0^{\infty}Sa(t)dt=\frac{\pi}{2} \\</script><p>sinc函数</p>
+<script type="math/tex; mode=display">
+sinc(t)=\frac{sin(\pi t)}{\pi t}</script><p>钟形信号(高斯函数)</p>
+<script type="math/tex; mode=display">
+f(t)=Ee^{-(\frac{t}{\tau})^2}</script><p><img src="https://s2.loli.net/2022/04/03/iqmZwhFfMn24Dgb.png" alt="image-20220403153806039"></p>
+<h2 id="1-3-信号运算"><a href="#1-3-信号运算" class="headerlink" title="1.3 信号运算"></a>1.3 信号运算</h2><h3 id="宗量"><a href="#宗量" class="headerlink" title="宗量"></a>宗量</h3><p>宗量：可以理解为广义的自变量。这里的“广义”是指：自变量突破高中数学中的限制，可以是狭义的自变量，可以是函数，也可以是代数式……</p>
+<p>可以依据<strong>宗量相同，函数值相同</strong>，求新坐标<strong>（！！！！）</strong></p>
+<h3 id="移位"><a href="#移位" class="headerlink" title="移位"></a>移位</h3><p>f(t)沿着t轴平移$\tau$得到</p>
+<script type="math/tex; mode=display">
+f(t)\rightarrow f(t-\tau) \\
+\tau>0，右移（滞后） \\
+\tau<0，左移（超前）</script><p>可以依据<strong>宗量相同，函数值相同</strong>，求新坐标</p>
+<p><img src="https://s2.loli.net/2022/04/03/Z2e4LncSRoWdwDI.png" alt="image-20220403165602982"></p>
+<h3 id="反褶"><a href="#反褶" class="headerlink" title="反褶"></a>反褶</h3><script type="math/tex; mode=display">
+f(t)\rightarrow f(-t)</script><p>以纵轴为轴折叠，把信号的过去与未来对调。</p>
+<p><strong>没有可实现此功能的实际器件</strong>。</p>
+<p>数字信号处理中可以实现此概念，例如堆栈中的“后进先出”。</p>
+<h3 id="尺度"><a href="#尺度" class="headerlink" title="尺度"></a>尺度</h3><script type="math/tex; mode=display">
+f(t)\rightarrow f(at)</script><p><img src="https://s2.loli.net/2022/04/03/TlmWDrZyvCXLOxH.png" alt="image-20220403165916331"></p>
+<p><img src="https://s2.loli.net/2022/04/03/wH2BiVhy6JCURcr.png" alt="image-20220403165931513"></p>
+<h3 id="一般情况"><a href="#一般情况" class="headerlink" title="一般情况"></a>一般情况</h3><script type="math/tex; mode=display">
+f(t)\rightarrow f(at\pm b)=f(a(t\pm \frac{b}{a})) \space (a,b>0)</script><p><strong>Steps:</strong></p>
+<p>1.尺度：a&gt;1，压缩a倍；a&lt;1，扩展1/a倍</p>
+<p>2.移位：+，左移b/a；-，右移b/a</p>
+<p>3.反褶：</p>
+<script type="math/tex; mode=display">
+f(a(t+\frac{b}{a}))\rightarrow f(-a(t+\frac{b}{a}))=f(-at- b)</script><p>1.平移量t0是自变量t净增减的量，即以f(t-t0)为标准形式来确定t0</p>
+<p>2.反转时以被变换的宗量$\lambda=0$( 可以是t的复合函数）的直线为轴，即以f(-$\lambda$)为标准形式确定反转轴</p>
+<p>3.尺度变换应以被变换的宗量$\lambda=0$(的直线为展缩中心线，即以f(a $\lambda$)为标准形式确定展缩中心线</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -301,7 +598,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-04-03 11:22:57" itemprop="dateModified" datetime="2022-04-03T11:22:57+08:00">2022-04-03</time>
+                <time title="修改时间：2022-04-06 08:30:06" itemprop="dateModified" datetime="2022-04-06T08:30:06+08:00">2022-04-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -984,223 +1281,6 @@ WCS\leftrightarrow CCS\leftrightarrow IPCS\leftrightarrow PCS</script>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/06/Games101-Ray-Tracing-Path-Tracing-L16/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/shooting_star.jpg">
-      <meta itemprop="name" content="Thunderbolt">
-      <meta itemprop="description" content="When the darkness seized the long night, did it envisage its end at the hands of a shooting star?">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Thunderbolt's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/03/06/Games101-Ray-Tracing-Path-Tracing-L16/" class="post-title-link" itemprop="url">Games101-Ray-Tracing-Path Tracing-L16</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-03-06 11:19:24" itemprop="dateCreated datePublished" datetime="2022-03-06T11:19:24+08:00">2022-03-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-20 19:15:34" itemprop="dateModified" datetime="2022-03-20T19:15:34+08:00">2022-03-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Games101/" itemprop="url" rel="index"><span itemprop="name">Games101</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2022/03/06/Games101-Ray-Tracing-Path-Tracing-L16/" class="post-meta-item leancloud_visitors" data-flag-title="Games101-Ray-Tracing-Path Tracing-L16" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/03/06/Games101-Ray-Tracing-Path-Tracing-L16/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/03/06/Games101-Ray-Tracing-Path-Tracing-L16/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Ray-Tracing-Path-Tracing"><a href="#Ray-Tracing-Path-Tracing" class="headerlink" title="Ray Tracing-Path Tracing"></a>Ray Tracing-Path Tracing</h1><h2 id="Monte-Carlo-Integration"><a href="#Monte-Carlo-Integration" class="headerlink" title="Monte Carlo Integration"></a>Monte Carlo Integration</h2><p><img src="https://s2.loli.net/2022/03/06/GtLEx1YyMX3gwiz.png" alt="image-20220306204532500"></p>
-<p>引入：对难以解析求解的定积分求数值解。</p>
-<p>基本思想：在区域内不断采样，并认为采样值=函数平均值</p>
-<script type="math/tex; mode=display">
-\int f(X)dx=\frac{1}{N}\sum_{i=1}^N \frac{f(X_i)}{p(X_i)} \space \space X_i \sim p(x_i)</script><p>其中积分域已经在$p(X_i)$中体现。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/03/06/Games101-Ray-Tracing-Path-Tracing-L16/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/05/Games101-Ray-Tracing-Radiometry-L15/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/shooting_star.jpg">
-      <meta itemprop="name" content="Thunderbolt">
-      <meta itemprop="description" content="When the darkness seized the long night, did it envisage its end at the hands of a shooting star?">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Thunderbolt's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/03/05/Games101-Ray-Tracing-Radiometry-L15/" class="post-title-link" itemprop="url">Games101-Ray-Tracing-Radiometry-L15</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-03-05 17:15:59" itemprop="dateCreated datePublished" datetime="2022-03-05T17:15:59+08:00">2022-03-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-06 16:04:33" itemprop="dateModified" datetime="2022-03-06T16:04:33+08:00">2022-03-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Games101/" itemprop="url" rel="index"><span itemprop="name">Games101</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2022/03/05/Games101-Ray-Tracing-Radiometry-L15/" class="post-meta-item leancloud_visitors" data-flag-title="Games101-Ray-Tracing-Radiometry-L15" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/03/05/Games101-Ray-Tracing-Radiometry-L15/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/03/05/Games101-Ray-Tracing-Radiometry-L15/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Ray-Tracing-Basic-radiometry（辐射度量学）"><a href="#Ray-Tracing-Basic-radiometry（辐射度量学）" class="headerlink" title="Ray Tracing -  Basic radiometry（辐射度量学）"></a>Ray Tracing -  Basic radiometry（辐射度量学）</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>辐射度量学可以提供光线的物理参数。包括：</p>
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">• Measurement <span class="keyword">system</span> <span class="keyword">and</span> units <span class="keyword">for</span> illumination</span><br><span class="line">• <span class="keyword">Perform</span> lighting calculations <span class="keyword">in</span> a physically correct manner</span><br><span class="line">• <span class="built_in">New</span> terms: Radiant flux, intensity, irradiance, radiance（无准确中文翻译）</span><br></pre></td></tr></table></figure>
-<h2 id="Basic-Concepts"><a href="#Basic-Concepts" class="headerlink" title="Basic Concepts"></a>Basic Concepts</h2><h3 id="Radiant-energy-（电磁辐射能量）"><a href="#Radiant-energy-（电磁辐射能量）" class="headerlink" title="Radiant energy （电磁辐射能量）"></a>Radiant energy （电磁辐射能量）</h3><p> Radiant energy is the <strong>energy of electromagnetic radiation.</strong> </p>
-<script type="math/tex; mode=display">
-Q[J(Joule)]</script><p>(Barely used in CG.)</p>
-<h3 id="Radiant-flux-power-（辐射功率）"><a href="#Radiant-flux-power-（辐射功率）" class="headerlink" title="Radiant flux (power) （辐射功率）"></a>Radiant flux (power) （辐射功率）</h3><p>Radiant flux (power) is the <strong>energy</strong> emitted, reflected, transmitted or received, <strong>per unit time.</strong></p>
-<script type="math/tex; mode=display">
-\phi=\frac{dQ}{dT}[W(Watt)/lm(lumen)]</script><p>其中流明（lumen，符号lm）是光通量的国际单位。</p>
-<p>另可以定义为：<strong>photons flowing through a sensor in unit time</strong>，见下图。</p>
-<p><img src="https://s2.loli.net/2022/03/05/AR3Heb29a5Try7U.png" alt="image-20220211111945007"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/03/05/Games101-Ray-Tracing-Radiometry-L15/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1272,7 +1352,7 @@ Q[J(Joule)]</script><p>(Barely used in CG.)</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1285,7 +1365,7 @@ Q[J(Joule)]</script><p>(Barely used in CG.)</p>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -20,20 +20,22 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Pytorch intro(2) NN.基本名词解释container：容器(或指神经网络的骨架)">
+  <meta name="description" content="降维观测器简介引入对于系统  \dot{x}&#x3D;Ax+Bu \\ y&#x3D;Cx假设其中x的维数为n，y的维数为m。 全维观测器对全部变量x进行重构。但是如果状态的某些线性组合可以直接作为输出被测量出来(这由矩阵C决定)，就不需要进行估计，则可以降低其维数，仅需要额外获得n-m个维度的信息，之后配合观测得到的m个维度的信息，通过线性组合，就可以获得状态x的信息，由此引入降维观测器。 若C矩阵秩为m，则只需">
 <meta property="og:type" content="article">
-<meta property="og:title" content="pytorch intro(2) NN">
-<meta property="og:url" content="http://example.com/2022/03/29/pytorch-intro-2-NN/index.html">
+<meta property="og:title" content="降维观测器">
+<meta property="og:url" content="http://example.com/2022/04/06/%E9%99%8D%E7%BB%B4%E8%A7%82%E6%B5%8B%E5%99%A8/index.html">
 <meta property="og:site_name" content="Thunderbolt&#39;s Blog">
-<meta property="og:description" content="Pytorch intro(2) NN.基本名词解释container：容器(或指神经网络的骨架)">
+<meta property="og:description" content="降维观测器简介引入对于系统  \dot{x}&#x3D;Ax+Bu \\ y&#x3D;Cx假设其中x的维数为n，y的维数为m。 全维观测器对全部变量x进行重构。但是如果状态的某些线性组合可以直接作为输出被测量出来(这由矩阵C决定)，就不需要进行估计，则可以降低其维数，仅需要额外获得n-m个维度的信息，之后配合观测得到的m个维度的信息，通过线性组合，就可以获得状态x的信息，由此引入降维观测器。 若C矩阵秩为m，则只需">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-03-29T06:48:52.000Z">
-<meta property="article:modified_time" content="2022-03-29T08:13:39.429Z">
+<meta property="og:image" content="https://s2.loli.net/2022/04/06/A2aGVTJFpSro4bB.png">
+<meta property="article:published_time" content="2022-04-06T00:36:42.000Z">
+<meta property="article:modified_time" content="2022-04-06T02:20:41.575Z">
 <meta property="article:author" content="Thunderbolt">
-<meta property="article:tag" content="pytorch">
+<meta property="article:tag" content="Control">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/04/06/A2aGVTJFpSro4bB.png">
 
-<link rel="canonical" href="http://example.com/2022/03/29/pytorch-intro-2-NN/">
+<link rel="canonical" href="http://example.com/2022/04/06/%E9%99%8D%E7%BB%B4%E8%A7%82%E6%B5%8B%E5%99%A8/">
 
 
 <script id="page-configurations">
@@ -46,7 +48,7 @@
   };
 </script>
 
-  <title>pytorch intro(2) NN | Thunderbolt's Blog</title>
+  <title>降维观测器 | Thunderbolt's Blog</title>
   
 
 
@@ -167,7 +169,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/29/pytorch-intro-2-NN/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/06/%E9%99%8D%E7%BB%B4%E8%A7%82%E6%B5%8B%E5%99%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shooting_star.jpg">
@@ -180,7 +182,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          pytorch intro(2) NN
+          降维观测器
         </h1>
 
         <div class="post-meta">
@@ -191,7 +193,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-03-29 14:48:52 / 修改时间：16:13:39" itemprop="dateCreated datePublished" datetime="2022-03-29T14:48:52+08:00">2022-03-29</time>
+              <time title="创建时间：2022-04-06 08:36:42 / 修改时间：10:20:41" itemprop="dateCreated datePublished" datetime="2022-04-06T08:36:42+08:00">2022-04-06</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -199,12 +201,12 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a>
+                  <a href="/categories/Control/" itemprop="url" rel="index"><span itemprop="name">Control</span></a>
                 </span>
             </span>
 
           
-            <span id="/2022/03/29/pytorch-intro-2-NN/" class="post-meta-item leancloud_visitors" data-flag-title="pytorch intro(2) NN" title="阅读次数">
+            <span id="/2022/04/06/%E9%99%8D%E7%BB%B4%E8%A7%82%E6%B5%8B%E5%99%A8/" class="post-meta-item leancloud_visitors" data-flag-title="降维观测器" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -219,8 +221,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2022/03/29/pytorch-intro-2-NN/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/03/29/pytorch-intro-2-NN/" itemprop="commentCount"></span>
+    <a title="valine" href="/2022/04/06/%E9%99%8D%E7%BB%B4%E8%A7%82%E6%B5%8B%E5%99%A8/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/04/06/%E9%99%8D%E7%BB%B4%E8%A7%82%E6%B5%8B%E5%99%A8/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -235,7 +237,52 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Pytorch-intro-2-NN"><a href="#Pytorch-intro-2-NN" class="headerlink" title="Pytorch intro(2) NN."></a>Pytorch intro(2) NN.</h1><h2 id="基本名词解释"><a href="#基本名词解释" class="headerlink" title="基本名词解释"></a>基本名词解释</h2><p>container：容器(或指神经网络的骨架)</p>
+        <h1 id="降维观测器简介"><a href="#降维观测器简介" class="headerlink" title="降维观测器简介"></a>降维观测器简介</h1><h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>对于系统</p>
+<script type="math/tex; mode=display">
+\dot{x}=Ax+Bu \\
+y=Cx</script><p>假设其中x的维数为n，y的维数为m。</p>
+<p>全维观测器对全部变量x进行重构。但是如果状态的某些线性组合可以直接作为输出被测量出来(这由矩阵C决定)，就不需要进行估计，则可以降低其维数，仅需要额外获得n-m个维度的信息，之后配合观测得到的m个维度的信息，通过线性组合，就可以获得状态x的信息，由此引入降维观测器。</p>
+<p>若C矩阵秩为m，则只需要重构余下的n-m个状态分量。</p>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>给定线性系统$\sum(A,B,C):$</p>
+<script type="math/tex; mode=display">
+\dot{x}=Ax+Bu \\
+y=Cx</script><p>其中C为$m\times n$矩阵，假定$rank(C)=m$，则一定存在线性变换</p>
+<script type="math/tex; mode=display">
+\overline{x}=Tx,where\space T=[D\space C]^T</script><p>其中D为使得$T^{-1}$存在的任意$(n-m)\times n$阵。</p>
+<p>通过这一线性变换，系统变换为：</p>
+<script type="math/tex; mode=display">
+\dot{\overline{x} }=TAT^{-1}\overline{x}+TBu \\
+y=CT^{-1}\overline{x}=[0\space I_m][\overline{x}_1\space \overline{x}_2]^T=\overline{x}_2</script><p>其中$\overline{x}_2$为m维，可以直接量测，因此只需要观测$(n-m)$维状态变量$\overline{x}_1$。</p>
+<h2 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h2><p>为避免输出量的微分，重新定义观测器的状态</p>
+<script type="math/tex; mode=display">
+令W=\hat{x}_1+M_1\dot{y} \\
+=(A_{11}+M_1A_{21})w+(B_1+M_1B_2)u+ \\ (A_{12}+M_1A{22}-(A_{11}+M_1A_{21})M_1)y \\
+=(A_{11}+M_1A_{21})w+B_0u+Ey \\
+其中 \\
+B_0=B_1+M_1B_2 \\
+E=A_{12}+M_1A_{22}-(A_{11}+M_1A_{21})M_1 \\</script><p>上述称为Luenberger观测器。</p>
+<p>由此得到原系统的状态重构：</p>
+<script type="math/tex; mode=display">
+\hat{x}=\left[
+\matrix{
+  \hat{x} \\
+  y \\
+}
+\right]=\left[
+\matrix{
+  w-M_1 y \\
+  y \\
+}\right]=\left[
+\matrix{
+  I \\
+  0 \\
+}\right]w+\left[
+\matrix{
+  -M_1 \\
+  I \\
+}\right]y</script><h2 id="误差分析"><a href="#误差分析" class="headerlink" title="误差分析"></a>误差分析</h2><p>降维观测器的测量值y通过$M_1$直接反映在状态$\hat{x}_1$上，如图所示：</p>
+<p><img src="https://s2.loli.net/2022/04/06/A2aGVTJFpSro4bB.png" alt="image-20220406100227560"></p>
+<p>这样会将测量噪声带入，使得$M_1$的误差直接影响到$\hat{x}_1$稳态值，在全维观测器中则不存在这种误差。</p>
 
     </div>
 
@@ -245,7 +292,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/pytorch/" rel="tag"># pytorch</a>
+              <a href="/tags/Control/" rel="tag"># Control</a>
           </div>
 
         
@@ -254,13 +301,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/03/28/IPMV-L5-6-Epipolar-Geometry/" rel="prev" title="IPMV L5-6 Epipolar Geometry">
-      <i class="fa fa-chevron-left"></i> IPMV L5-6 Epipolar Geometry
+    <a href="/2022/04/03/Signals-Systems-Review-CH1/" rel="prev" title="Signals & Systems Review-CH1">
+      <i class="fa fa-chevron-left"></i> Signals & Systems Review-CH1
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/04/01/Kalman-Filter/" rel="next" title="Kalman Filter">
-      Kalman Filter <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -320,7 +364,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Pytorch-intro-2-NN"><span class="nav-number">1.</span> <span class="nav-text">Pytorch intro(2) NN.</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A"><span class="nav-number">1.1.</span> <span class="nav-text">基本名词解释</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%8D%E7%BB%B4%E8%A7%82%E6%B5%8B%E5%99%A8%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">降维观测器简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E5%85%A5"><span class="nav-number">1.1.</span> <span class="nav-text">引入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.3.</span> <span class="nav-text">设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AF%E5%B7%AE%E5%88%86%E6%9E%90"><span class="nav-number">1.4.</span> <span class="nav-text">误差分析</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
