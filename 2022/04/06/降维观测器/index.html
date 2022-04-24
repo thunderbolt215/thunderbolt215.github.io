@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2022/04/06/A2aGVTJFpSro4bB.png">
 <meta property="article:published_time" content="2022-04-06T00:36:42.000Z">
-<meta property="article:modified_time" content="2022-04-06T02:20:41.575Z">
+<meta property="article:modified_time" content="2022-04-24T06:06:51.812Z">
 <meta property="article:author" content="Thunderbolt">
 <meta property="article:tag" content="Control">
 <meta name="twitter:card" content="summary">
@@ -123,17 +123,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">8</span></a>
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">9</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">6</span></a>
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">7</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">15</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">17</span></a>
 
   </li>
         <li class="menu-item menu-item-guestbook">
@@ -191,10 +191,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-04-06 08:36:42 / 修改时间：10:20:41" itemprop="dateCreated datePublished" datetime="2022-04-06T08:36:42+08:00">2022-04-06</time>
+              <time title="创建时间：2022-04-06 08:36:42" itemprop="dateCreated datePublished" datetime="2022-04-06T08:36:42+08:00">2022-04-06</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-04-24 14:06:51" itemprop="dateModified" datetime="2022-04-24T14:06:51+08:00">2022-04-24</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -243,6 +249,7 @@
 y=Cx</script><p>假设其中x的维数为n，y的维数为m。</p>
 <p>全维观测器对全部变量x进行重构。但是如果状态的某些线性组合可以直接作为输出被测量出来(这由矩阵C决定)，就不需要进行估计，则可以降低其维数，仅需要额外获得n-m个维度的信息，之后配合观测得到的m个维度的信息，通过线性组合，就可以获得状态x的信息，由此引入降维观测器。</p>
 <p>若C矩阵秩为m，则只需要重构余下的n-m个状态分量。</p>
+<span id="more"></span>
 <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>给定线性系统$\sum(A,B,C):$</p>
 <script type="math/tex; mode=display">
 \dot{x}=Ax+Bu \\
@@ -304,7 +311,10 @@ E=A_{12}+M_1A_{22}-(A_{11}+M_1A_{21})M_1 \\</script><p>上述称为Luenberger观
     <a href="/2022/04/03/Signals-Systems-Review-CH1/" rel="prev" title="Signals & Systems Review-CH1">
       <i class="fa fa-chevron-left"></i> Signals & Systems Review-CH1
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/10/%E6%9D%8E%E5%AE%8F%E6%AF%85%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-notes/" rel="next" title="李宏毅机器学习 notes">
+      李宏毅机器学习 notes <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -380,20 +390,20 @@ E=A_{12}+M_1A_{22}-(A_{11}+M_1A_{21})M_1 \\</script><p>上述称为Luenberger观
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

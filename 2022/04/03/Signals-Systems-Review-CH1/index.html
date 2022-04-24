@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Signals and Systems Review - CH11.1 概述信息.消息.信号例子：电信号传递声音、图像、文字 信号是消息的表现形式，消息是信号的具体内容 系统包括变换器、处理器等 $\Leftrightarrow$网络$\Leftrightarrow$电路 信号分析目的：揭示信号特性及其改变方式 思想：分解成简单基本单元信号 系统分析对指定输入激励的输出响应 1.2 信号描述确定性">
+  <meta name="description" content="Signals and Systems Review - CH11.1 概述信息.消息.信号例子：电信号传递声音、图像、文字 信号是消息的表现形式，消息是信号的具体内容 系统包括变换器、处理器等 $\Leftrightarrow$网络$\Leftrightarrow$电路 信号分析目的：揭示信号特性及其改变方式 思想：分解成简单基本单元信号 系统分析对指定输入激励的输出响应">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Signals &amp; Systems Review-CH1">
 <meta property="og:url" content="http://example.com/2022/04/03/Signals-Systems-Review-CH1/index.html">
 <meta property="og:site_name" content="Thunderbolt&#39;s Blog">
-<meta property="og:description" content="Signals and Systems Review - CH11.1 概述信息.消息.信号例子：电信号传递声音、图像、文字 信号是消息的表现形式，消息是信号的具体内容 系统包括变换器、处理器等 $\Leftrightarrow$网络$\Leftrightarrow$电路 信号分析目的：揭示信号特性及其改变方式 思想：分解成简单基本单元信号 系统分析对指定输入激励的输出响应 1.2 信号描述确定性">
+<meta property="og:description" content="Signals and Systems Review - CH11.1 概述信息.消息.信号例子：电信号传递声音、图像、文字 信号是消息的表现形式，消息是信号的具体内容 系统包括变换器、处理器等 $\Leftrightarrow$网络$\Leftrightarrow$电路 信号分析目的：揭示信号特性及其改变方式 思想：分解成简单基本单元信号 系统分析对指定输入激励的输出响应">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2022/04/03/4n1XgovF9skeYxf.png">
 <meta property="og:image" content="https://s2.loli.net/2022/04/03/AT9Lcu6gwNjzt5n.png">
@@ -45,7 +45,7 @@
 <meta property="og:image" content="https://s2.loli.net/2022/04/03/TlmWDrZyvCXLOxH.png">
 <meta property="og:image" content="https://s2.loli.net/2022/04/03/wH2BiVhy6JCURcr.png">
 <meta property="article:published_time" content="2022-04-03T06:30:48.000Z">
-<meta property="article:modified_time" content="2022-04-03T09:11:02.119Z">
+<meta property="article:modified_time" content="2022-04-24T06:07:04.999Z">
 <meta property="article:author" content="Thunderbolt">
 <meta property="article:tag" content="Signals">
 <meta name="twitter:card" content="summary">
@@ -139,17 +139,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">8</span></a>
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">9</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">6</span></a>
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">7</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">15</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">17</span></a>
 
   </li>
         <li class="menu-item menu-item-guestbook">
@@ -207,10 +207,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-04-03 14:30:48 / 修改时间：17:11:02" itemprop="dateCreated datePublished" datetime="2022-04-03T14:30:48+08:00">2022-04-03</time>
+              <time title="创建时间：2022-04-03 14:30:48" itemprop="dateCreated datePublished" datetime="2022-04-03T14:30:48+08:00">2022-04-03</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-04-24 14:07:04" itemprop="dateModified" datetime="2022-04-24T14:07:04+08:00">2022-04-24</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -260,6 +266,7 @@
 <h3 id="信号分析"><a href="#信号分析" class="headerlink" title="信号分析"></a>信号分析</h3><p>目的：揭示信号特性及其改变方式</p>
 <p>思想：分解成<strong>简单基本单元信号</strong></p>
 <h3 id="系统分析"><a href="#系统分析" class="headerlink" title="系统分析"></a>系统分析</h3><p>对指定输入激励的输出响应</p>
+<span id="more"></span>
 <h2 id="1-2-信号描述"><a href="#1-2-信号描述" class="headerlink" title="1.2 信号描述"></a>1.2 信号描述</h2><h3 id="确定性信号-amp-随机信号"><a href="#确定性信号-amp-随机信号" class="headerlink" title="确定性信号&amp;随机信号"></a>确定性信号&amp;随机信号</h3><p>确定性信号：对于指定的某一时刻t，可确定一相应的函数值f(t)，<strong>若干不连续点除外</strong></p>
 <h3 id="连续信号-amp-离散信号"><a href="#连续信号-amp-离散信号" class="headerlink" title="连续信号&amp;离散信号"></a>连续信号&amp;离散信号</h3><p>连续时间信号：自变量的取值范围是连续的（实数域），用t表示连续时间变量</p>
 <p><img src="https://s2.loli.net/2022/04/03/4n1XgovF9skeYxf.png" alt="image-20220403145759285"></p>
@@ -428,20 +435,20 @@ f(a(t+\frac{b}{a}))\rightarrow f(-a(t+\frac{b}{a}))=f(-at- b)</script><p>1.平�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
