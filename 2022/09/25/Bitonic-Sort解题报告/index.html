@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="分段双调排序-解题报告同济大学电子与信息工程学院  操铄 a)算法描述0.定义双调排序是一种并行排序算法，它同时也被用于排序网络的构建。 1.双调序列双调序列是一个先单调递增后单调递减（或者先单调递减后单调递增）的序列。 即序列表示为  x_0 \leq \ldots \leq x_k \geq \ldots \geq x_{n-1}(0 \leq k  \leq n)2.Batcher定理将任意">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Thunderbolt&#39;s Blog">
+<meta property="og:url" content="http://example.com/2022/09/25/Bitonic-Sort%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/index.html">
+<meta property="og:site_name" content="Thunderbolt&#39;s Blog">
+<meta property="og:description" content="分段双调排序-解题报告同济大学电子与信息工程学院  操铄 a)算法描述0.定义双调排序是一种并行排序算法，它同时也被用于排序网络的构建。 1.双调序列双调序列是一个先单调递增后单调递减（或者先单调递减后单调递增）的序列。 即序列表示为  x_0 \leq \ldots \leq x_k \geq \ldots \geq x_{n-1}(0 \leq k  \leq n)2.Batcher定理将任意">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdn.net/20170730230343427?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveGJpbndvcmxk/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="https://img-blog.csdn.net/20170730231529532?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveGJpbndvcmxk/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/res1.48o6fht4dd80.webp">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/res2.4hfnnum033i0.webp">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/res3.6nlnrg4p8nc0.webp">
+<meta property="article:published_time" content="2022-09-25T13:21:46.665Z">
+<meta property="article:modified_time" content="2022-09-25T13:21:25.889Z">
+<meta property="article:author" content="Thunderbolt">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20170730230343427?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveGJpbndvcmxk/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+
+<link rel="canonical" href="http://example.com/2022/09/25/Bitonic-Sort%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title> | Thunderbolt's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Thunderbolt's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">A shooting star voyage of the Dawn</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">8</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">6</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">14</span></a>
+
+  </li>
+        <li class="menu-item menu-item-guestbook">
+
+    <a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言板</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/25/Bitonic-Sort%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/shooting_star.jpg">
+      <meta itemprop="name" content="Thunderbolt">
+      <meta itemprop="description" content="When the darkness seized the long night, did it envisage its end at the hands of a shooting star?">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Thunderbolt's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-09-25 21:21:46 / 修改时间：21:21:25" itemprop="dateCreated datePublished" datetime="2022-09-25T21:21:46+08:00">2022-09-25</time>
+            </span>
+
+          
+            <span id="/2022/09/25/Bitonic-Sort%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/" class="post-meta-item leancloud_visitors" data-flag-title="" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/09/25/Bitonic-Sort%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/09/25/Bitonic-Sort%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="分段双调排序-解题报告"><a href="#分段双调排序-解题报告" class="headerlink" title="分段双调排序-解题报告"></a>分段双调排序-解题报告</h1><p>同济大学电子与信息工程学院  操铄</p>
+<h2 id="a-算法描述"><a href="#a-算法描述" class="headerlink" title="a)算法描述"></a>a)算法描述</h2><h3 id="0-定义"><a href="#0-定义" class="headerlink" title="0.定义"></a>0.定义</h3><p>双调排序是一种并行排序算法，它同时也被用于排序网络的构建。</p>
+<h3 id="1-双调序列"><a href="#1-双调序列" class="headerlink" title="1.双调序列"></a>1.双调序列</h3><p>双调序列是一个先单调递增后单调递减（或者先单调递减后单调递增）的序列。</p>
+<p>即序列表示为</p>
+<script type="math/tex; mode=display">
+x_0 \leq \ldots \leq x_k \geq \ldots \geq x_{n-1}(0 \leq k  \leq n)</script><h3 id="2-Batcher定理"><a href="#2-Batcher定理" class="headerlink" title="2.Batcher定理"></a>2.Batcher定理</h3><p>将任意一个长为<code>2n</code>的双调序列分为等长的两半<code>X</code>和<code>Y</code>，将<code>X</code>中的元素与<code>Y</code>中的元素按原顺序比较，即对于所有的<code>0&lt;=i&lt;n</code>，比较<code>a[i]</code>与<code>a[i+n]</code>，将较大者放入<code>MAX</code>序列，较小者放入<code>MIN</code>序列。</p>
+<p>定理指出，经过这一操作后得到的<code>MAX</code>和<code>MIN</code>序列仍然是双调序列，并且<code>MAX</code>序列中的任意一个元素不小于<code>MIN</code>序列中的任意一个元素。</p>
+<p>这一操作对应代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;n;i++) </span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">get</span>(i)&gt;<span class="built_in">get</span>(i+n)) <span class="built_in">exchange</span>(i,i+n);</span><br></pre></td></tr></table></figure>
+<h3 id="3-双调排序"><a href="#3-双调排序" class="headerlink" title="3.双调排序"></a><strong>3.双调排序</strong></h3><p>假设有一个双调序列，根据Batcher定理，将该序列划分成2个双调序列，然后继续对每个双调序列递归划分，得到更短的双调序列，直到得到的子序列长度为1为止，于是得到了一个按单调递增顺序排列的输出序列。</p>
+<p>具体方法是，把一个序列<code>(1…n)</code>对半分，假设<code>n=2^k</code>，然后<code>1</code>和<code>n/2+1</code>比较，小的放上，接下来<code>2</code>和<code>n/2+2</code>比较，小的放上，以此类推；然后看成两个<code>(n/2)</code>长度的序列，因为他们都是双调序列，所以可以重复上面的过程；总共重复<code>k</code>轮，即最后一轮已经是长度是<code>2</code>的序列比较了，就可得到最终的排序结果。</p>
+<p><img src="https://img-blog.csdn.net/20170730230343427?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveGJpbndvcmxk/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="双调排序示意图"></p>
+<p>（图片来源：<a target="_blank" rel="noopener" href="https://blog.csdn.net/xbinworld/article/details/76408595">三十分钟理解：双调排序Bitonic Sort，适合并行计算的排序算法</a>）</p>
+<p>上图为这组元素进行升序双调排序的示意图。可以看到第一轮比较中，只有<code>20</code>和<code>0</code>发生了交换；第二轮比较中，<code>9</code>和<code>0</code>、<code>95</code>和<code>35</code>、<code>90</code>和<code>23</code>、<code>60</code>和<code>18</code>、<code>40</code>和<code>20</code>发生了交换，由于序列长度为<code>16</code>，递归到第四轮时得到了正确的升序结果。</p>
+<h3 id="4-任意序列生成双调序列"><a href="#4-任意序列生成双调序列" class="headerlink" title="4.任意序列生成双调序列"></a><strong>4.任意序列生成双调序列</strong></h3><p>前面所述为双调序列的排序方法，现在讨论如何将任意序列变成一个双调序列。</p>
+<p>这个过程和前面排序的思路相反，基本想法是：如果已经有两个相邻、长度为<code>n</code>的、单调性相反的序列， 就可以连接得到一个长度为<code>2n</code>的双调序列，然后对这个<code>2n</code>的序列进行一次双调排序变成有序。</p>
+<p>以16个元素的array为例，具体步骤如下：</p>
+<p><img src="https://img-blog.csdn.net/20170730231529532?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveGJpbndvcmxk/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="生成双调序列示意图"></p>
+<p>（图片来源：<a target="_blank" rel="noopener" href="https://blog.csdn.net/xbinworld/article/details/76408595">三十分钟理解：双调排序Bitonic Sort，适合并行计算的排序算法</a>）</p>
+<ol>
+<li>相邻两个元素合并形成8个单调性相反的单调序列</li>
+<li>两两序列合并，形成4个双调序列，分别按相反单调性排序</li>
+<li>4个长度为4的相反单调性单调序列，相邻两个合并，生成两个长度为8的双调序列，分别按相反单调性排序</li>
+<li>2个长度为8的相反单调性单调序列，相邻两个合并，生成1个长度为16的双调序列，排序</li>
+</ol>
+<h3 id="5-非2的幂次长度序列双调排序"><a href="#5-非2的幂次长度序列双调排序" class="headerlink" title="5.非2的幂次长度序列双调排序"></a><strong>5.非2的幂次长度序列双调排序</strong></h3><p>以上讨论的双调排序算法只适合于<code>n</code>为<code>2</code>的幂次的情况。为了适合于任意长度的数组，可以用一个定义的最大或者最小者来填充数组，让数组的大小填充到<code>2</code>的幂长度，再进行排序，最后过滤掉那些最大（最小）值即可。</p>
+<p>本次解题中使用的就是这种方式，但是在数组长度较大的时候可能会造成比较大的空间浪费，可以在以后的学习工作中学习更好的解决方案。</p>
+<h2 id="b-尝试过和完成了的加分挑战"><a href="#b-尝试过和完成了的加分挑战" class="headerlink" title="b)尝试过和完成了的加分挑战"></a>b)尝试过和完成了的加分挑战</h2><p>所有的加分挑战都已完成，下面分别叙述：</p>
+<h3 id="1-不递归"><a href="#1-不递归" class="headerlink" title="1.不递归"></a>1.不递归</h3><p><code>segmentedBitonicSort</code>函数及其所调用的任何其他函数在程序中都没有进行形式的递归。</p>
+<h3 id="2-不调用函数"><a href="#2-不调用函数" class="headerlink" title="2.不调用函数"></a>2.不调用函数</h3><p><code>segmentedBitonicSort</code>函数内未调用除标准库以外的其他任何函数。</p>
+<h3 id="3-内存高效"><a href="#3-内存高效" class="headerlink" title="3.内存高效"></a>3.内存高效</h3><p><code>segmentedBitonicSort</code>及其所调用的任何其他函数都没有进行任何形式的动态内存分配。</p>
+<h3 id="4-可并行"><a href="#4-可并行" class="headerlink" title="4.可并行"></a>4.可并行</h3><p><code>segmentedBitonicSort</code>涉及到的所有时间复杂度O(n)以上的代码都写在for循环中，而且每个这样的for循环内部的循环顺序可以任意改变，不影响程序结果。</p>
+<h3 id="5-不需内存"><a href="#5-不需内存" class="headerlink" title="5.不需内存"></a>5.不需内存</h3><p><code>segmentedBitonicSort</code>不调用任何函数（包括C/C++标准库函数，不使用全局变量，所有局部变量都是<code>int</code>、<code>float</code>或指针类型，C++程序不使用new关键字。</p>
+<h3 id="6-绝对鲁棒"><a href="#6-绝对鲁棒" class="headerlink" title="6.绝对鲁棒"></a>6.绝对鲁棒</h3><p>包含<code>NaN</code>时（例如<code>sqrt(-1.f)</code>），保证除<code>NaN</code>以外的数据正确排序，<code>NaN</code>的个数保持不变。</p>
+<p>本代码中利用<code>var != var</code>判定是否是<code>NAN</code>，若是<code>NAN</code>则在比较的时候当作极小值。</p>
+<h2 id="c-可以独立运行的源代码"><a href="#c-可以独立运行的源代码" class="headerlink" title="c)可以独立运行的源代码"></a>c)可以独立运行的源代码</h2><p><strong>源文件:</strong><code>BitonicSort.cpp</code></p>
+<p>见附件。</p>
+<h2 id="d-测试数据"><a href="#d-测试数据" class="headerlink" title="d)测试数据"></a>d)测试数据</h2><p>测试数据1：样例输入</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> data[<span class="number">5</span>] = &#123; <span class="number">0.8</span>, <span class="number">0.2</span>, <span class="number">0.4</span>, <span class="number">0.6</span>, <span class="number">0.5</span> &#125;;</span><br><span class="line"><span class="type">int</span> seg_id[<span class="number">5</span>] = &#123; <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">1</span>,   <span class="number">1</span>,   <span class="number">1</span> &#125;;</span><br><span class="line"><span class="type">int</span> seg_start[<span class="number">3</span>] = &#123; <span class="number">0</span>,<span class="number">2</span>,<span class="number">5</span> &#125;;</span><br><span class="line"><span class="type">int</span> n = <span class="number">5</span>;</span><br><span class="line"><span class="type">int</span> m = <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/res1.48o6fht4dd80.webp" alt="res1"></p>
+<p>测试数据2：加入<code>sqrt(-1.f)</code>测试鲁棒性</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> data[<span class="number">12</span>] = &#123; <span class="number">0.1</span>, <span class="built_in">sqrt</span>(<span class="number">-1.f</span>), <span class="number">0.5</span> ,<span class="number">0.7</span>,<span class="number">0.9</span>,<span class="number">0.8</span>,<span class="built_in">sqrt</span>(<span class="number">-1.f</span>),<span class="number">0.2</span>,<span class="number">0.3</span>,<span class="number">0.6</span>,<span class="built_in">sqrt</span>(<span class="number">-1.f</span>),<span class="number">0.0</span> &#125;;</span><br><span class="line"><span class="type">int</span> seg_id[<span class="number">12</span>] = &#123; <span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span> &#125;;</span><br><span class="line"><span class="type">int</span> seg_start[<span class="number">4</span>] = &#123; <span class="number">0</span>,<span class="number">4</span>,<span class="number">9</span>,<span class="number">12</span> &#125;;</span><br><span class="line"><span class="type">int</span> n = <span class="number">12</span>;</span><br><span class="line"><span class="type">int</span> m = <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/res2.4hfnnum033i0.webp" alt="res2"></p>
+<p>测试数据3：大部分为<code>NAN</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> data[<span class="number">8</span>] = &#123; <span class="built_in">sqrt</span>(<span class="number">-1.f</span>),<span class="built_in">sqrt</span>(<span class="number">-1.f</span>),<span class="built_in">sqrt</span>(<span class="number">-1.f</span>),<span class="built_in">sqrt</span>(<span class="number">-1.f</span>),<span class="number">0.1</span>,<span class="built_in">sqrt</span>(<span class="number">-1.f</span>),<span class="built_in">sqrt</span>(<span class="number">-1.f</span>),<span class="built_in">sqrt</span>(<span class="number">-1.f</span>) &#125;;</span><br><span class="line"><span class="type">int</span> seg_id[<span class="number">8</span>] = &#123; <span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span> &#125;;</span><br><span class="line"><span class="type">int</span> seg_start[<span class="number">3</span>] = &#123; <span class="number">0</span>,<span class="number">4</span>,<span class="number">8</span> &#125;;</span><br><span class="line"><span class="type">int</span> n = <span class="number">8</span>;</span><br><span class="line"><span class="type">int</span> m = <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/res3.6nlnrg4p8nc0.webp" alt="res3"></p>
+<h2 id="e-性能分析"><a href="#e-性能分析" class="headerlink" title="e)性能分析"></a>e)性能分析</h2><p>具有<code>2^n</code>长度数据的双调排序的时间复杂度为<code>O(n(logn)^2)</code>。</p>
+<p>当数组长度<code>n</code>为任意数字时需要补齐到<code>2</code>的幂次方，这个对于任意<code>n</code>的新排序网络可以嵌入原始的对于<code>2^k</code>的双调排序网络。因此，它仍有 <code>log(n)*(log(n)+1)/2</code> 层，每层最多比较<code>n/2</code>次，结果仍然是一个复杂度为<code>O(nlog(n)^2)</code>的比较器，跟原始的双调排序网络无区别。</p>
+<p>此外由于已经具备了可并行性，引入<code>openmp</code>等并行框架可以提升执行效率，在此由于时间原因未加入。</p>
+<h2 id="f-测试的起始和完成时间以及实际使用的时间"><a href="#f-测试的起始和完成时间以及实际使用的时间" class="headerlink" title="f)测试的起始和完成时间以及实际使用的时间"></a>f)测试的起始和完成时间以及实际使用的时间</h2><p>起始时间：<code>2022-9-9 15:40</code></p>
+<p>完成时间：<code>2022-9-9 23:50</code></p>
+<p>期间除去吃饭、洗澡等事务实际使用的时间约为8小时，花费了约5小时进行算法学习、资料查找、加分挑战实现以及调试等，约3小时进行解题报告文档撰写。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/xbinworld/article/details/76408595">三十分钟理解：双调排序Bitonic Sort，适合并行计算的排序算法</a></p>
+<p>主要参考了其中内容进行了算法理解和描述。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Bitonic_sorter">Wiki pedia: Bitonic sorter</a></p>
+<p>主要参考了其中的算法描述和并行结构写法。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://www.tools-of-computing.com/tc/CS/Sorts/bitonic_sort.htm">Bitonic Sort</a></p>
+<p>主要参考其中对于算法并行化改进的描述以及并行结构写法。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.huangjunqin.com/2017/08/19/segmentedBitonicSort/">分段双调排序算法 - 黄俊钦</a></p>
+<p>是曾经做过这项测试的同学的解题博客，在基本完成代码编写后参考了其中的文档结构，并补充了合法性检查以及数组边界设置。</p>
+</li>
+<li><p>各类有关并行计算和位运算的资料若干</p>
+</li>
+</ul>
+<h2 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h2><p><a target="_blank" rel="noopener" href="https://github.com/thunderbolt215/Bitonic-Sort">https://github.com/thunderbolt215/Bitonic-Sort</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/06/%E9%99%8D%E7%BB%B4%E8%A7%82%E6%B5%8B%E5%99%A8/" rel="prev" title="降维观测器">
+      <i class="fa fa-chevron-left"></i> 降维观测器
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E6%AE%B5%E5%8F%8C%E8%B0%83%E6%8E%92%E5%BA%8F-%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A"><span class="nav-number">1.</span> <span class="nav-text">分段双调排序-解题报告</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#a-%E7%AE%97%E6%B3%95%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">a)算法描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0-%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.1.</span> <span class="nav-text">0.定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%8F%8C%E8%B0%83%E5%BA%8F%E5%88%97"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.双调序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Batcher%E5%AE%9A%E7%90%86"><span class="nav-number">1.1.3.</span> <span class="nav-text">2.Batcher定理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%8F%8C%E8%B0%83%E6%8E%92%E5%BA%8F"><span class="nav-number">1.1.4.</span> <span class="nav-text">3.双调排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E4%BB%BB%E6%84%8F%E5%BA%8F%E5%88%97%E7%94%9F%E6%88%90%E5%8F%8C%E8%B0%83%E5%BA%8F%E5%88%97"><span class="nav-number">1.1.5.</span> <span class="nav-text">4.任意序列生成双调序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E9%9D%9E2%E7%9A%84%E5%B9%82%E6%AC%A1%E9%95%BF%E5%BA%A6%E5%BA%8F%E5%88%97%E5%8F%8C%E8%B0%83%E6%8E%92%E5%BA%8F"><span class="nav-number">1.1.6.</span> <span class="nav-text">5.非2的幂次长度序列双调排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#b-%E5%B0%9D%E8%AF%95%E8%BF%87%E5%92%8C%E5%AE%8C%E6%88%90%E4%BA%86%E7%9A%84%E5%8A%A0%E5%88%86%E6%8C%91%E6%88%98"><span class="nav-number">1.2.</span> <span class="nav-text">b)尝试过和完成了的加分挑战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%B8%8D%E9%80%92%E5%BD%92"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.不递归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%8D%E8%B0%83%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.不调用函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%86%85%E5%AD%98%E9%AB%98%E6%95%88"><span class="nav-number">1.2.3.</span> <span class="nav-text">3.内存高效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%8F%AF%E5%B9%B6%E8%A1%8C"><span class="nav-number">1.2.4.</span> <span class="nav-text">4.可并行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E4%B8%8D%E9%9C%80%E5%86%85%E5%AD%98"><span class="nav-number">1.2.5.</span> <span class="nav-text">5.不需内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E7%BB%9D%E5%AF%B9%E9%B2%81%E6%A3%92"><span class="nav-number">1.2.6.</span> <span class="nav-text">6.绝对鲁棒</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#c-%E5%8F%AF%E4%BB%A5%E7%8B%AC%E7%AB%8B%E8%BF%90%E8%A1%8C%E7%9A%84%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="nav-number">1.3.</span> <span class="nav-text">c)可以独立运行的源代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#d-%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE"><span class="nav-number">1.4.</span> <span class="nav-text">d)测试数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#e-%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="nav-number">1.5.</span> <span class="nav-text">e)性能分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#f-%E6%B5%8B%E8%AF%95%E7%9A%84%E8%B5%B7%E5%A7%8B%E5%92%8C%E5%AE%8C%E6%88%90%E6%97%B6%E9%97%B4%E4%BB%A5%E5%8F%8A%E5%AE%9E%E9%99%85%E4%BD%BF%E7%94%A8%E7%9A%84%E6%97%B6%E9%97%B4"><span class="nav-number">1.6.</span> <span class="nav-text">f)测试的起始和完成时间以及实际使用的时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">1.7.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="nav-number">1.8.</span> <span class="nav-text">源代码</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Thunderbolt"
+      src="/images/shooting_star.jpg">
+  <p class="site-author-name" itemprop="name">Thunderbolt</p>
+  <div class="site-description" itemprop="description">When the darkness seized the long night, did it envisage its end at the hands of a shooting star?</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Thunderbolt</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'Yr6oXhLTG9zn2uFbgw8ANqUa-gzGzoHsz',
+      appKey     : '6kkGTWvzzkPSVwhEInk2okdc',
+      placeholder: "请输入您的评论\n昵称为必填项目，输入QQ号可以直接获取用户名和头像，并且省去了填写邮箱的麻烦！\n虽然email不是必选，但是填写了email可以收到推送通知哦！o(*￣▽￣*)ブ",
+      avatar     : '',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
