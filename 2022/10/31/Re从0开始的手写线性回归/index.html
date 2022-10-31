@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Re:从0开始的手写线性回归只使用tensor和autograd完成简单的线性回归全过程。 一些小细节 pycharm要求函数之间空两行 函数内部变量尽量不要与外部重名，参考：  https:&#x2F;&#x2F;www.cnblogs.com&#x2F;shengulong&#x2F;p&#x2F;10171386.html https:&#x2F;&#x2F;www.twle.cn&#x2F;t&#x2F;649 【目前还不完全理解，以及不确定是否需要解决】 代码注解生成数据集1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Thunderbolt&#39;s Blog">
+<meta property="og:url" content="http://example.com/2022/10/31/Re%E4%BB%8E0%E5%BC%80%E5%A7%8B%E7%9A%84%E6%89%8B%E5%86%99%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/index.html">
+<meta property="og:site_name" content="Thunderbolt&#39;s Blog">
+<meta property="og:description" content="Re:从0开始的手写线性回归只使用tensor和autograd完成简单的线性回归全过程。 一些小细节 pycharm要求函数之间空两行 函数内部变量尽量不要与外部重名，参考：  https:&#x2F;&#x2F;www.cnblogs.com&#x2F;shengulong&#x2F;p&#x2F;10171386.html https:&#x2F;&#x2F;www.twle.cn&#x2F;t&#x2F;649 【目前还不完全理解，以及不确定是否需要解决】 代码注解生成数据集1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/Figure_1.jdj9vymy5t4.webp">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/训练效果.26wsulhzy5j4.webp">
+<meta property="article:published_time" content="2022-10-31T09:44:41.446Z">
+<meta property="article:modified_time" content="2022-10-31T09:49:42.104Z">
+<meta property="article:author" content="Thunderbolt">
+<meta property="article:tag" content="DL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/Figure_1.jdj9vymy5t4.webp">
+
+<link rel="canonical" href="http://example.com/2022/10/31/Re%E4%BB%8E0%E5%BC%80%E5%A7%8B%E7%9A%84%E6%89%8B%E5%86%99%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title> | Thunderbolt's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Thunderbolt's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">A shooting star voyage of the Dawn</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">9</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">7</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">17</span></a>
+
+  </li>
+        <li class="menu-item menu-item-guestbook">
+
+    <a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言板</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/31/Re%E4%BB%8E0%E5%BC%80%E5%A7%8B%E7%9A%84%E6%89%8B%E5%86%99%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/shooting_star.jpg">
+      <meta itemprop="name" content="Thunderbolt">
+      <meta itemprop="description" content="When the darkness seized the long night, did it envisage its end at the hands of a shooting star?">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Thunderbolt's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-10-31 17:44:41 / 修改时间：17:49:42" itemprop="dateCreated datePublished" datetime="2022-10-31T17:44:41+08:00">2022-10-31</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DL/" itemprop="url" rel="index"><span itemprop="name">DL</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2022/10/31/Re%E4%BB%8E0%E5%BC%80%E5%A7%8B%E7%9A%84%E6%89%8B%E5%86%99%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" class="post-meta-item leancloud_visitors" data-flag-title="" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/10/31/Re%E4%BB%8E0%E5%BC%80%E5%A7%8B%E7%9A%84%E6%89%8B%E5%86%99%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/10/31/Re%E4%BB%8E0%E5%BC%80%E5%A7%8B%E7%9A%84%E6%89%8B%E5%86%99%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Re-从0开始的手写线性回归"><a href="#Re-从0开始的手写线性回归" class="headerlink" title="Re:从0开始的手写线性回归"></a>Re:从0开始的手写线性回归</h1><p>只使用<strong>tensor</strong>和<strong>autograd</strong>完成简单的线性回归全过程。</p>
+<h2 id="一些小细节"><a href="#一些小细节" class="headerlink" title="一些小细节"></a>一些小细节</h2><ul>
+<li>pycharm要求函数之间空两行</li>
+<li>函数内部变量尽量不要与外部重名，参考：</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/shengulong/p/10171386.html">https://www.cnblogs.com/shengulong/p/10171386.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.twle.cn/t/649">https://www.twle.cn/t/649</a></p>
+<p>【目前还不完全理解，以及不确定是否需要解决】</p>
+<h2 id="代码注解"><a href="#代码注解" class="headerlink" title="代码注解"></a>代码注解</h2><h3 id="生成数据集"><a href="#生成数据集" class="headerlink" title="生成数据集"></a>生成数据集</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">synthesis_data</span>(<span class="params">w, b, number</span>):</span><br><span class="line">    X = torch.rand(number, <span class="built_in">len</span>(w))</span><br><span class="line">    noise = torch.normal(<span class="number">0</span>, <span class="number">0.01</span>, size=(number, <span class="number">1</span>))</span><br><span class="line">    y = torch.matmul(X, w) + noise</span><br><span class="line">    y += b</span><br><span class="line">    <span class="keyword">return</span> X, y</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="y-b一句需要单独成行，否则会出错"><a href="#y-b一句需要单独成行，否则会出错" class="headerlink" title="y+=b一句需要单独成行，否则会出错"></a><code>y+=b</code>一句需要单独成行，否则会出错</h4></li>
+<li><p>采用<code>reshape(x, y)</code>可以改变tensor的大小，如果参数选择-1则可以仅输入行或者列，自动计算另一个参数。书中使用的<code>reshape(-1, 1)</code>可以确定列数为1，自动计算行数。</p>
+</li>
+</ul>
+<p>生成后画出特征的两个维度和标签的三维散点图：</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/Figure_1.jdj9vymy5t4.webp" alt="Figure_1"></p>
+<span id="more"></span>
+<h3 id="随机读取小批量数据"><a href="#随机读取小批量数据" class="headerlink" title="随机读取小批量数据"></a>随机读取小批量数据</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># iter:迭代器</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">data_iter</span>(<span class="params">batch_size, features, labels</span>):</span><br><span class="line">    total_number = <span class="built_in">len</span>(labels)</span><br><span class="line">    indices = <span class="built_in">list</span>(<span class="built_in">range</span>(total_number))</span><br><span class="line">    random.shuffle(indices)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, total_number-batch_size, batch_size):</span><br><span class="line">        batch_indices = indices[i:i+batch_size-<span class="number">1</span>]</span><br><span class="line">        <span class="keyword">yield</span> features[batch_indices, :], labels[batch_indices]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>学习这种随机取出小批量数据的方法！</li>
+<li>合理大小的小批量可以利⽤GPU硬件的优势，每个样本都可以并行地进行模型计算、损失函数计算、梯度计算。结果是GPU可以在处理几百个样本时，所花费的时间不比处理⼀个样本时多太多。</li>
+<li>实际上深度学习内置的iter效率高得多</li>
+</ul>
+<h3 id="初始化模型参数"><a href="#初始化模型参数" class="headerlink" title="初始化模型参数"></a>初始化模型参数</h3><p>在这里模型参数指权重w和偏置b。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">initialize_parameter</span>(<span class="params">mu, sigma</span>):</span><br><span class="line">    w = torch.normal(mu, sigma, size=(<span class="number">2</span>, <span class="number">1</span>), requires_grad=<span class="literal">True</span>)</span><br><span class="line">    <span class="comment"># w = torch.zeros(size=(2, 1), requires_grad=True)</span></span><br><span class="line">    b = torch.zeros(<span class="number">1</span>, requires_grad=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">return</span> w, b</span><br></pre></td></tr></table></figure>
+<ul>
+<li>参数w使用了正态分布进行初始化，其实也可以直接以0作为初始值【那为什么要指定初始值啊】</li>
+<li>注意不要漏掉<code>requires_grad=True</code></li>
+</ul>
+<h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">linear_regression</span>(<span class="params">w, b, X</span>):</span><br><span class="line">    <span class="keyword">return</span> torch.matmul(X, w) + b</span><br></pre></td></tr></table></figure>
+<h3 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">squared_loss</span>(<span class="params">labels, targets</span>):</span><br><span class="line">    <span class="comment"># return 0.5 * (labels - targets) ** 2</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0.5</span> * (labels - targets.reshape(labels.shape)) ** <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>这里使用了<code>reshape()</code>，是一种安全且规范的写法，保证了两个向量确实是按我们期望的方式都作为列项链进行相减。<strong>值得认可！</strong></li>
+</ul>
+<h3 id="优化算法-小批量随机梯度下降"><a href="#优化算法-小批量随机梯度下降" class="headerlink" title="优化算法(小批量随机梯度下降)"></a>优化算法(小批量随机梯度下降)</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">sgd</span>(<span class="params">params, learning_rate, batch_size</span>):</span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        <span class="keyword">for</span> param <span class="keyword">in</span> params:</span><br><span class="line">            param -= learning_rate * param.grad / batch_size</span><br><span class="line">            param.grad.zero_()</span><br></pre></td></tr></table></figure>
+<p>【关于自动求导的部分待填坑】</p>
+<h3 id="训练过程"><a href="#训练过程" class="headerlink" title="训练过程"></a>训练过程</h3><h4 id="参数设置"><a href="#参数设置" class="headerlink" title="参数设置"></a>参数设置</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 初始化模型参数</span></span><br><span class="line">w, b = initialize_parameter(<span class="number">0</span>, <span class="number">0.01</span>)</span><br><span class="line">learning_rate = <span class="number">0.03</span></span><br><span class="line">batch_size = <span class="number">10</span></span><br><span class="line">net = linear_regression</span><br><span class="line">num_epochs = <span class="number">30</span></span><br><span class="line">loss = squared_loss</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>注意这两句：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net = linear_regression</span><br><span class="line">loss = squared_loss</span><br></pre></td></tr></table></figure>
+<p>是一种规范的写法，<strong>值得认可！</strong></p>
+</li>
+</ul>
+<h4 id="训练过程-1"><a href="#训练过程-1" class="headerlink" title="训练过程"></a>训练过程</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(num_epochs):</span><br><span class="line">    <span class="keyword">for</span> features_sample, labels_sample <span class="keyword">in</span> data_iter(batch_size, features, labels):</span><br><span class="line">        loss_list = loss(net(w, b, features_sample), labels_sample)</span><br><span class="line">        loss_list.<span class="built_in">sum</span>().backward()</span><br><span class="line">        sgd([w, b], learning_rate, batch_size)</span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        train_loss = loss(net(w, b, features), labels)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;epoch <span class="subst">&#123;epoch + <span class="number">1</span>&#125;</span>, loss <span class="subst">&#123;<span class="built_in">float</span>(train_loss.mean()):f&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>整个算法步骤按上一节所述如下：</p>
+<ul>
+<li>初始化模型参数</li>
+<li>随机抽取小批量样本，在负梯度方向更新参数</li>
+<li>不断迭代</li>
+</ul>
+<script type="math/tex; mode=display">
+\bold{w} \leftarrow \bold{w}-\frac{\eta}{|\Beta|}\sum_{i\in\Beta}\partial_{\bold{w}}l^{(i)}(\bold{w},b)=\bold{w}-\frac{\eta}{|\Beta|}\sum_{i\in\Beta}\bold{x}^{(i)}(\bold{w}^Tx^{(i)}+b-y^{(i)}),\\
+b \leftarrow b-\frac{\eta}{|\Beta|}\sum_{i\in\Beta}\partial_{b}l^{(i)}(\bold{w},b)=b-\frac{\eta}{|\Beta|}\sum_{i\in\Beta}(\bold{w}^Tx^{(i)}+b-y^{(i)})</script><p>【关于自动求导的部分待填坑】</p>
+<h3 id="训练效果"><a href="#训练效果" class="headerlink" title="训练效果"></a>训练效果</h3><p>这里如果<code>num_epochs</code>设为3，我的代码效果不好，因此增大到30了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">epoch <span class="number">1</span>, loss <span class="number">0.602139</span></span><br><span class="line">epoch <span class="number">2</span>, loss <span class="number">0.400999</span></span><br><span class="line">epoch <span class="number">3</span>, loss <span class="number">0.274957</span></span><br><span class="line">epoch <span class="number">4</span>, loss <span class="number">0.188473</span></span><br><span class="line">epoch <span class="number">5</span>, loss <span class="number">0.130619</span></span><br><span class="line">epoch <span class="number">6</span>, loss <span class="number">0.091479</span></span><br><span class="line">epoch <span class="number">7</span>, loss <span class="number">0.064301</span></span><br><span class="line">epoch <span class="number">8</span>, loss <span class="number">0.045488</span></span><br><span class="line">epoch <span class="number">9</span>, loss <span class="number">0.032430</span></span><br><span class="line">epoch <span class="number">10</span>, loss <span class="number">0.023281</span></span><br><span class="line">epoch <span class="number">11</span>, loss <span class="number">0.016996</span></span><br><span class="line">epoch <span class="number">12</span>, loss <span class="number">0.012337</span></span><br><span class="line">epoch <span class="number">13</span>, loss <span class="number">0.009028</span></span><br><span class="line">epoch <span class="number">14</span>, loss <span class="number">0.006587</span></span><br><span class="line">epoch <span class="number">15</span>, loss <span class="number">0.004879</span></span><br><span class="line">epoch <span class="number">16</span>, loss <span class="number">0.003635</span></span><br><span class="line">epoch <span class="number">17</span>, loss <span class="number">0.002709</span></span><br><span class="line">epoch <span class="number">18</span>, loss <span class="number">0.002028</span></span><br><span class="line">epoch <span class="number">19</span>, loss <span class="number">0.001535</span></span><br><span class="line">epoch <span class="number">20</span>, loss <span class="number">0.001165</span></span><br><span class="line">epoch <span class="number">21</span>, loss <span class="number">0.000886</span></span><br><span class="line">epoch <span class="number">22</span>, loss <span class="number">0.000677</span></span><br><span class="line">epoch <span class="number">23</span>, loss <span class="number">0.000522</span></span><br><span class="line">epoch <span class="number">24</span>, loss <span class="number">0.000404</span></span><br><span class="line">epoch <span class="number">25</span>, loss <span class="number">0.000316</span></span><br><span class="line">epoch <span class="number">26</span>, loss <span class="number">0.000250</span></span><br><span class="line">epoch <span class="number">27</span>, loss <span class="number">0.000202</span></span><br><span class="line">epoch <span class="number">28</span>, loss <span class="number">0.000164</span></span><br><span class="line">epoch <span class="number">29</span>, loss <span class="number">0.000136</span></span><br><span class="line">epoch <span class="number">30</span>, loss <span class="number">0.000114</span></span><br><span class="line">loss of w: tensor([[-<span class="number">0.0262</span>], [-<span class="number">0.0319</span>]], grad_fn=&lt;SubBackward0&gt;)</span><br><span class="line">loss of b: tensor([<span class="number">0.0309</span>], grad_fn=&lt;RsubBackward1&gt;)</span><br></pre></td></tr></table></figure>
+<p>训练效果：</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/训练效果.26wsulhzy5j4.webp" alt="训练效果"></p>
+<h2 id="调API的线性回归"><a href="#调API的线性回归" class="headerlink" title="调API的线性回归"></a>调API的线性回归</h2><p>思想与上面完全一致，但是代码精简很多。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch.utils <span class="keyword">import</span> data</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">synthesis_data</span>(<span class="params">w, b, number</span>):</span><br><span class="line">    X = torch.rand(number, <span class="built_in">len</span>(w))</span><br><span class="line">    noise = torch.normal(<span class="number">0</span>, <span class="number">0.01</span>, size=(number, <span class="number">1</span>))</span><br><span class="line">    y = torch.matmul(X, w) + noise</span><br><span class="line">    y += b</span><br><span class="line">    <span class="keyword">return</span> X, y</span><br><span class="line"></span><br><span class="line"><span class="comment"># dataloader 还不理解</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">load_array</span>(<span class="params">data_array, batch_size, is_train=<span class="literal">True</span></span>):</span><br><span class="line">    dataset = data.TensorDataset(*data_array)</span><br><span class="line">    <span class="keyword">return</span> data.DataLoader(dataset, batch_size, shuffle=is_train)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="comment"># 生成数据集</span></span><br><span class="line">    w_true = torch.tensor([<span class="number">2</span>, -<span class="number">3.4</span>]).reshape(<span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line">    b_true = <span class="number">4.2</span></span><br><span class="line">    n = <span class="number">1000</span></span><br><span class="line">    features, labels = synthesis_data(w_true, b_true, n)</span><br><span class="line"></span><br><span class="line">    batch_size = <span class="number">10</span></span><br><span class="line">    data_iter = load_array((features, labels), batch_size)</span><br><span class="line">    <span class="comment"># print(next(iter(data_iter)))</span></span><br><span class="line"></span><br><span class="line">    net = nn.Sequential(nn.Linear(<span class="number">2</span>, <span class="number">1</span>))</span><br><span class="line">    net[<span class="number">0</span>].weight.data.normal_(<span class="number">0</span>, <span class="number">0.01</span>)</span><br><span class="line">    net[<span class="number">0</span>].bias.data.fill_(<span class="number">0</span>)</span><br><span class="line">    <span class="comment"># print(net[0])</span></span><br><span class="line"></span><br><span class="line">    loss = nn.MSELoss()</span><br><span class="line">    trainer = torch.optim.SGD(net.parameters(), lr=<span class="number">0.03</span>)</span><br><span class="line"></span><br><span class="line">    num_epochs = <span class="number">30</span></span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, num_epochs+<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> X, y <span class="keyword">in</span> data_iter:</span><br><span class="line">            l = loss(net(X), y)</span><br><span class="line">            trainer.zero_grad()</span><br><span class="line">            l.backward()</span><br><span class="line">            trainer.step()</span><br><span class="line">        l = loss(net(features), labels)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;epoch<span class="subst">&#123;epoch&#125;</span>, loss<span class="subst">&#123;l:<span class="number">.4</span>f&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    w = net[<span class="number">0</span>].weight.data</span><br><span class="line">    b = net[<span class="number">0</span>].bias.data</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;error of w= <span class="subst">&#123;w-w_true&#125;</span>&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;error of b= <span class="subst">&#123;b-b_true&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>仍然有一样的问题，书中训练3个epoch效果就很好，我需要训练到10个左右才能达到相同效果</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/DL/" rel="tag"># DL</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/10/31/softmax%E5%9B%9E%E5%BD%92(%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA)/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/10/31/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Re-%E4%BB%8E0%E5%BC%80%E5%A7%8B%E7%9A%84%E6%89%8B%E5%86%99%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92"><span class="nav-number">1.</span> <span class="nav-text">Re:从0开始的手写线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E5%B0%8F%E7%BB%86%E8%8A%82"><span class="nav-number">1.1.</span> <span class="nav-text">一些小细节</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.2.</span> <span class="nav-text">代码注解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">1.2.1.</span> <span class="nav-text">生成数据集</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#y-b%E4%B8%80%E5%8F%A5%E9%9C%80%E8%A6%81%E5%8D%95%E7%8B%AC%E6%88%90%E8%A1%8C%EF%BC%8C%E5%90%A6%E5%88%99%E4%BC%9A%E5%87%BA%E9%94%99"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">y+&#x3D;b一句需要单独成行，否则会出错</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E8%AF%BB%E5%8F%96%E5%B0%8F%E6%89%B9%E9%87%8F%E6%95%B0%E6%8D%AE"><span class="nav-number">1.2.2.</span> <span class="nav-text">随机读取小批量数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E6%A8%A1%E5%9E%8B%E5%8F%82%E6%95%B0"><span class="nav-number">1.2.3.</span> <span class="nav-text">初始化模型参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.4.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.5.</span> <span class="nav-text">损失函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95-%E5%B0%8F%E6%89%B9%E9%87%8F%E9%9A%8F%E6%9C%BA%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D"><span class="nav-number">1.2.6.</span> <span class="nav-text">优化算法(小批量随机梯度下降)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E8%BF%87%E7%A8%8B"><span class="nav-number">1.2.7.</span> <span class="nav-text">训练过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.2.7.1.</span> <span class="nav-text">参数设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E8%BF%87%E7%A8%8B-1"><span class="nav-number">1.2.7.2.</span> <span class="nav-text">训练过程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E6%95%88%E6%9E%9C"><span class="nav-number">1.2.8.</span> <span class="nav-text">训练效果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83API%E7%9A%84%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92"><span class="nav-number">1.3.</span> <span class="nav-text">调API的线性回归</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Thunderbolt"
+      src="/images/shooting_star.jpg">
+  <p class="site-author-name" itemprop="name">Thunderbolt</p>
+  <div class="site-description" itemprop="description">When the darkness seized the long night, did it envisage its end at the hands of a shooting star?</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Thunderbolt</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        processEscapes: true
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'Yr6oXhLTG9zn2uFbgw8ANqUa-gzGzoHsz',
+      appKey     : '6kkGTWvzzkPSVwhEInk2okdc',
+      placeholder: "请输入您的评论\n昵称为必填项目，输入QQ号可以直接获取用户名和头像，并且省去了填写邮箱的麻烦！\n虽然email不是必选，但是填写了email可以收到推送通知哦！o(*￣▽￣*)ブ",
+      avatar     : '',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

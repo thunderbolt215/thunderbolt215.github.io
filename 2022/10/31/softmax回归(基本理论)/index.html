@@ -20,24 +20,22 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="02 What is Object-OrientedObjects&#x3D;Attributes+Services Data​    properties or status Operations​     functions">
+  <meta name="description" content="softmax回归分类问题例子 电子邮件是否属于垃圾邮件文件夹 用户是否注册服务 图像描述的内容是狗、猫还是只因 韩梅梅接下来可能看那部电影  硬性类别&#x2F;软性类别    类别 说明     硬性类别 属于哪个类别   软性类别 属于每个类别的概率     one-hot encoding(独热编码)参考https:&#x2F;&#x2F;www.cnblogs.com&#x2F;zongfa&#x2F;p&#x2F;9305657.html so">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OOP-1">
-<meta property="og:url" content="http://example.com/2022/02/20/OOP-1/index.html">
+<meta property="og:title" content="Thunderbolt&#39;s Blog">
+<meta property="og:url" content="http://example.com/2022/10/31/softmax%E5%9B%9E%E5%BD%92(%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA)/index.html">
 <meta property="og:site_name" content="Thunderbolt&#39;s Blog">
-<meta property="og:description" content="02 What is Object-OrientedObjects&#x3D;Attributes+Services Data​    properties or status Operations​     functions">
+<meta property="og:description" content="softmax回归分类问题例子 电子邮件是否属于垃圾邮件文件夹 用户是否注册服务 图像描述的内容是狗、猫还是只因 韩梅梅接下来可能看那部电影  硬性类别&#x2F;软性类别    类别 说明     硬性类别 属于哪个类别   软性类别 属于每个类别的概率     one-hot encoding(独热编码)参考https:&#x2F;&#x2F;www.cnblogs.com&#x2F;zongfa&#x2F;p&#x2F;9305657.html so">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2022/03/20/ha4mFAnYDUMuBlE.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/20/kMynmbp56TcXoJC.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/20/CU7JmPDhMLqAyNp.png">
-<meta property="article:published_time" content="2022-02-20T13:24:20.000Z">
-<meta property="article:modified_time" content="2022-04-24T08:54:17.145Z">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/1.6vw7b1ngrgc0.webp">
+<meta property="article:published_time" content="2022-10-31T09:44:41.445Z">
+<meta property="article:modified_time" content="2022-10-31T09:51:05.856Z">
 <meta property="article:author" content="Thunderbolt">
-<meta property="article:tag" content="OOP">
+<meta property="article:tag" content="DL">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s2.loli.net/2022/03/20/ha4mFAnYDUMuBlE.png">
+<meta name="twitter:image" content="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/1.6vw7b1ngrgc0.webp">
 
-<link rel="canonical" href="http://example.com/2022/02/20/OOP-1/">
+<link rel="canonical" href="http://example.com/2022/10/31/softmax%E5%9B%9E%E5%BD%92(%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA)/">
 
 
 <script id="page-configurations">
@@ -50,7 +48,7 @@
   };
 </script>
 
-  <title>OOP-1 | Thunderbolt's Blog</title>
+  <title> | Thunderbolt's Blog</title>
   
 
 
@@ -171,7 +169,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/20/OOP-1/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/31/softmax%E5%9B%9E%E5%BD%92(%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shooting_star.jpg">
@@ -184,7 +182,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          OOP-1
+          
         </h1>
 
         <div class="post-meta">
@@ -193,28 +191,22 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2022-02-20 21:24:20" itemprop="dateCreated datePublished" datetime="2022-02-20T21:24:20+08:00">2022-02-20</time>
+              <time title="创建时间：2022-10-31 17:44:41 / 修改时间：17:51:05" itemprop="dateCreated datePublished" datetime="2022-10-31T17:44:41+08:00">2022-10-31</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-04-24 16:54:17" itemprop="dateModified" datetime="2022-04-24T16:54:17+08:00">2022-04-24</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OOP/" itemprop="url" rel="index"><span itemprop="name">OOP</span></a>
+                  <a href="/categories/DL/" itemprop="url" rel="index"><span itemprop="name">DL</span></a>
                 </span>
             </span>
 
           
-            <span id="/2022/02/20/OOP-1/" class="post-meta-item leancloud_visitors" data-flag-title="OOP-1" title="阅读次数">
+            <span id="/2022/10/31/softmax%E5%9B%9E%E5%BD%92(%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA)/" class="post-meta-item leancloud_visitors" data-flag-title="" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -229,8 +221,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2022/02/20/OOP-1/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/02/20/OOP-1/" itemprop="commentCount"></span>
+    <a title="valine" href="/2022/10/31/softmax%E5%9B%9E%E5%BD%92(%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA)/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/10/31/softmax%E5%9B%9E%E5%BD%92(%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA)/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -245,34 +237,54 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="02-What-is-Object-Oriented"><a href="#02-What-is-Object-Oriented" class="headerlink" title="02 What is Object-Oriented"></a>02 What is Object-Oriented</h1><h2 id="Objects-Attributes-Services"><a href="#Objects-Attributes-Services" class="headerlink" title="Objects=Attributes+Services"></a>Objects=Attributes+Services</h2><p><img src="https://s2.loli.net/2022/03/20/ha4mFAnYDUMuBlE.png" alt="image-20220320213015024"></p>
-<h3 id="Data"><a href="#Data" class="headerlink" title="Data"></a>Data</h3><p>​    properties or status</p>
-<h3 id="Operations"><a href="#Operations" class="headerlink" title="Operations"></a>Operations</h3><p>​     functions</p>
+        <h1 id="softmax回归"><a href="#softmax回归" class="headerlink" title="softmax回归"></a>softmax回归</h1><h2 id="分类问题"><a href="#分类问题" class="headerlink" title="分类问题"></a>分类问题</h2><h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><ul>
+<li>电子邮件是否属于垃圾邮件文件夹</li>
+<li>用户是否注册服务</li>
+<li>图像描述的内容是狗、猫还是只因</li>
+<li>韩梅梅接下来可能看那部电影</li>
+</ul>
+<h3 id="硬性类别-软性类别"><a href="#硬性类别-软性类别" class="headerlink" title="硬性类别/软性类别"></a>硬性类别/软性类别</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>硬性类别</td>
+<td>属于哪个类别</td>
+</tr>
+<tr>
+<td>软性类别</td>
+<td>属于每个类别的概率</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="one-hot-encoding-独热编码"><a href="#one-hot-encoding-独热编码" class="headerlink" title="one-hot encoding(独热编码)"></a>one-hot encoding(独热编码)</h3><h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zongfa/p/9305657.html">https://www.cnblogs.com/zongfa/p/9305657.html</a></p>
+<h2 id="softmax模型"><a href="#softmax模型" class="headerlink" title="softmax模型"></a>softmax模型</h2><h3 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h3><p>线性模型的分类问题需要<strong>afffine function(仿射函数)</strong>，</p>
+<p>向量形式表达为：</p>
+<script type="math/tex; mode=display">
+\bold{o=Wx+b}</script><p>全连接网络结构：</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/1.6vw7b1ngrgc0.webp" alt="1"></p>
 <span id="more"></span>
-<h2 id="Comparision-C-amp-amp-C"><a href="#Comparision-C-amp-amp-C" class="headerlink" title="Comparision: C &amp;&amp; C++"></a>Comparision: C &amp;&amp; C++</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//C style</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">point3d</span>&#123;</span></span><br><span class="line">    <span class="type">float</span> x;</span><br><span class="line">    <span class="type">float</span> y;</span><br><span class="line">    <span class="type">float</span> z;</span><br><span class="line">&#125;Point3d;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">Point3d_print</span><span class="params">(<span class="type">const</span> Point3d* pd)</span>;</span><br><span class="line">Point3d a;</span><br><span class="line">a.x = <span class="number">1</span>;</span><br><span class="line">a.y = <span class="number">2</span>;</span><br><span class="line">a.z = <span class="number">3</span>;</span><br><span class="line">Point3d_print(&amp;a);</span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//C++ style</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Point3d</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Point3d</span>(<span class="type">float</span> x, <span class="type">float</span> y, <span class="type">float</span> z);</span><br><span class="line">	<span class="built_in">print</span>();</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="type">float</span> x;</span><br><span class="line">	<span class="type">float</span> y;</span><br><span class="line">	<span class="type">float</span> z;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">Point3d <span class="title">a</span><span class="params">(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span></span>;</span><br><span class="line">a.<span class="built_in">print</span>();</span><br></pre></td></tr></table></figure>
-<h2 id="What-is-object-oriented"><a href="#What-is-object-oriented" class="headerlink" title="What is object-oriented"></a>What is object-oriented</h2><p>A way to organize <strong>Designs</strong> and <strong>Implementations</strong></p>
-<p>To focus on things, not operations.</p>
-<h1 id="03-Fundamental-of-OOP"><a href="#03-Fundamental-of-OOP" class="headerlink" title="03 Fundamental of OOP"></a>03 Fundamental of OOP</h1><h2 id="Objects-send-and-receive-messages"><a href="#Objects-send-and-receive-messages" class="headerlink" title="Objects send and receive messages"></a>Objects send and receive messages</h2><p><img src="https://s2.loli.net/2022/03/20/kMynmbp56TcXoJC.png" alt="image-20220320215335376"><strong>Messages</strong> are:<br>    -Composed by the sender<br>    -<strong>Interperted by the receiver</strong>(重点：让接收者自己决定执行什么动作，不接触类的data)<br>    -Implemented by the methods </p>
-<h2 id="Object-vs-Class"><a href="#Object-vs-Class" class="headerlink" title="Object vs. Class"></a>Object vs. Class</h2><p><img src="https://s2.loli.net/2022/03/20/CU7JmPDhMLqAyNp.png" alt="image-20220320220933094"></p>
-<h2 id="OOP-Characteristics"><a href="#OOP-Characteristics" class="headerlink" title="OOP Characteristics"></a>OOP Characteristics</h2><ol>
-<li>Everything is an object.</li>
-<li>A program is a brunch of objects telling each other <strong>what</strong> to do by sending messages.(<strong>WHAT, not HOW!</strong>)</li>
-<li>Each object has its own memory made up of other objects.</li>
-<li>Every object has a type.</li>
-<li>All objects of a particular type can receive the same messages.(<strong>反过来也成立，即可以接受相同消息的对象属于相同类型</strong>)</li>
-</ol>
-<h2 id="Functions-of-the-Interface"><a href="#Functions-of-the-Interface" class="headerlink" title="Functions of the Interface"></a>Functions of the Interface</h2><p><strong>-communication</strong></p>
-<p><strong>-protection</strong></p>
-<p>OOP程序设计中希望实现<strong>松耦合</strong></p>
-<h2 id="Encapsulation-封装"><a href="#Encapsulation-封装" class="headerlink" title="Encapsulation(封装)"></a>Encapsulation(封装)</h2><p>Bundle <strong>data</strong> and <strong>methods</strong> dealing with these data together in an object.</p>
-<p><strong>Hide</strong> the details of the data and the actions.</p>
-<p>Restrict only access to the <strong>publicized methods</strong>. </p>
-<h1 id="04-Example-Ticket-Machine"><a href="#04-Example-Ticket-Machine" class="headerlink" title="04 Example: Ticket Machine"></a>04 Example: Ticket Machine</h1><h2 id="规范"><a href="#规范" class="headerlink" title="[规范]"></a>[规范]</h2><p>project: 使用全小写字母，如 ticketmachine</p>
-<p>class: 首字母大写，如 TicketMachine</p>
-<h2 id="一些说明"><a href="#一些说明" class="headerlink" title="一些说明"></a>一些说明</h2><p>每个类都应当包含<strong>.h</strong>和<strong>.cpp</strong>两个文件</p>
-<p>.h中声明，.cpp中定义</p>
-<p>:: 称为域解析符</p>
+<h4 id="关于全连接网络的参数开销"><a href="#关于全连接网络的参数开销" class="headerlink" title="关于全连接网络的参数开销"></a>关于全连接网络的参数开销</h4><p>目前设计的全连接网络在有d个输入和q个输出的情况下参数开销为$O(dq)$，可能是过高的。</p>
+<p>在指定超参数n后成本可以降低到$O(\frac{dq}{n})$</p>
+<p>【但这部分只是提及一下，后面补充细节】</p>
+<h3 id="softmax运算"><a href="#softmax运算" class="headerlink" title="softmax运算"></a>softmax运算</h3><h4 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h4><p>希望模型的输出$\hat{y_j}$可以被看作属于类别j的概率，则预测结果就是具有最大输出值的类别$argmax_jy_j$</p>
+<h4 id="calibration-校准"><a href="#calibration-校准" class="headerlink" title="calibration(校准)"></a>calibration(校准)</h4><p>为达到这个目的引入softmax函数，希望能够将<strong>未归一化的预测</strong>变换为<strong>非负且总和为1</strong>、<strong>且模型可导</strong></p>
+<script type="math/tex; mode=display">
+\hat{y}=softmax(\bold(o)), where\space \hat{y_j}=\frac{exp(o_j)}{\sum_k exp(o_k)}</script><p>softmax运算不改变原本预测结果o之间的顺序，因此仍然是一个线性模型，仍然可以通过</p>
+<script type="math/tex; mode=display">
+\operatorname{argmax}_j\hat{y_j}=\operatorname{argmax}_j\hat{o_j}</script><h4 id="小批量计算过程"><a href="#小批量计算过程" class="headerlink" title="小批量计算过程"></a>小批量计算过程</h4><p>读取批量样本X，输入维度d，批量大小n，输出q个类别，即</p>
+<script type="math/tex; mode=display">
+X\in \mathbb{R}^{n\times d},W\in \mathbb{R}^{d\times q},b\in \mathbb{R}^{1\times q}</script><p>矢量计算表达式为</p>
+<script type="math/tex; mode=display">
+\bold{O=XW+b} \\
+\bold{\hat{Y}}=softmax(\bold{O})</script><h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><h3 id="对数似然"><a href="#对数似然" class="headerlink" title="对数似然"></a>对数似然</h3><p>【不懂】</p>
+<h2 id="信息论基础"><a href="#信息论基础" class="headerlink" title="信息论基础"></a>信息论基础</h2><p>【不懂】</p>
 
     </div>
 
@@ -282,7 +294,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/OOP/" rel="tag"># OOP</a>
+              <a href="/tags/DL/" rel="tag"># DL</a>
           </div>
 
         
@@ -291,12 +303,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/02/03/Signals-Systems-Review-CH1/" rel="prev" title="Signals & Systems Review-CH1">
-      <i class="fa fa-chevron-left"></i> Signals & Systems Review-CH1
+    <a href="/2022/09/25/Bitonic-Sort%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
     </a></div>
       <div class="post-nav-item">
-    <a href="/2022/02/27/pytorch-intro-1/" rel="next" title="pytorch入门">
-      pytorch入门 <i class="fa fa-chevron-right"></i>
+    <a href="/2022/10/31/Re%E4%BB%8E0%E5%BC%80%E5%A7%8B%E7%9A%84%E6%89%8B%E5%86%99%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -357,7 +369,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#02-What-is-Object-Oriented"><span class="nav-number">1.</span> <span class="nav-text">02 What is Object-Oriented</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Objects-Attributes-Services"><span class="nav-number">1.1.</span> <span class="nav-text">Objects&#x3D;Attributes+Services</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Data"><span class="nav-number">1.1.1.</span> <span class="nav-text">Data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Operations"><span class="nav-number">1.1.2.</span> <span class="nav-text">Operations</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Comparision-C-amp-amp-C"><span class="nav-number">1.2.</span> <span class="nav-text">Comparision: C &amp;&amp; C++</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-object-oriented"><span class="nav-number">1.3.</span> <span class="nav-text">What is object-oriented</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#03-Fundamental-of-OOP"><span class="nav-number">2.</span> <span class="nav-text">03 Fundamental of OOP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Objects-send-and-receive-messages"><span class="nav-number">2.1.</span> <span class="nav-text">Objects send and receive messages</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-vs-Class"><span class="nav-number">2.2.</span> <span class="nav-text">Object vs. Class</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OOP-Characteristics"><span class="nav-number">2.3.</span> <span class="nav-text">OOP Characteristics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Functions-of-the-Interface"><span class="nav-number">2.4.</span> <span class="nav-text">Functions of the Interface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Encapsulation-%E5%B0%81%E8%A3%85"><span class="nav-number">2.5.</span> <span class="nav-text">Encapsulation(封装)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#04-Example-Ticket-Machine"><span class="nav-number">3.</span> <span class="nav-text">04 Example: Ticket Machine</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%84%E8%8C%83"><span class="nav-number">3.1.</span> <span class="nav-text">[规范]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E8%AF%B4%E6%98%8E"><span class="nav-number">3.2.</span> <span class="nav-text">一些说明</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#softmax%E5%9B%9E%E5%BD%92"><span class="nav-number">1.</span> <span class="nav-text">softmax回归</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.</span> <span class="nav-text">分类问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">1.1.1.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A1%AC%E6%80%A7%E7%B1%BB%E5%88%AB-%E8%BD%AF%E6%80%A7%E7%B1%BB%E5%88%AB"><span class="nav-number">1.1.2.</span> <span class="nav-text">硬性类别&#x2F;软性类别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#one-hot-encoding-%E7%8B%AC%E7%83%AD%E7%BC%96%E7%A0%81"><span class="nav-number">1.1.3.</span> <span class="nav-text">one-hot encoding(独热编码)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#softmax%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">softmax模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.1.</span> <span class="nav-text">网络结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%BD%91%E7%BB%9C%E7%9A%84%E5%8F%82%E6%95%B0%E5%BC%80%E9%94%80"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">关于全连接网络的参数开销</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#softmax%E8%BF%90%E7%AE%97"><span class="nav-number">1.2.2.</span> <span class="nav-text">softmax运算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%AE%E7%9A%84"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#calibration-%E6%A0%A1%E5%87%86"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">calibration(校准)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8F%E6%89%B9%E9%87%8F%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">小批量计算过程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.</span> <span class="nav-text">损失函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E6%95%B0%E4%BC%BC%E7%84%B6"><span class="nav-number">1.3.1.</span> <span class="nav-text">对数似然</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E8%AE%BA%E5%9F%BA%E7%A1%80"><span class="nav-number">1.4.</span> <span class="nav-text">信息论基础</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
