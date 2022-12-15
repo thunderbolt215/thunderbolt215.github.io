@@ -1,26 +1,22 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-<link rel="stylesheet" href="https://fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="04. Camera CalibrationWCS. CCS. IPCS. PCS坐标系变换关系汇总WCS: World Coordinate System$(X^W,Y^W,Z^W)$ CCS: Camera Coordinate System$(X^C,Y^C,Z^C)$ IPCS&#x2F;FCS: Image Plane Coordinate System&#x2F;Film Coordinate Syste">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Thunderbolt">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="04. Camera CalibrationWCS. CCS. IPCS. PCS坐标系变换关系汇总WCS: World Coordinate System$(X^W,Y^W,Z^W)$ CCS: Camera Coordinate System$(X^C,Y^C,Z^C)$ IPCS&#x2F;FCS: Image Plane Coordinate System&#x2F;Film Coordinate Syste">
 <meta property="og:type" content="article">
 <meta property="og:title" content="IPMV L4 Camera Calibration">
 <meta property="og:url" content="http://example.com/2022/03/27/IPMV-L4-Camera-Calibration/index.html">
@@ -55,227 +51,264 @@
 <meta property="article:modified_time" content="2022-03-28T07:03:14.860Z">
 <meta property="article:author" content="Thunderbolt">
 <meta property="article:tag" content="CV">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2022/03/27/vWAy7DkO9FI8lRN.png">
+  
+  
+  
+  <title>IPMV L4 Camera Calibration - Thunderbolt&#39;s Blog</title>
 
-<link rel="canonical" href="http://example.com/2022/03/27/IPMV-L4-Camera-Calibration/">
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>IPMV L4 Camera Calibration | Thunderbolt's Blog</title>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
 
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
 
 
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  
+<meta name="generator" content="Hexo 6.0.0"></head>
 
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
+<body>
+  
 
-</head>
+  <header>
+    
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Thunderbolt's Blog</h1>
-      <span class="logo-line-after"><i></i></span>
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
     </a>
-      <p class="site-subtitle" itemprop="description">A shooting star voyage of the Dawn</p>
-  </div>
 
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
     </div>
   </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">9</span></a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">7</span></a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">17</span></a>
-
-  </li>
-        <li class="menu-item menu-item-guestbook">
-
-    <a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言板</a>
-
-  </li>
-  </ul>
 </nav>
 
+  
 
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="IPMV L4 Camera Calibration"></span>
+          
+        </div>
 
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-03-27 21:45" pubdate>
+          2022年3月27日 晚上
+        </time>
+      </span>
+    
+  </div>
 
-</div>
-    </header>
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.5k 字
+        
+      </span>
+    
 
     
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          22 分钟
+        
+      </span>
+    
+
+    
+    
   </div>
 
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/27/IPMV-L4-Camera-Calibration/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/shooting_star.jpg">
-      <meta itemprop="name" content="Thunderbolt">
-      <meta itemprop="description" content="When the darkness seized the long night, did it envisage its end at the hands of a shooting star?">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Thunderbolt's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          IPMV L4 Camera Calibration
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-03-27 21:45:21" itemprop="dateCreated datePublished" datetime="2022-03-27T21:45:21+08:00">2022-03-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-28 15:03:14" itemprop="dateModified" datetime="2022-03-28T15:03:14+08:00">2022-03-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/IPMV-courses/" itemprop="url" rel="index"><span itemprop="name">IPMV courses</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2022/03/27/IPMV-L4-Camera-Calibration/" class="post-meta-item leancloud_visitors" data-flag-title="IPMV L4 Camera Calibration" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/03/27/IPMV-L4-Camera-Calibration/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/03/27/IPMV-L4-Camera-Calibration/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+        
+      </div>
 
       
-        <h1 id="04-Camera-Calibration"><a href="#04-Camera-Calibration" class="headerlink" title="04. Camera Calibration"></a>04. Camera Calibration</h1><h2 id="WCS-CCS-IPCS-PCS"><a href="#WCS-CCS-IPCS-PCS" class="headerlink" title="WCS. CCS. IPCS. PCS"></a>WCS. CCS. IPCS. PCS</h2><h3 id="坐标系变换关系汇总"><a href="#坐标系变换关系汇总" class="headerlink" title="坐标系变换关系汇总"></a>坐标系变换关系汇总</h3><p>WCS: World Coordinate System$(X^W,Y^W,Z^W)$</p>
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">IPMV L4 Camera Calibration</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="04-Camera-Calibration"><a href="#04-Camera-Calibration" class="headerlink" title="04. Camera Calibration"></a>04. Camera Calibration</h1><h2 id="WCS-CCS-IPCS-PCS"><a href="#WCS-CCS-IPCS-PCS" class="headerlink" title="WCS. CCS. IPCS. PCS"></a>WCS. CCS. IPCS. PCS</h2><h3 id="坐标系变换关系汇总"><a href="#坐标系变换关系汇总" class="headerlink" title="坐标系变换关系汇总"></a>坐标系变换关系汇总</h3><p>WCS: World Coordinate System$(X^W,Y^W,Z^W)$</p>
 <p>CCS: Camera Coordinate System$(X^C,Y^C,Z^C)$</p>
 <p>IPCS/FCS: Image Plane Coordinate System/Film Coordinate System $(x,y)$</p>
 <p>PCS: Pixel Coordinate System$(u,v)$</p>
 <script type="math/tex; mode=display">
 WCS\leftrightarrow CCS\leftrightarrow IPCS\leftrightarrow PCS</script><span id="more"></span>
-<p><img src="https://s2.loli.net/2022/03/27/vWAy7DkO9FI8lRN.png" alt="image-20220327215625379"></p>
-<p><img src="https://s2.loli.net/2022/03/27/VcITkGpqD6OYjex.png" alt="image-20220327220812537"></p>
-<h3 id="补充1：不同旋转平移方式"><a href="#补充1：不同旋转平移方式" class="headerlink" title="补充1：不同旋转平移方式"></a>补充1：不同旋转平移方式</h3><p><img src="https://s2.loli.net/2022/03/27/Uf9QO8XVSogTzFk.png" alt="image-20220327220020765"></p>
-<h3 id="补充2：偏斜系数-skew-coefficient"><a href="#补充2：偏斜系数-skew-coefficient" class="headerlink" title="补充2：偏斜系数(skew coefficient)"></a>补充2：偏斜系数(skew coefficient)</h3><p><img src="https://s2.loli.net/2022/03/27/5yuzcZKhnESseCB.png" alt="image-20220327221019507"></p>
+<p><img src="https://s2.loli.net/2022/03/27/vWAy7DkO9FI8lRN.png" srcset="/img/loading.gif" lazyload alt="image-20220327215625379"></p>
+<p><img src="https://s2.loli.net/2022/03/27/VcITkGpqD6OYjex.png" srcset="/img/loading.gif" lazyload alt="image-20220327220812537"></p>
+<h3 id="补充1：不同旋转平移方式"><a href="#补充1：不同旋转平移方式" class="headerlink" title="补充1：不同旋转平移方式"></a>补充1：不同旋转平移方式</h3><p><img src="https://s2.loli.net/2022/03/27/Uf9QO8XVSogTzFk.png" srcset="/img/loading.gif" lazyload alt="image-20220327220020765"></p>
+<h3 id="补充2：偏斜系数-skew-coefficient"><a href="#补充2：偏斜系数-skew-coefficient" class="headerlink" title="补充2：偏斜系数(skew coefficient)"></a>补充2：偏斜系数(skew coefficient)</h3><p><img src="https://s2.loli.net/2022/03/27/5yuzcZKhnESseCB.png" srcset="/img/loading.gif" lazyload alt="image-20220327221019507"></p>
 <h2 id="Affine-transformation"><a href="#Affine-transformation" class="headerlink" title="Affine transformation"></a>Affine transformation</h2><h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p>通俗解释及动画演示参考：<a target="_blank" rel="noopener" href="https://www.matongxue.com/madocs/244/">https://www.matongxue.com/madocs/244/</a></p>
 <p><strong>Affine transformation = Linear transformation + Translation</strong></p>
 <p>Linear transformation:</p>
@@ -289,31 +322,31 @@ WCS\leftrightarrow CCS\leftrightarrow IPCS\leftrightarrow PCS</script><span id="
 <li>变换前是直线的，变换后依然是直线</li>
 <li>直线比例保持不变</li>
 </ul>
-<h3 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h3><p><img src="https://s2.loli.net/2022/03/27/k1ZGfj9FhzcAQiS.png" alt="image-20220327222707615"></p>
-<p><img src="https://s2.loli.net/2022/03/27/Czxt7oNIHdKwYka.png" alt="image-20220327222833156"></p>
-<p><img src="https://s2.loli.net/2022/03/27/nMoYiRHgPJ8leGd.png" alt="image-20220327222735348"></p>
-<p><img src="https://s2.loli.net/2022/03/27/6caKyoe52UASF8h.png" alt="image-20220327222803966"></p>
-<p><img src="https://s2.loli.net/2022/03/27/EtlY7dZcxVf51Lm.png" alt="image-20220327222812465"></p>
+<h3 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h3><p><img src="https://s2.loli.net/2022/03/27/k1ZGfj9FhzcAQiS.png" srcset="/img/loading.gif" lazyload alt="image-20220327222707615"></p>
+<p><img src="https://s2.loli.net/2022/03/27/Czxt7oNIHdKwYka.png" srcset="/img/loading.gif" lazyload alt="image-20220327222833156"></p>
+<p><img src="https://s2.loli.net/2022/03/27/nMoYiRHgPJ8leGd.png" srcset="/img/loading.gif" lazyload alt="image-20220327222735348"></p>
+<p><img src="https://s2.loli.net/2022/03/27/6caKyoe52UASF8h.png" srcset="/img/loading.gif" lazyload alt="image-20220327222803966"></p>
+<p><img src="https://s2.loli.net/2022/03/27/EtlY7dZcxVf51Lm.png" srcset="/img/loading.gif" lazyload alt="image-20220327222812465"></p>
 <h2 id="Homogeneous-Coordinates进一步理解"><a href="#Homogeneous-Coordinates进一步理解" class="headerlink" title="Homogeneous Coordinates进一步理解"></a>Homogeneous Coordinates进一步理解</h2><h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p><strong>Homogeneous coordinates</strong>(Projective coordinates)$\leftrightarrow$<strong>Projective Geometry</strong></p>
 <p>(类比:<strong>Cartesian coordinates</strong>$\leftrightarrow$<strong>Euclidean Geometry</strong>)</p>
 <p>齐次坐标空间与普通坐标空间不同！</p>
 <p><strong>Advantages</strong>: coordinates of points(including$\infty$) can be represented using finite coordinates</p>
 <h3 id="Example-1"><a href="#Example-1" class="headerlink" title="Example 1"></a>Example 1</h3><p>Determine the line passing through a(2,0) and b(1,3).</p>
 <p>转化为齐次坐标，作外积得到的向量三个分量即为直线方程的系数A,B,C.</p>
-<h3 id="Example-2"><a href="#Example-2" class="headerlink" title="Example 2"></a>Example 2</h3><p><img src="https://s2.loli.net/2022/03/27/O5PJGtvLVsFMR93.png" alt="image-20220327224923394"></p>
+<h3 id="Example-2"><a href="#Example-2" class="headerlink" title="Example 2"></a>Example 2</h3><p><img src="https://s2.loli.net/2022/03/27/O5PJGtvLVsFMR93.png" srcset="/img/loading.gif" lazyload alt="image-20220327224923394"></p>
 <h2 id="Vanishing-Point-消失点"><a href="#Vanishing-Point-消失点" class="headerlink" title="Vanishing Point(消失点)"></a>Vanishing Point(消失点)</h2><h3 id="Definition-1"><a href="#Definition-1" class="headerlink" title="Definition"></a>Definition</h3><p>2D perspective projections of mutually parallel in 3D space appear to converge.</p>
-<p><img src="https://s2.loli.net/2022/03/27/PxYCygLRlX5eUam.png" alt="image-20220327225133290"></p>
-<h3 id="Example1"><a href="#Example1" class="headerlink" title="Example1"></a>Example1</h3><p><img src="https://s2.loli.net/2022/03/27/vFHR8kPdDYBlhVO.png" alt="image-20220327230026540"></p>
+<p><img src="https://s2.loli.net/2022/03/27/PxYCygLRlX5eUam.png" srcset="/img/loading.gif" lazyload alt="image-20220327225133290"></p>
+<h3 id="Example1"><a href="#Example1" class="headerlink" title="Example1"></a>Example1</h3><p><img src="https://s2.loli.net/2022/03/27/vFHR8kPdDYBlhVO.png" srcset="/img/loading.gif" lazyload alt="image-20220327230026540"></p>
 <h3 id="Example-2-1"><a href="#Example-2-1" class="headerlink" title="Example 2"></a>Example 2</h3><p>How many vanishing points are there in the picture?</p>
-<p><img src="https://s2.loli.net/2022/03/27/8I6jMyWYzCbPLwJ.png" alt="image-20220327230112716"></p>
+<p><img src="https://s2.loli.net/2022/03/27/8I6jMyWYzCbPLwJ.png" srcset="/img/loading.gif" lazyload alt="image-20220327230112716"></p>
 <p>Ans: $\infty$</p>
-<p><img src="https://s2.loli.net/2022/03/27/cAMYwS2fZ4kqC65.png" alt="image-20220327230243681"></p>
+<p><img src="https://s2.loli.net/2022/03/27/cAMYwS2fZ4kqC65.png" srcset="/img/loading.gif" lazyload alt="image-20220327230243681"></p>
 <h2 id="Lens-distortion"><a href="#Lens-distortion" class="headerlink" title="Lens distortion"></a>Lens distortion</h2><h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>Deform the physically straight lines and makes them appear as curves in the images.</p>
 <h3 id="Category"><a href="#Category" class="headerlink" title="Category"></a>Category</h3><h4 id="1-Radial-distortion-径向"><a href="#1-Radial-distortion-径向" class="headerlink" title="1. Radial distortion(径向)"></a>1. Radial distortion(径向)</h4><p>Reason: <strong>Lens’ geometric shape</strong> affects the straight line transformation.</p>
-<p><img src="https://s2.loli.net/2022/03/27/zYVEoIcu3XjSnmf.png" alt="image-20220327231433108"></p>
+<p><img src="https://s2.loli.net/2022/03/27/zYVEoIcu3XjSnmf.png" srcset="/img/loading.gif" lazyload alt="image-20220327231433108"></p>
 <h4 id="2-Tangential-distortion-横向"><a href="#2-Tangential-distortion-横向" class="headerlink" title="2. Tangential distortion(横向)"></a>2. Tangential distortion(横向)</h4><p>Reason: Lens installed in front of the camera is not perfectly parallel to the image plane.</p>
 <p>In practical experiments, the image geometry is affected to a much higher extent with <strong>radial distortion</strong> than with tangential distortion(<strong>sometimes neglected</strong>).</p>
-<h3 id="Radial-distortion"><a href="#Radial-distortion" class="headerlink" title="Radial distortion"></a>Radial distortion</h3><h4 id="Classification"><a href="#Classification" class="headerlink" title="Classification"></a>Classification</h4><p><img src="https://s2.loli.net/2022/03/27/zCj1sncUGVgOPKZ.png" alt="image-20220327232506152"></p>
+<h3 id="Radial-distortion"><a href="#Radial-distortion" class="headerlink" title="Radial distortion"></a>Radial distortion</h3><h4 id="Classification"><a href="#Classification" class="headerlink" title="Classification"></a>Classification</h4><p><img src="https://s2.loli.net/2022/03/27/zCj1sncUGVgOPKZ.png" srcset="/img/loading.gif" lazyload alt="image-20220327232506152"></p>
 <h4 id="Calculation"><a href="#Calculation" class="headerlink" title="Calculation"></a>Calculation</h4><script type="math/tex; mode=display">
 x_{undist}=x_{dist}(1+k_1r^2+k_2r^4+k_3r^6) \\
 y_{undist}=y_{dist}(1+k_1r^2+k_2r^4+k_3r^6) \\
@@ -322,7 +355,7 @@ x_{dist}=\frac{x_c}{z_c}=\frac{u-u_o}{f_x} \\
 y_{dist}=\frac{y_c}{z_c}=\frac{v-v_o}{f_y} \\
 r^2=x_{dist}^2+y_{dist}^2 \\</script><p>​                                            $k_1,k_2,k_3$ are 3 intrinsic parameters used for radial distortion correction.</p>
 <script type="math/tex; mode=display">
-P_{dist}=[x_{dist},y_{dist}]^T\rightarrow P_{undist}=[x_{undist},y_{undist}]^T</script><h3 id="Tangential-Distortion"><a href="#Tangential-Distortion" class="headerlink" title="Tangential Distortion"></a>Tangential Distortion</h3><p><img src="https://s2.loli.net/2022/03/28/wcLnq6eAzblNxvM.png" alt="image-20220328092312774"></p>
+P_{dist}=[x_{dist},y_{dist}]^T\rightarrow P_{undist}=[x_{undist},y_{undist}]^T</script><h3 id="Tangential-Distortion"><a href="#Tangential-Distortion" class="headerlink" title="Tangential Distortion"></a>Tangential Distortion</h3><p><img src="https://s2.loli.net/2022/03/28/wcLnq6eAzblNxvM.png" srcset="/img/loading.gif" lazyload alt="image-20220328092312774"></p>
 <h2 id="Camera-Calibration"><a href="#Camera-Calibration" class="headerlink" title="Camera Calibration"></a>Camera Calibration</h2><h3 id="Introduction-1"><a href="#Introduction-1" class="headerlink" title="Introduction"></a>Introduction</h3><p>Process of <strong>estimating camera parameters</strong> by <strong>using images that contain a calibration pattern</strong>. </p>
 <p>Camera parameters includes:</p>
 <ul>
@@ -336,271 +369,399 @@ P_{dist}=[x_{dist},y_{dist}]^T\rightarrow P_{undist}=[x_{undist},y_{undist}]^T</
 <li>Measure planar objects</li>
 <li>Reconstruct 3D scenes from multiple cameras</li>
 </ul>
-<h3 id="Process"><a href="#Process" class="headerlink" title="Process"></a>Process</h3><h4 id="Step-1-Define-real-world-coordinates-with-checkerboard-pattern"><a href="#Step-1-Define-real-world-coordinates-with-checkerboard-pattern" class="headerlink" title="Step 1. Define real world coordinates with checkerboard pattern."></a>Step 1. Define real world coordinates with checkerboard pattern.</h4><p><img src="https://s2.loli.net/2022/03/28/MV1zRuhYBs8GHS3.png" alt="image-20220328093327268"></p>
-<h4 id="Step-2-Capture-multiple-images-of-the-checkerboard-from-different-viewpoints"><a href="#Step-2-Capture-multiple-images-of-the-checkerboard-from-different-viewpoints" class="headerlink" title="Step 2. Capture multiple images of the checkerboard from different viewpoints."></a>Step 2. Capture multiple images of the checkerboard from different viewpoints.</h4><p><img src="https://s2.loli.net/2022/03/28/fU5CAMmRslitGgp.png" alt="image-20220328093441682"></p>
-<h4 id="Step-3-Find-2D-coordinates-of-the-checkerboard"><a href="#Step-3-Find-2D-coordinates-of-the-checkerboard" class="headerlink" title="Step 3. Find 2D coordinates of the checkerboard."></a>Step 3. Find 2D coordinates of the checkerboard.</h4><p><img src="https://s2.loli.net/2022/03/28/dsTGpbL1Ofz5rj8.png" alt="image-20220328093533228"></p>
-<h4 id="Step-4-Calibrate-the-camera"><a href="#Step-4-Calibrate-the-camera" class="headerlink" title="Step 4. Calibrate the camera."></a>Step 4. Calibrate the camera.</h4><p><img src="https://s2.loli.net/2022/03/28/ZCIYJsixmn67Azt.png" alt="image-20220328093610674"></p>
+<h3 id="Process"><a href="#Process" class="headerlink" title="Process"></a>Process</h3><h4 id="Step-1-Define-real-world-coordinates-with-checkerboard-pattern"><a href="#Step-1-Define-real-world-coordinates-with-checkerboard-pattern" class="headerlink" title="Step 1. Define real world coordinates with checkerboard pattern."></a>Step 1. Define real world coordinates with checkerboard pattern.</h4><p><img src="https://s2.loli.net/2022/03/28/MV1zRuhYBs8GHS3.png" srcset="/img/loading.gif" lazyload alt="image-20220328093327268"></p>
+<h4 id="Step-2-Capture-multiple-images-of-the-checkerboard-from-different-viewpoints"><a href="#Step-2-Capture-multiple-images-of-the-checkerboard-from-different-viewpoints" class="headerlink" title="Step 2. Capture multiple images of the checkerboard from different viewpoints."></a>Step 2. Capture multiple images of the checkerboard from different viewpoints.</h4><p><img src="https://s2.loli.net/2022/03/28/fU5CAMmRslitGgp.png" srcset="/img/loading.gif" lazyload alt="image-20220328093441682"></p>
+<h4 id="Step-3-Find-2D-coordinates-of-the-checkerboard"><a href="#Step-3-Find-2D-coordinates-of-the-checkerboard" class="headerlink" title="Step 3. Find 2D coordinates of the checkerboard."></a>Step 3. Find 2D coordinates of the checkerboard.</h4><p><img src="https://s2.loli.net/2022/03/28/dsTGpbL1Ofz5rj8.png" srcset="/img/loading.gif" lazyload alt="image-20220328093533228"></p>
+<h4 id="Step-4-Calibrate-the-camera"><a href="#Step-4-Calibrate-the-camera" class="headerlink" title="Step 4. Calibrate the camera."></a>Step 4. Calibrate the camera.</h4><p><img src="https://s2.loli.net/2022/03/28/ZCIYJsixmn67Azt.png" srcset="/img/loading.gif" lazyload alt="image-20220328093610674"></p>
 <center>Left: Camera-centric</center>
 
 <center>Right: Pattern-centric </center>
 
-<h4 id="Step-5-Compute-the-re-projection-error-and-refine-精制，提炼-the-calibration"><a href="#Step-5-Compute-the-re-projection-error-and-refine-精制，提炼-the-calibration" class="headerlink" title="Step 5. Compute the re-projection error and refine(精制，提炼) the calibration."></a>Step 5. Compute the re-projection error and refine(精制，提炼) the calibration.</h4><p><img src="https://s2.loli.net/2022/03/28/eOqPHZUGk4CIasm.png" alt="image-20220328093812637"></p>
-<h3 id="Re-projection-error"><a href="#Re-projection-error" class="headerlink" title="Re-projection error"></a>Re-projection error</h3><p><img src="https://s2.loli.net/2022/03/28/dWki3y89ojaAIhm.png" alt="image-20220328094401951"></p>
-<p><img src="https://s2.loli.net/2022/03/28/LoSGP5Kz4yAaVhc.png" alt="image-20220328094451821"></p>
+<h4 id="Step-5-Compute-the-re-projection-error-and-refine-精制，提炼-the-calibration"><a href="#Step-5-Compute-the-re-projection-error-and-refine-精制，提炼-the-calibration" class="headerlink" title="Step 5. Compute the re-projection error and refine(精制，提炼) the calibration."></a>Step 5. Compute the re-projection error and refine(精制，提炼) the calibration.</h4><p><img src="https://s2.loli.net/2022/03/28/eOqPHZUGk4CIasm.png" srcset="/img/loading.gif" lazyload alt="image-20220328093812637"></p>
+<h3 id="Re-projection-error"><a href="#Re-projection-error" class="headerlink" title="Re-projection error"></a>Re-projection error</h3><p><img src="https://s2.loli.net/2022/03/28/dWki3y89ojaAIhm.png" srcset="/img/loading.gif" lazyload alt="image-20220328094401951"></p>
+<p><img src="https://s2.loli.net/2022/03/28/LoSGP5Kz4yAaVhc.png" srcset="/img/loading.gif" lazyload alt="image-20220328094451821"></p>
 
-    </div>
-
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/CV/" rel="tag"># CV</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2022/03/08/IPMV-L3-Perspective-Transformation/" rel="prev" title="IPMV lecture3 Perspective Transformation">
-      <i class="fa fa-chevron-left"></i> IPMV lecture3 Perspective Transformation
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/04/01/Kalman-Filter/" rel="next" title="Kalman Filter">
-      Kalman Filter <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
   
-  
-  
-
-
-
-          </div>
-          
-    <div class="comments" id="valine-comments"></div>
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#04-Camera-Calibration"><span class="nav-number">1.</span> <span class="nav-text">04. Camera Calibration</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#WCS-CCS-IPCS-PCS"><span class="nav-number">1.1.</span> <span class="nav-text">WCS. CCS. IPCS. PCS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9D%90%E6%A0%87%E7%B3%BB%E5%8F%98%E6%8D%A2%E5%85%B3%E7%B3%BB%E6%B1%87%E6%80%BB"><span class="nav-number">1.1.1.</span> <span class="nav-text">坐标系变换关系汇总</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A5%E5%85%851%EF%BC%9A%E4%B8%8D%E5%90%8C%E6%97%8B%E8%BD%AC%E5%B9%B3%E7%A7%BB%E6%96%B9%E5%BC%8F"><span class="nav-number">1.1.2.</span> <span class="nav-text">补充1：不同旋转平移方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A5%E5%85%852%EF%BC%9A%E5%81%8F%E6%96%9C%E7%B3%BB%E6%95%B0-skew-coefficient"><span class="nav-number">1.1.3.</span> <span class="nav-text">补充2：偏斜系数(skew coefficient)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Affine-transformation"><span class="nav-number">1.2.</span> <span class="nav-text">Affine transformation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Definition"><span class="nav-number">1.2.1.</span> <span class="nav-text">Definition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Examples"><span class="nav-number">1.2.2.</span> <span class="nav-text">Examples</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Homogeneous-Coordinates%E8%BF%9B%E4%B8%80%E6%AD%A5%E7%90%86%E8%A7%A3"><span class="nav-number">1.3.</span> <span class="nav-text">Homogeneous Coordinates进一步理解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Description"><span class="nav-number">1.3.1.</span> <span class="nav-text">Description</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-1"><span class="nav-number">1.3.2.</span> <span class="nav-text">Example 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-2"><span class="nav-number">1.3.3.</span> <span class="nav-text">Example 2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vanishing-Point-%E6%B6%88%E5%A4%B1%E7%82%B9"><span class="nav-number">1.4.</span> <span class="nav-text">Vanishing Point(消失点)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Definition-1"><span class="nav-number">1.4.1.</span> <span class="nav-text">Definition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example1"><span class="nav-number">1.4.2.</span> <span class="nav-text">Example1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-2-1"><span class="nav-number">1.4.3.</span> <span class="nav-text">Example 2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lens-distortion"><span class="nav-number">1.5.</span> <span class="nav-text">Lens distortion</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Introduction"><span class="nav-number">1.5.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Category"><span class="nav-number">1.5.2.</span> <span class="nav-text">Category</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Radial-distortion-%E5%BE%84%E5%90%91"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">1. Radial distortion(径向)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Tangential-distortion-%E6%A8%AA%E5%90%91"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">2. Tangential distortion(横向)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Radial-distortion"><span class="nav-number">1.5.3.</span> <span class="nav-text">Radial distortion</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Classification"><span class="nav-number">1.5.3.1.</span> <span class="nav-text">Classification</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Calculation"><span class="nav-number">1.5.3.2.</span> <span class="nav-text">Calculation</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tangential-Distortion"><span class="nav-number">1.5.4.</span> <span class="nav-text">Tangential Distortion</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Camera-Calibration"><span class="nav-number">1.6.</span> <span class="nav-text">Camera Calibration</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Introduction-1"><span class="nav-number">1.6.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Process"><span class="nav-number">1.6.2.</span> <span class="nav-text">Process</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Step-1-Define-real-world-coordinates-with-checkerboard-pattern"><span class="nav-number">1.6.2.1.</span> <span class="nav-text">Step 1. Define real world coordinates with checkerboard pattern.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step-2-Capture-multiple-images-of-the-checkerboard-from-different-viewpoints"><span class="nav-number">1.6.2.2.</span> <span class="nav-text">Step 2. Capture multiple images of the checkerboard from different viewpoints.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step-3-Find-2D-coordinates-of-the-checkerboard"><span class="nav-number">1.6.2.3.</span> <span class="nav-text">Step 3. Find 2D coordinates of the checkerboard.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step-4-Calibrate-the-camera"><span class="nav-number">1.6.2.4.</span> <span class="nav-text">Step 4. Calibrate the camera.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step-5-Compute-the-re-projection-error-and-refine-%E7%B2%BE%E5%88%B6%EF%BC%8C%E6%8F%90%E7%82%BC-the-calibration"><span class="nav-number">1.6.2.5.</span> <span class="nav-text">Step 5. Compute the re-projection error and refine(精制，提炼) the calibration.</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Re-projection-error"><span class="nav-number">1.6.3.</span> <span class="nav-text">Re-projection error</span></a></li></ol></li></ol></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="Thunderbolt"
-      src="/images/shooting_star.jpg">
-  <p class="site-author-name" itemprop="name">Thunderbolt</p>
-  <div class="site-description" itemprop="description">When the darkness seized the long night, did it envisage its end at the hands of a shooting star?</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">17</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">7</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">9</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2022</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Thunderbolt</span>
-</div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-  </div>
-
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
       
 
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-        processEscapes: true
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
+<span class="category-chains">
+  
+  
     
+      <span class="category-chain">
+        
+  <a href="/categories/IPMV-courses/" class="category-chain-item">IPMV courses</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CV/">#CV</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>IPMV L4 Camera Calibration</div>
+      <div>http://example.com/2022/03/27/IPMV-L4-Camera-Calibration/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Thunderbolt</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年3月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/04/01/Kalman-Filter/" title="Kalman Filter">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Kalman Filter</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/08/IPMV-L3-Perspective-Transformation/" title="IPMV lecture3 Perspective Transformation">
+                        <span class="hidden-mobile">IPMV lecture3 Perspective Transformation</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
 
   
 
 
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
 <script>
-NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
-  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
-    var GUEST = ['nick', 'mail', 'link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item => {
-      return GUEST.includes(item);
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
     });
-    new Valine({
-      el         : '#valine-comments',
-      verify     : false,
-      notify     : false,
-      appId      : 'Yr6oXhLTG9zn2uFbgw8ANqUa-gzGzoHsz',
-      appKey     : '6kkGTWvzzkPSVwhEInk2okdc',
-      placeholder: "请输入您的评论\n昵称为必填项目，输入QQ号可以直接获取用户名和头像，并且省去了填写邮箱的麻烦！\n虽然email不是必选，但是填写了email可以收到推送通知哦！o(*￣▽￣*)ブ",
-      avatar     : '',
-      meta       : guest,
-      pageSize   : '10' || 10,
-      visitor    : true,
-      lang       : '' || 'zh-cn',
-      path       : location.pathname,
-      recordIP   : true,
-      serverURLs : ''
-    });
-  }, window.Valine);
-});
+  });
 </script>
 
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

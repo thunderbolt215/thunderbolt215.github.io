@@ -1,26 +1,22 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-<link rel="stylesheet" href="https://fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="Signals and Systems Review - CH11.1 概述信息.消息.信号例子：电信号传递声音、图像、文字 信号是消息的表现形式，消息是信号的具体内容 系统包括变换器、处理器等 $\Leftrightarrow$网络$\Leftrightarrow$电路 信号分析目的：揭示信号特性及其改变方式 思想：分解成简单基本单元信号 系统分析对指定输入激励的输出响应">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Thunderbolt">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Signals and Systems Review - CH11.1 概述信息.消息.信号例子：电信号传递声音、图像、文字 信号是消息的表现形式，消息是信号的具体内容 系统包括变换器、处理器等 $\Leftrightarrow$网络$\Leftrightarrow$电路 信号分析目的：揭示信号特性及其改变方式 思想：分解成简单基本单元信号 系统分析对指定输入激励的输出响应">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Signals &amp; Systems Review-CH1">
 <meta property="og:url" content="http://example.com/2022/02/03/Signals-Systems-Review-CH1/index.html">
@@ -48,218 +44,255 @@
 <meta property="article:modified_time" content="2022-04-24T08:52:39.690Z">
 <meta property="article:author" content="Thunderbolt">
 <meta property="article:tag" content="Signals">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2022/04/03/4n1XgovF9skeYxf.png">
+  
+  
+  
+  <title>Signals &amp; Systems Review-CH1 - Thunderbolt&#39;s Blog</title>
 
-<link rel="canonical" href="http://example.com/2022/02/03/Signals-Systems-Review-CH1/">
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>Signals & Systems Review-CH1 | Thunderbolt's Blog</title>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
 
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
 
 
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  
+<meta name="generator" content="Hexo 6.0.0"></head>
 
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
+<body>
+  
 
-</head>
+  <header>
+    
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Thunderbolt's Blog</h1>
-      <span class="logo-line-after"><i></i></span>
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
     </a>
-      <p class="site-subtitle" itemprop="description">A shooting star voyage of the Dawn</p>
-  </div>
 
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
     </div>
   </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">9</span></a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">7</span></a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">17</span></a>
-
-  </li>
-        <li class="menu-item menu-item-guestbook">
-
-    <a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言板</a>
-
-  </li>
-  </ul>
 </nav>
 
+  
 
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Signals &amp; Systems Review-CH1"></span>
+          
+        </div>
 
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-02-03 14:30" pubdate>
+          2022年2月3日 下午
+        </time>
+      </span>
+    
+  </div>
 
-</div>
-    </header>
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.5k 字
+        
+      </span>
+    
 
     
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 分钟
+        
+      </span>
+    
+
+    
+    
   </div>
 
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/03/Signals-Systems-Review-CH1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/shooting_star.jpg">
-      <meta itemprop="name" content="Thunderbolt">
-      <meta itemprop="description" content="When the darkness seized the long night, did it envisage its end at the hands of a shooting star?">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Thunderbolt's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Signals & Systems Review-CH1
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-02-03 14:30:48" itemprop="dateCreated datePublished" datetime="2022-02-03T14:30:48+08:00">2022-02-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-04-24 16:52:39" itemprop="dateModified" datetime="2022-04-24T16:52:39+08:00">2022-04-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/courses/" itemprop="url" rel="index"><span itemprop="name">courses</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2022/02/03/Signals-Systems-Review-CH1/" class="post-meta-item leancloud_visitors" data-flag-title="Signals & Systems Review-CH1" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/02/03/Signals-Systems-Review-CH1/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/02/03/Signals-Systems-Review-CH1/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+        
+      </div>
 
       
-        <h1 id="Signals-and-Systems-Review-CH1"><a href="#Signals-and-Systems-Review-CH1" class="headerlink" title="Signals and Systems Review - CH1"></a>Signals and Systems Review - CH1</h1><h2 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h2><h3 id="信息-消息-信号"><a href="#信息-消息-信号" class="headerlink" title="信息.消息.信号"></a>信息.消息.信号</h3><p>例子：<strong>电信号</strong>传递<strong>声音、图像、文字</strong></p>
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Signals &amp; Systems Review-CH1</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Signals-and-Systems-Review-CH1"><a href="#Signals-and-Systems-Review-CH1" class="headerlink" title="Signals and Systems Review - CH1"></a>Signals and Systems Review - CH1</h1><h2 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h2><h3 id="信息-消息-信号"><a href="#信息-消息-信号" class="headerlink" title="信息.消息.信号"></a>信息.消息.信号</h3><p>例子：<strong>电信号</strong>传递<strong>声音、图像、文字</strong></p>
 <p>信号是消息的表现形式，消息是信号的具体内容</p>
 <h3 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h3><p>包括变换器、处理器等</p>
 <p>$\Leftrightarrow$网络$\Leftrightarrow$电路</p>
@@ -269,37 +302,37 @@
 <span id="more"></span>
 <h2 id="1-2-信号描述"><a href="#1-2-信号描述" class="headerlink" title="1.2 信号描述"></a>1.2 信号描述</h2><h3 id="确定性信号-amp-随机信号"><a href="#确定性信号-amp-随机信号" class="headerlink" title="确定性信号&amp;随机信号"></a>确定性信号&amp;随机信号</h3><p>确定性信号：对于指定的某一时刻t，可确定一相应的函数值f(t)，<strong>若干不连续点除外</strong></p>
 <h3 id="连续信号-amp-离散信号"><a href="#连续信号-amp-离散信号" class="headerlink" title="连续信号&amp;离散信号"></a>连续信号&amp;离散信号</h3><p>连续时间信号：自变量的取值范围是连续的（实数域），用t表示连续时间变量</p>
-<p><img src="https://s2.loli.net/2022/04/03/4n1XgovF9skeYxf.png" alt="image-20220403145759285"></p>
+<p><img src="https://s2.loli.net/2022/04/03/4n1XgovF9skeYxf.png" srcset="/img/loading.gif" lazyload alt="image-20220403145759285"></p>
 <p>离散时间信号：自变量只取整数值的信号，用n表示离散时间变量</p>
-<p><img src="https://s2.loli.net/2022/04/03/AT9Lcu6gwNjzt5n.png" alt="image-20220403145826087"></p>
+<p><img src="https://s2.loli.net/2022/04/03/AT9Lcu6gwNjzt5n.png" srcset="/img/loading.gif" lazyload alt="image-20220403145826087"></p>
 <h3 id="周期信号-amp-非周期信号"><a href="#周期信号-amp-非周期信号" class="headerlink" title="周期信号&amp;非周期信号"></a>周期信号&amp;非周期信号</h3><p>周期信号：满足$x(t+T)=x(t)\space or\space x(n+N)=x(n)$</p>
-<p><img src="https://s2.loli.net/2022/04/03/BSGRMUk9y7hz3qv.png" alt="image-20220403150009283"></p>
+<p><img src="https://s2.loli.net/2022/04/03/BSGRMUk9y7hz3qv.png" srcset="/img/loading.gif" lazyload alt="image-20220403150009283"></p>
 <h3 id="模拟、量化、抽样"><a href="#模拟、量化、抽样" class="headerlink" title="模拟、量化、抽样"></a>模拟、量化、抽样</h3><p>模拟信号：时间和幅值均连续</p>
-<p><img src="https://s2.loli.net/2022/04/03/FzBOlVEjmLMw6UI.png" alt="image-20220403150055042"></p>
+<p><img src="https://s2.loli.net/2022/04/03/FzBOlVEjmLMw6UI.png" srcset="/img/loading.gif" lazyload alt="image-20220403150055042"></p>
 <p>抽样信号：时间离散，幅值连续</p>
-<p><img src="https://s2.loli.net/2022/04/03/ydisMXkzvrFhPAE.png" alt="image-20220403150125448"></p>
+<p><img src="https://s2.loli.net/2022/04/03/ydisMXkzvrFhPAE.png" srcset="/img/loading.gif" lazyload alt="image-20220403150125448"></p>
 <p>数字信号：时间和幅值均为离散</p>
-<p><img src="https://s2.loli.net/2022/04/03/ewizHKBP49g5Dh2.png" alt="image-20220403150143318"></p>
+<p><img src="https://s2.loli.net/2022/04/03/ewizHKBP49g5Dh2.png" srcset="/img/loading.gif" lazyload alt="image-20220403150143318"></p>
 <p>【模拟】$\rightarrow$抽样$\rightarrow$【抽样】$\rightarrow$量化$\rightarrow$【数字】</p>
 <p>时间离散性$\Rightarrow$连续、离散</p>
 <p>幅度离散型$\Rightarrow$(离散)抽样、数字</p>
 <h3 id="能量信号-amp-功率信号"><a href="#能量信号-amp-功率信号" class="headerlink" title="能量信号&amp;功率信号"></a>能量信号&amp;功率信号</h3><p><strong>周期信号为功率信号</strong>，通常用它的平均功率来表征；</p>
 <p>非周期信号可能为能量信号，也可能为功率信号，与函数形式有关。</p>
 <h3 id="典型确定性信号"><a href="#典型确定性信号" class="headerlink" title="典型确定性信号"></a>典型确定性信号</h3><h4 id="指数信号"><a href="#指数信号" class="headerlink" title="指数信号"></a>指数信号</h4><script type="math/tex; mode=display">
-f(t)=e^{\alpha t}</script><p><img src="https://s2.loli.net/2022/04/03/rMvd6plFLuqRQJj.png" alt="image-20220403150704589"></p>
+f(t)=e^{\alpha t}</script><p><img src="https://s2.loli.net/2022/04/03/rMvd6plFLuqRQJj.png" srcset="/img/loading.gif" lazyload alt="image-20220403150704589"></p>
 <p>单边指数信号</p>
-<p><img src="https://s2.loli.net/2022/04/03/lmI4JewqxkBbhE2.png" alt="image-20220403150841141"></p>
+<p><img src="https://s2.loli.net/2022/04/03/lmI4JewqxkBbhE2.png" srcset="/img/loading.gif" lazyload alt="image-20220403150841141"></p>
 <p>时间常数：$\tau = \frac{1}{|\alpha|}$，量纲为时间，代表衰减速度</p>
 <p>重要特性：积分、微分仍是指数形式</p>
 <h4 id="复指数信号"><a href="#复指数信号" class="headerlink" title="复指数信号"></a>复指数信号</h4><script type="math/tex; mode=display">
 f(t)=Ke^{st}</script><p>其中$s=\sigma + j\omega$为复数，称为<strong>复频率</strong></p>
 <script type="math/tex; mode=display">
-f(t)=Ke^{\sigma t}cos(\omega t)+jKe^{\sigma t}sin{\omega t}</script><p><img src="https://s2.loli.net/2022/04/03/RzL5ltykH7YdSZn.png" alt="image-20220403152631396"></p>
-<p><img src="https://s2.loli.net/2022/04/03/Xif2SUOuL5jtaQc.png" alt="image-20220403152644234"></p>
-<p><img src="https://s2.loli.net/2022/04/03/qjpdZNm9OWzU8iv.png" alt="image-20220403152650531"></p>
-<p><img src="https://s2.loli.net/2022/04/03/B6sfcMivy7NUCFQ.png" alt="image-20220403152712908"></p>
+f(t)=Ke^{\sigma t}cos(\omega t)+jKe^{\sigma t}sin{\omega t}</script><p><img src="https://s2.loli.net/2022/04/03/RzL5ltykH7YdSZn.png" srcset="/img/loading.gif" lazyload alt="image-20220403152631396"></p>
+<p><img src="https://s2.loli.net/2022/04/03/Xif2SUOuL5jtaQc.png" srcset="/img/loading.gif" lazyload alt="image-20220403152644234"></p>
+<p><img src="https://s2.loli.net/2022/04/03/qjpdZNm9OWzU8iv.png" srcset="/img/loading.gif" lazyload alt="image-20220403152650531"></p>
+<p><img src="https://s2.loli.net/2022/04/03/B6sfcMivy7NUCFQ.png" srcset="/img/loading.gif" lazyload alt="image-20220403152712908"></p>
 <h4 id="抽样信号"><a href="#抽样信号" class="headerlink" title="抽样信号"></a>抽样信号</h4><script type="math/tex; mode=display">
-Sa(t)=\frac{sin t}{t}</script><p><img src="https://s2.loli.net/2022/04/03/2IPsxX4wRUOe713.png" alt="image-20220403152927876"></p>
+Sa(t)=\frac{sin t}{t}</script><p><img src="https://s2.loli.net/2022/04/03/2IPsxX4wRUOe713.png" srcset="/img/loading.gif" lazyload alt="image-20220403152927876"></p>
 <p>性质：</p>
 <script type="math/tex; mode=display">
 Sa(t)=Sa(-t)\space (偶函数)\\
@@ -310,7 +343,7 @@ Sa(\pm n\pi)=0\space,n=1,2,3,...(没有0！注意！) \\
 <script type="math/tex; mode=display">
 sinc(t)=\frac{sin(\pi t)}{\pi t}</script><p>钟形信号(高斯函数)</p>
 <script type="math/tex; mode=display">
-f(t)=Ee^{-(\frac{t}{\tau})^2}</script><p><img src="https://s2.loli.net/2022/04/03/iqmZwhFfMn24Dgb.png" alt="image-20220403153806039"></p>
+f(t)=Ee^{-(\frac{t}{\tau})^2}</script><p><img src="https://s2.loli.net/2022/04/03/iqmZwhFfMn24Dgb.png" srcset="/img/loading.gif" lazyload alt="image-20220403153806039"></p>
 <h2 id="1-3-信号运算"><a href="#1-3-信号运算" class="headerlink" title="1.3 信号运算"></a>1.3 信号运算</h2><h3 id="宗量"><a href="#宗量" class="headerlink" title="宗量"></a>宗量</h3><p>宗量：可以理解为广义的自变量。这里的“广义”是指：自变量突破高中数学中的限制，可以是狭义的自变量，可以是函数，也可以是代数式……</p>
 <p>可以依据<strong>宗量相同，函数值相同</strong>，求新坐标<strong>（！！！！）</strong></p>
 <h3 id="移位"><a href="#移位" class="headerlink" title="移位"></a>移位</h3><p>f(t)沿着t轴平移$\tau$得到</p>
@@ -318,14 +351,14 @@ f(t)=Ee^{-(\frac{t}{\tau})^2}</script><p><img src="https://s2.loli.net/2022/04/0
 f(t)\rightarrow f(t-\tau) \\
 \tau>0，右移（滞后） \\
 \tau<0，左移（超前）</script><p>可以依据<strong>宗量相同，函数值相同</strong>，求新坐标</p>
-<p><img src="https://s2.loli.net/2022/04/03/Z2e4LncSRoWdwDI.png" alt="image-20220403165602982"></p>
+<p><img src="https://s2.loli.net/2022/04/03/Z2e4LncSRoWdwDI.png" srcset="/img/loading.gif" lazyload alt="image-20220403165602982"></p>
 <h3 id="反褶"><a href="#反褶" class="headerlink" title="反褶"></a>反褶</h3><script type="math/tex; mode=display">
 f(t)\rightarrow f(-t)</script><p>以纵轴为轴折叠，把信号的过去与未来对调。</p>
 <p><strong>没有可实现此功能的实际器件</strong>。</p>
 <p>数字信号处理中可以实现此概念，例如堆栈中的“后进先出”。</p>
 <h3 id="尺度"><a href="#尺度" class="headerlink" title="尺度"></a>尺度</h3><script type="math/tex; mode=display">
-f(t)\rightarrow f(at)</script><p><img src="https://s2.loli.net/2022/04/03/TlmWDrZyvCXLOxH.png" alt="image-20220403165916331"></p>
-<p><img src="https://s2.loli.net/2022/04/03/wH2BiVhy6JCURcr.png" alt="image-20220403165931513"></p>
+f(t)\rightarrow f(at)</script><p><img src="https://s2.loli.net/2022/04/03/TlmWDrZyvCXLOxH.png" srcset="/img/loading.gif" lazyload alt="image-20220403165916331"></p>
+<p><img src="https://s2.loli.net/2022/04/03/wH2BiVhy6JCURcr.png" srcset="/img/loading.gif" lazyload alt="image-20220403165931513"></p>
 <h3 id="一般情况"><a href="#一般情况" class="headerlink" title="一般情况"></a>一般情况</h3><script type="math/tex; mode=display">
 f(t)\rightarrow f(at\pm b)=f(a(t\pm \frac{b}{a})) \space (a,b>0)</script><p><strong>Steps:</strong></p>
 <p>1.尺度：a&gt;1，压缩a倍；a&lt;1，扩展1/a倍</p>
@@ -336,256 +369,381 @@ f(a(t+\frac{b}{a}))\rightarrow f(-a(t+\frac{b}{a}))=f(-at- b)</script><p>1.平�
 <p>2.反转时以被变换的宗量$\lambda=0$( 可以是t的复合函数）的直线为轴，即以f(-$\lambda$)为标准形式确定反转轴</p>
 <p>3.尺度变换应以被变换的宗量$\lambda=0$(的直线为展缩中心线，即以f(a $\lambda$)为标准形式确定展缩中心线</p>
 
-    </div>
-
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/Signals/" rel="tag"># Signals</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item"></div>
-      <div class="post-nav-item">
-    <a href="/2022/02/20/OOP-1/" rel="next" title="OOP-1">
-      OOP-1 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
   
-  
-  
-
-
-
-          </div>
-          
-    <div class="comments" id="valine-comments"></div>
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Signals-and-Systems-Review-CH1"><span class="nav-number">1.</span> <span class="nav-text">Signals and Systems Review - CH1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E6%A6%82%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF-%E6%B6%88%E6%81%AF-%E4%BF%A1%E5%8F%B7"><span class="nav-number">1.1.1.</span> <span class="nav-text">信息.消息.信号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.1.2.</span> <span class="nav-text">系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E5%88%86%E6%9E%90"><span class="nav-number">1.1.3.</span> <span class="nav-text">信号分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90"><span class="nav-number">1.1.4.</span> <span class="nav-text">系统分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E4%BF%A1%E5%8F%B7%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 信号描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A1%AE%E5%AE%9A%E6%80%A7%E4%BF%A1%E5%8F%B7-amp-%E9%9A%8F%E6%9C%BA%E4%BF%A1%E5%8F%B7"><span class="nav-number">1.2.1.</span> <span class="nav-text">确定性信号&amp;随机信号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E4%BF%A1%E5%8F%B7-amp-%E7%A6%BB%E6%95%A3%E4%BF%A1%E5%8F%B7"><span class="nav-number">1.2.2.</span> <span class="nav-text">连续信号&amp;离散信号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7-amp-%E9%9D%9E%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7"><span class="nav-number">1.2.3.</span> <span class="nav-text">周期信号&amp;非周期信号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%8B%9F%E3%80%81%E9%87%8F%E5%8C%96%E3%80%81%E6%8A%BD%E6%A0%B7"><span class="nav-number">1.2.4.</span> <span class="nav-text">模拟、量化、抽样</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%BD%E9%87%8F%E4%BF%A1%E5%8F%B7-amp-%E5%8A%9F%E7%8E%87%E4%BF%A1%E5%8F%B7"><span class="nav-number">1.2.5.</span> <span class="nav-text">能量信号&amp;功率信号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E7%A1%AE%E5%AE%9A%E6%80%A7%E4%BF%A1%E5%8F%B7"><span class="nav-number">1.2.6.</span> <span class="nav-text">典型确定性信号</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E6%95%B0%E4%BF%A1%E5%8F%B7"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">指数信号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E6%8C%87%E6%95%B0%E4%BF%A1%E5%8F%B7"><span class="nav-number">1.2.6.2.</span> <span class="nav-text">复指数信号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%BD%E6%A0%B7%E4%BF%A1%E5%8F%B7"><span class="nav-number">1.2.6.3.</span> <span class="nav-text">抽样信号</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-%E4%BF%A1%E5%8F%B7%E8%BF%90%E7%AE%97"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 信号运算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%97%E9%87%8F"><span class="nav-number">1.3.1.</span> <span class="nav-text">宗量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E4%BD%8D"><span class="nav-number">1.3.2.</span> <span class="nav-text">移位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E8%A4%B6"><span class="nav-number">1.3.3.</span> <span class="nav-text">反褶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%BA%E5%BA%A6"><span class="nav-number">1.3.4.</span> <span class="nav-text">尺度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E8%88%AC%E6%83%85%E5%86%B5"><span class="nav-number">1.3.5.</span> <span class="nav-text">一般情况</span></a></li></ol></li></ol></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="Thunderbolt"
-      src="/images/shooting_star.jpg">
-  <p class="site-author-name" itemprop="name">Thunderbolt</p>
-  <div class="site-description" itemprop="description">When the darkness seized the long night, did it envisage its end at the hands of a shooting star?</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">17</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">7</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">9</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2022</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Thunderbolt</span>
-</div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-  </div>
-
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
       
 
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-        processEscapes: true
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
+<span class="category-chains">
+  
+  
     
+      <span class="category-chain">
+        
+  <a href="/categories/courses/" class="category-chain-item">courses</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Signals/">#Signals</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Signals &amp; Systems Review-CH1</div>
+      <div>http://example.com/2022/02/03/Signals-Systems-Review-CH1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Thunderbolt</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年2月3日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/02/20/OOP-1/" title="OOP-1">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">OOP-1</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
 
   
 
 
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
 <script>
-NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
-  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
-    var GUEST = ['nick', 'mail', 'link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item => {
-      return GUEST.includes(item);
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
     });
-    new Valine({
-      el         : '#valine-comments',
-      verify     : false,
-      notify     : false,
-      appId      : 'Yr6oXhLTG9zn2uFbgw8ANqUa-gzGzoHsz',
-      appKey     : '6kkGTWvzzkPSVwhEInk2okdc',
-      placeholder: "请输入您的评论\n昵称为必填项目，输入QQ号可以直接获取用户名和头像，并且省去了填写邮箱的麻烦！\n虽然email不是必选，但是填写了email可以收到推送通知哦！o(*￣▽￣*)ブ",
-      avatar     : '',
-      meta       : guest,
-      pageSize   : '10' || 10,
-      visitor    : true,
-      lang       : '' || 'zh-cn',
-      path       : location.pathname,
-      recordIP   : true,
-      serverURLs : ''
-    });
-  }, window.Valine);
-});
+  });
 </script>
 
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
