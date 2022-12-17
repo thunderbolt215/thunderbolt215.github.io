@@ -16,24 +16,24 @@
   <meta name="author" content="Thunderbolt">
   <meta name="keywords" content="">
   
-    <meta name="description" content="降维观测器简介引入对于系统  \dot{x}&#x3D;Ax+Bu \\ y&#x3D;Cx假设其中x的维数为n，y的维数为m。 全维观测器对全部变量x进行重构。但是如果状态的某些线性组合可以直接作为输出被测量出来(这由矩阵C决定)，就不需要进行估计，则可以降低其维数，仅需要额外获得n-m个维度的信息，之后配合观测得到的m个维度的信息，通过线性组合，就可以获得状态x的信息，由此引入降维观测器。 若C矩阵秩为m，则只需">
+    <meta name="description" content="图像取样与量化参考https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;5a80a5681bb9 要点先转换为灰度图再进行取样和量化。 取样实际上是对原图像矩阵等间隔取样，量化采用histeq()进行，其中的参数代表量化分级数。 代码12345678910ori &#x3D; imread(&quot;e:\\coding\test.png&quot;);gray &#x3D; rgb2gray(ori);prop1">
 <meta property="og:type" content="article">
-<meta property="og:title" content="降维观测器">
-<meta property="og:url" content="http://example.com/2022/04/06/%E9%99%8D%E7%BB%B4%E8%A7%82%E6%B5%8B%E5%99%A8/index.html">
+<meta property="og:title" content="图像取样与量化">
+<meta property="og:url" content="http://example.com/2022/12/17/%E5%9B%BE%E5%83%8F%E5%8F%96%E6%A0%B7%E4%B8%8E%E9%87%8F%E5%8C%96/index.html">
 <meta property="og:site_name" content="Thunderbolt&#39;s Blog">
-<meta property="og:description" content="降维观测器简介引入对于系统  \dot{x}&#x3D;Ax+Bu \\ y&#x3D;Cx假设其中x的维数为n，y的维数为m。 全维观测器对全部变量x进行重构。但是如果状态的某些线性组合可以直接作为输出被测量出来(这由矩阵C决定)，就不需要进行估计，则可以降低其维数，仅需要额外获得n-m个维度的信息，之后配合观测得到的m个维度的信息，通过线性组合，就可以获得状态x的信息，由此引入降维观测器。 若C矩阵秩为m，则只需">
+<meta property="og:description" content="图像取样与量化参考https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;5a80a5681bb9 要点先转换为灰度图再进行取样和量化。 取样实际上是对原图像矩阵等间隔取样，量化采用histeq()进行，其中的参数代表量化分级数。 代码12345678910ori &#x3D; imread(&quot;e:\\coding\test.png&quot;);gray &#x3D; rgb2gray(ori);prop1">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2022/04/06/A2aGVTJFpSro4bB.png">
-<meta property="article:published_time" content="2022-04-06T00:36:42.000Z">
-<meta property="article:modified_time" content="2022-12-17T11:11:00.310Z">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/untitled.xlud9neywdc.webp">
+<meta property="article:published_time" content="2022-12-17T12:04:51.000Z">
+<meta property="article:modified_time" content="2022-12-17T12:18:15.566Z">
 <meta property="article:author" content="Thunderbolt">
-<meta property="article:tag" content="Control">
+<meta property="article:tag" content="Image Processing">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2022/04/06/A2aGVTJFpSro4bB.png">
+<meta name="twitter:image" content="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/untitled.xlud9neywdc.webp">
   
   
   
-  <title>降维观测器 - Thunderbolt&#39;s Blog</title>
+  <title>图像取样与量化 - Thunderbolt&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -215,7 +215,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="降维观测器"></span>
+            <span id="subtitle" data-typed-text="图像取样与量化"></span>
           
         </div>
 
@@ -226,8 +226,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-04-06 08:36" pubdate>
-          2022年4月6日 早上
+        <time datetime="2022-12-17 20:04" pubdate>
+          2022年12月17日 晚上
         </time>
       </span>
     
@@ -238,7 +238,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          452 字
         
       </span>
     
@@ -249,7 +249,7 @@
         
         
         
-          9 分钟
+          4 分钟
         
       </span>
     
@@ -291,58 +291,16 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">降维观测器</h1>
+            <h1 style="display: none">图像取样与量化</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="降维观测器简介"><a href="#降维观测器简介" class="headerlink" title="降维观测器简介"></a>降维观测器简介</h1><h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>对于系统</p>
-<script type="math/tex; mode=display">
-\dot{x}=Ax+Bu \\
-y=Cx</script><p>假设其中x的维数为n，y的维数为m。</p>
-<p>全维观测器对全部变量x进行重构。但是如果状态的某些线性组合可以直接作为输出被测量出来(这由矩阵C决定)，就不需要进行估计，则可以降低其维数，仅需要额外获得n-m个维度的信息，之后配合观测得到的m个维度的信息，通过线性组合，就可以获得状态x的信息，由此引入降维观测器。</p>
-<p>若C矩阵秩为m，则只需要重构余下的n-m个状态分量。</p>
-<span id="more"></span>
-<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>给定线性系统$\sum(A,B,C):$</p>
-<script type="math/tex; mode=display">
-\dot{x}=Ax+Bu \\
-y=Cx</script><p>其中C为$m\times n$矩阵，假定$rank(C)=m$，则一定存在线性变换</p>
-<script type="math/tex; mode=display">
-\overline{x}=Tx,where\space T=[D\space C]^T</script><p>其中D为使得$T^{-1}$存在的任意$(n-m)\times n$阵。</p>
-<p>通过这一线性变换，系统变换为：</p>
-<script type="math/tex; mode=display">
-\dot{\overline{x} }=TAT^{-1}\overline{x}+TBu \\
-y=CT^{-1}\overline{x}=[0\space I_m][\overline{x}_1\space \overline{x}_2]^T=\overline{x}_2</script><p>其中$\overline{x}_2$为m维，可以直接量测，因此只需要观测$(n-m)$维状态变量$\overline{x}_1$。</p>
-<h2 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h2><p>为避免输出量的微分，重新定义观测器的状态</p>
-<script type="math/tex; mode=display">
-令W=\hat{x}_1+M_1\dot{y} \\
-=(A_{11}+M_1A_{21})w+(B_1+M_1B_2)u+ \\ (A_{12}+M_1A{22}-(A_{11}+M_1A_{21})M_1)y \\
-=(A_{11}+M_1A_{21})w+B_0u+Ey \\
-其中 \\
-B_0=B_1+M_1B_2 \\
-E=A_{12}+M_1A_{22}-(A_{11}+M_1A_{21})M_1 \\</script><p>上述称为Luenberger观测器。</p>
-<p>由此得到原系统的状态重构：</p>
-<script type="math/tex; mode=display">
-\hat{x}=\left[
-\matrix{
-  \hat{x} \\
-  y \\
-}
-\right]=\left[
-\matrix{
-  w-M_1 y \\
-  y \\
-}\right]=\left[
-\matrix{
-  I \\
-  0 \\
-}\right]w+\left[
-\matrix{
-  -M_1 \\
-  I \\
-}\right]y</script><h2 id="误差分析"><a href="#误差分析" class="headerlink" title="误差分析"></a>误差分析</h2><p>降维观测器的测量值y通过$M_1$直接反映在状态$\hat{x}_1$上，如图所示：</p>
-<p><img src="https://s2.loli.net/2022/04/06/A2aGVTJFpSro4bB.png" srcset="/img/loading.gif" lazyload alt="image-20220406100227560"></p>
-<p>这样会将测量噪声带入，使得$M_1$的误差直接影响到$\hat{x}_1$稳态值，在全维观测器中则不存在这种误差。</p>
+                <h1 id="图像取样与量化"><a href="#图像取样与量化" class="headerlink" title="图像取样与量化"></a>图像取样与量化</h1><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a><strong>参考</strong></h2><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5a80a5681bb9">https://www.jianshu.com/p/5a80a5681bb9</a></p>
+<h2 id="要点"><a href="#要点" class="headerlink" title="要点"></a><strong>要点</strong></h2><p>先转换为灰度图再进行取样和量化。</p>
+<p>取样实际上是对原图像矩阵等间隔取样，量化采用<code>histeq()</code>进行，其中的参数代表量化分级数。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs matlab">ori = imread(<span class="hljs-string">&quot;e:\\coding\test.png&quot;</span>);<br>gray = rgb2gray(ori);<br>prop1 = <span class="hljs-number">8</span>;<br>sampling = gray(<span class="hljs-number">1</span>:prop1:<span class="hljs-keyword">end</span>, <span class="hljs-number">1</span>:prop1:<span class="hljs-keyword">end</span>);<br>prop2 = <span class="hljs-number">8</span>;<br>quantifying = histeq(gray, prop2);<br><br>subplot(<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">1</span>), imshow(gray), title(<span class="hljs-string">&#x27;origin&#x27;</span>)<br>subplot(<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">2</span>), imshow(sampling), title(<span class="hljs-string">&#x27;sampling&#x27;</span>)<br>subplot(<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">3</span>), imshow(quantifying), title(<span class="hljs-string">&#x27;quantifying&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/untitled.xlud9neywdc.webp" srcset="/img/loading.gif" lazyload alt="untitled"></p>
 
                 
               </div>
@@ -361,7 +319,7 @@ E=A_{12}+M_1A_{22}-(A_{11}+M_1A_{21})M_1 \\</script><p>上述称为Luenberger观
     
       <span class="category-chain">
         
-  <a href="/categories/Control/" class="category-chain-item">Control</a>
+  <a href="/categories/ImageProcessing/" class="category-chain-item">ImageProcessing</a>
   
   
 
@@ -376,7 +334,7 @@ E=A_{12}+M_1A_{22}-(A_{11}+M_1A_{21})M_1 \\</script><p>上述称为Luenberger观
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Control/">#Control</a>
+        <a href="/tags/Image-Processing/">#Image Processing</a>
       
     </div>
   
@@ -388,8 +346,8 @@ E=A_{12}+M_1A_{22}-(A_{11}+M_1A_{21})M_1 \\</script><p>上述称为Luenberger观
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>降维观测器</div>
-      <div>http://example.com/2022/04/06/降维观测器/</div>
+      <div>图像取样与量化</div>
+      <div>http://example.com/2022/12/17/图像取样与量化/</div>
     </div>
     <div class="license-meta">
       
@@ -401,7 +359,7 @@ E=A_{12}+M_1A_{22}-(A_{11}+M_1A_{21})M_1 \\</script><p>上述称为Luenberger观
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年4月6日</div>
+          <div>2022年12月17日</div>
         </div>
       
       
@@ -433,9 +391,9 @@ E=A_{12}+M_1A_{22}-(A_{11}+M_1A_{21})M_1 \\</script><p>上述称为Luenberger观
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/12/17/Git%E5%85%A5%E9%97%A8/" title="Git入门">
+                      <a href="/2022/12/17/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/" title="线性回归基本理论">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Git入门</span>
+                        <span class="hidden-mobile">线性回归基本理论</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -443,8 +401,8 @@ E=A_{12}+M_1A_{22}-(A_{11}+M_1A_{21})M_1 \\</script><p>上述称为Luenberger观
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/04/01/Kalman-Filter/" title="Kalman Filter">
-                        <span class="hidden-mobile">Kalman Filter</span>
+                      <a href="/2022/12/17/Re-%E4%BB%8E0%E5%BC%80%E5%A7%8B%E7%9A%84%E6%89%8B%E5%86%99%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" title="Re:从0开始的手写线性回归">
+                        <span class="hidden-mobile">Re:从0开始的手写线性回归</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

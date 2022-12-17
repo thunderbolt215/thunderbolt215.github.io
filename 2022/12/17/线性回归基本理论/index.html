@@ -16,24 +16,25 @@
   <meta name="author" content="Thunderbolt">
   <meta name="keywords" content="">
   
-    <meta name="description" content="降维观测器简介引入对于系统  \dot{x}&#x3D;Ax+Bu \\ y&#x3D;Cx假设其中x的维数为n，y的维数为m。 全维观测器对全部变量x进行重构。但是如果状态的某些线性组合可以直接作为输出被测量出来(这由矩阵C决定)，就不需要进行估计，则可以降低其维数，仅需要额外获得n-m个维度的信息，之后配合观测得到的m个维度的信息，通过线性组合，就可以获得状态x的信息，由此引入降维观测器。 若C矩阵秩为m，则只需">
+    <meta name="description" content="名词汇总    名词 说明 举例（写法）     training data set     sample(data point, data instance数据样本)  $\bold{x}^{(i)}&#x3D;[x_1^{(i)}+x_2^{(i)}]^T$   label(target) 试图预测的目标 $y^{(i)}$   features(covariates协变量) 预测时依据的自变量">
 <meta property="og:type" content="article">
-<meta property="og:title" content="降维观测器">
-<meta property="og:url" content="http://example.com/2022/04/06/%E9%99%8D%E7%BB%B4%E8%A7%82%E6%B5%8B%E5%99%A8/index.html">
+<meta property="og:title" content="线性回归基本理论">
+<meta property="og:url" content="http://example.com/2022/12/17/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/index.html">
 <meta property="og:site_name" content="Thunderbolt&#39;s Blog">
-<meta property="og:description" content="降维观测器简介引入对于系统  \dot{x}&#x3D;Ax+Bu \\ y&#x3D;Cx假设其中x的维数为n，y的维数为m。 全维观测器对全部变量x进行重构。但是如果状态的某些线性组合可以直接作为输出被测量出来(这由矩阵C决定)，就不需要进行估计，则可以降低其维数，仅需要额外获得n-m个维度的信息，之后配合观测得到的m个维度的信息，通过线性组合，就可以获得状态x的信息，由此引入降维观测器。 若C矩阵秩为m，则只需">
+<meta property="og:description" content="名词汇总    名词 说明 举例（写法）     training data set     sample(data point, data instance数据样本)  $\bold{x}^{(i)}&#x3D;[x_1^{(i)}+x_2^{(i)}]^T$   label(target) 试图预测的目标 $y^{(i)}$   features(covariates协变量) 预测时依据的自变量">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2022/04/06/A2aGVTJFpSro4bB.png">
-<meta property="article:published_time" content="2022-04-06T00:36:42.000Z">
-<meta property="article:modified_time" content="2022-12-17T11:11:00.310Z">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/Snipaste_2022-10-13_21-31-37.5kgfyh56fcg0.webp">
+<meta property="article:published_time" content="2022-12-17T12:07:24.000Z">
+<meta property="article:modified_time" content="2022-12-17T12:19:53.708Z">
 <meta property="article:author" content="Thunderbolt">
-<meta property="article:tag" content="Control">
+<meta property="article:tag" content="Deeplearning">
+<meta property="article:tag" content="Linear Regression">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2022/04/06/A2aGVTJFpSro4bB.png">
+<meta name="twitter:image" content="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/Snipaste_2022-10-13_21-31-37.5kgfyh56fcg0.webp">
   
   
   
-  <title>降维观测器 - Thunderbolt&#39;s Blog</title>
+  <title>线性回归基本理论 - Thunderbolt&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -215,7 +216,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="降维观测器"></span>
+            <span id="subtitle" data-typed-text="线性回归基本理论"></span>
           
         </div>
 
@@ -226,8 +227,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-04-06 08:36" pubdate>
-          2022年4月6日 早上
+        <time datetime="2022-12-17 20:07" pubdate>
+          2022年12月17日 晚上
         </time>
       </span>
     
@@ -238,7 +239,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          2.9k 字
         
       </span>
     
@@ -249,7 +250,7 @@
         
         
         
-          9 分钟
+          25 分钟
         
       </span>
     
@@ -291,59 +292,122 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">降维观测器</h1>
+            <h1 style="display: none">线性回归基本理论</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="降维观测器简介"><a href="#降维观测器简介" class="headerlink" title="降维观测器简介"></a>降维观测器简介</h1><h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>对于系统</p>
+                <h1 id="名词汇总"><a href="#名词汇总" class="headerlink" title="名词汇总"></a>名词汇总</h1><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>名词</th>
+<th style="text-align:left">说明</th>
+<th>举例（写法）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>training data set</td>
+<td style="text-align:left"></td>
+<td></td>
+</tr>
+<tr>
+<td>sample(data point, data instance数据样本)</td>
+<td style="text-align:left"></td>
+<td>$\bold{x}^{(i)}=[x_1^{(i)}+x_2^{(i)}]^T$</td>
+</tr>
+<tr>
+<td>label(target)</td>
+<td style="text-align:left">试图预测的目标</td>
+<td>$y^{(i)}$</td>
+</tr>
+<tr>
+<td>features(covariates协变量)</td>
+<td style="text-align:left">预测时依据的自变量</td>
+<td></td>
+</tr>
+<tr>
+<td>batch size</td>
+<td style="text-align:left">小批量样本数</td>
+<td></td>
+</tr>
+<tr>
+<td>learning rate</td>
+<td style="text-align:left"></td>
+<td></td>
+</tr>
+<tr>
+<td>hyperparameter</td>
+<td style="text-align:left">超参数</td>
+<td></td>
+</tr>
+<tr>
+<td>hyperparameter tuning</td>
+<td style="text-align:left">调参</td>
+<td></td>
+</tr>
+<tr>
+<td>validation data set</td>
+<td style="text-align:left">验证数据集</td>
+<td></td>
+</tr>
+<tr>
+<td>likelihood</td>
+<td style="text-align:left">可能性</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="线性回归基本概念"><a href="#线性回归基本概念" class="headerlink" title="线性回归基本概念"></a>线性回归基本概念</h1><h2 id="基本要素"><a href="#基本要素" class="headerlink" title="基本要素"></a>基本要素</h2><ul>
+<li>x和y之间呈线性关系</li>
+<li>噪声正态分布</li>
+</ul>
+<h3 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h3><p>例如$y=w_1x_1+w_2x_2+b$，可称之为<strong>仿射变换(affine transformation)</strong></p>
+<blockquote>
+<p>通过加权和特征进行线性变换，并通过偏置项进行平移</p>
+</blockquote>
+<p>写成向量形式</p>
 <script type="math/tex; mode=display">
-\dot{x}=Ax+Bu \\
-y=Cx</script><p>假设其中x的维数为n，y的维数为m。</p>
-<p>全维观测器对全部变量x进行重构。但是如果状态的某些线性组合可以直接作为输出被测量出来(这由矩阵C决定)，就不需要进行估计，则可以降低其维数，仅需要额外获得n-m个维度的信息，之后配合观测得到的m个维度的信息，通过线性组合，就可以获得状态x的信息，由此引入降维观测器。</p>
-<p>若C矩阵秩为m，则只需要重构余下的n-m个状态分量。</p>
-<span id="more"></span>
-<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>给定线性系统$\sum(A,B,C):$</p>
+\hat{y}=\bold{w}^Tx+b</script><p>记X为特征集合，<strong>每行代表一个样本，每列代表一个特征</strong>，线性模型为</p>
 <script type="math/tex; mode=display">
-\dot{x}=Ax+Bu \\
-y=Cx</script><p>其中C为$m\times n$矩阵，假定$rank(C)=m$，则一定存在线性变换</p>
+\hat{y}=Xw+b</script><h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h3><p>给定训练数据特征X、已知标签y，求权重向量w和偏置b，当给定<strong>从X同分布中取样的新样本特征</strong>时，使得新样本预测标签的误差尽可能小。</p>
+<h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><h3 id="平方误差"><a href="#平方误差" class="headerlink" title="平方误差"></a>平方误差</h3><p>常用平方误差：</p>
 <script type="math/tex; mode=display">
-\overline{x}=Tx,where\space T=[D\space C]^T</script><p>其中D为使得$T^{-1}$存在的任意$(n-m)\times n$阵。</p>
-<p>通过这一线性变换，系统变换为：</p>
+l^{(i)}(\bold{w},b)=\frac{1}{2}(\hat{y}^{(i)}-y^{(i)})^2</script><blockquote>
+<p>系数1/2是为了求导之后系数变为1，无特殊含义</p>
+</blockquote>
+<p>一般计算训练集n个样本上的损失均值</p>
 <script type="math/tex; mode=display">
-\dot{\overline{x} }=TAT^{-1}\overline{x}+TBu \\
-y=CT^{-1}\overline{x}=[0\space I_m][\overline{x}_1\space \overline{x}_2]^T=\overline{x}_2</script><p>其中$\overline{x}_2$为m维，可以直接量测，因此只需要观测$(n-m)$维状态变量$\overline{x}_1$。</p>
-<h2 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h2><p>为避免输出量的微分，重新定义观测器的状态</p>
+L(\bold{w},b)=\frac{1}{n}\sum_{i=1}^nl^{(i)}(\bold{w},b)=\frac{1}{n}\sum_{i=1}^n\frac{1}{2}(\bold{w}^Tx^{(i)}+b-y^{(i)})^2</script><h3 id="与正态分布的联系"><a href="#与正态分布的联系" class="headerlink" title="与正态分布的联系"></a>与正态分布的联系</h3><blockquote>
+<p>正态分布随机变量x具有均值$\mu$和标准差$\sigma$,概率密度函数为</p>
 <script type="math/tex; mode=display">
-令W=\hat{x}_1+M_1\dot{y} \\
-=(A_{11}+M_1A_{21})w+(B_1+M_1B_2)u+ \\ (A_{12}+M_1A{22}-(A_{11}+M_1A_{21})M_1)y \\
-=(A_{11}+M_1A_{21})w+B_0u+Ey \\
-其中 \\
-B_0=B_1+M_1B_2 \\
-E=A_{12}+M_1A_{22}-(A_{11}+M_1A_{21})M_1 \\</script><p>上述称为Luenberger观测器。</p>
-<p>由此得到原系统的状态重构：</p>
+p(x)=\frac{1}{\sqrt{2\pi \sigma^2}}exp(-\frac{1}{2\sigma^2}(x-\mu)^2)</script></blockquote>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/Snipaste_2022-10-13_21-26-37.4fkp9j2zaj60.webp" srcset="/img/loading.gif" lazyload alt="Snipaste_2022-10-13_21-26-37"></p>
+<p>总结：<strong>最小化目标函数等价于执行最大似然估计</strong></p>
+<h2 id="解析解"><a href="#解析解" class="headerlink" title="解析解"></a>解析解</h2><p>线性回归问题可以表示为</p>
 <script type="math/tex; mode=display">
-\hat{x}=\left[
-\matrix{
-  \hat{x} \\
-  y \\
-}
-\right]=\left[
-\matrix{
-  w-M_1 y \\
-  y \\
-}\right]=\left[
-\matrix{
-  I \\
-  0 \\
-}\right]w+\left[
-\matrix{
-  -M_1 \\
-  I \\
-}\right]y</script><h2 id="误差分析"><a href="#误差分析" class="headerlink" title="误差分析"></a>误差分析</h2><p>降维观测器的测量值y通过$M_1$直接反映在状态$\hat{x}_1$上，如图所示：</p>
-<p><img src="https://s2.loli.net/2022/04/06/A2aGVTJFpSro4bB.png" srcset="/img/loading.gif" lazyload alt="image-20220406100227560"></p>
-<p>这样会将测量噪声带入，使得$M_1$的误差直接影响到$\hat{x}_1$稳态值，在全维观测器中则不存在这种误差。</p>
-
+\bold{w}^*,b^*=\operatorname{argmin}_{\bold{w},b}L(\bold{w},b)</script><p>存在解析解【但是还不会算】</p>
+<h2 id="Minibatch-stochastic-gradient-descent-小批量随机梯度下降"><a href="#Minibatch-stochastic-gradient-descent-小批量随机梯度下降" class="headerlink" title="Minibatch stochastic gradient descent(小批量随机梯度下降)"></a>Minibatch stochastic gradient descent(小批量随机梯度下降)</h2><p>梯度下降：计算<strong>损失函数</strong>关于<strong>模型参数</strong>的<strong>导数(梯度)</strong></p>
+<p>每次计算更新时随机抽取一小批样本$\Beta$：<strong><em>Minibatch stochastic gradient descent</em></strong></p>
+<h3 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a>算法步骤</h3><ul>
+<li>初始化模型参数</li>
+<li>随机抽取小批量样本，在负梯度方向更新参数</li>
+<li>不断迭代</li>
+</ul>
+<script type="math/tex; mode=display">
+\bold{w} \leftarrow \bold{w}-\frac{\eta}{|\Beta|}\sum_{i\in\Beta}\partial_{\bold{w}}l^{(i)}(\bold{w},b)=\bold{w}-\frac{\eta}{|\Beta|}\sum_{i\in\Beta}\bold{x}^{(i)}(\bold{w}^Tx^{(i)}+b-y^{(i)}),\\
+b \leftarrow b-\frac{\eta}{|\Beta|}\sum_{i\in\Beta}\partial_{b}l^{(i)}(\bold{w},b)=b-\frac{\eta}{|\Beta|}\sum_{i\in\Beta}(\bold{w}^Tx^{(i)}+b-y^{(i)})</script><h3 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h3><ul>
+<li>$|\Beta|$表示每个小批量的<strong>样本数(batch size)</strong></li>
+<li>$\eta$表示<strong>学习率(learning rate)</strong></li>
+</ul>
+<p>这些参数通常预先指定，可以调整，但不在训练过程中更新，称为<strong>超参数(hyperparameter)</strong>，选择超参数的过程称为<strong>调参(hyperparameter tuning)</strong></p>
+<h2 id="矢量化加速"><a href="#矢量化加速" class="headerlink" title="矢量化加速"></a>矢量化加速</h2><p>利用线性代数库矢量化代码，可以实现对运算数量级的速度提升。</p>
+<h2 id="与神经网络的联系"><a href="#与神经网络的联系" class="headerlink" title="与神经网络的联系"></a>与神经网络的联系</h2><p>线性回归模型可视为单个人工神经元组成的网络(<strong>单层神经网络</strong>)</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/Snipaste_2022-10-13_21-31-37.5kgfyh56fcg0.webp" srcset="/img/loading.gif" lazyload alt="Snipaste_2022-10-13_21-31-37"></p>
+<h2 id="调用API版本"><a href="#调用API版本" class="headerlink" title="调用API版本"></a>调用API版本</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> torch.utils <span class="hljs-keyword">import</span> data<br><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> nn<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">synthesis_data</span>(<span class="hljs-params">w, b, number</span>):<br>    X = torch.rand(number, <span class="hljs-built_in">len</span>(w))<br>    noise = torch.normal(<span class="hljs-number">0</span>, <span class="hljs-number">0.01</span>, size=(number, <span class="hljs-number">1</span>))<br>    y = torch.matmul(X, w) + noise<br>    y += b<br>    <span class="hljs-keyword">return</span> X, y<br><br><span class="hljs-comment"># dataloader 还不理解</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">load_array</span>(<span class="hljs-params">data_array, batch_size, is_train=<span class="hljs-literal">True</span></span>):<br>    dataset = data.TensorDataset(*data_array)<br>    <span class="hljs-keyword">return</span> data.DataLoader(dataset, batch_size, shuffle=is_train)<br><br><br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    <span class="hljs-comment"># 生成数据集</span><br>    w_true = torch.tensor([<span class="hljs-number">2</span>, -<span class="hljs-number">3.4</span>]).reshape(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>)<br>    b_true = <span class="hljs-number">4.2</span><br>    n = <span class="hljs-number">1000</span><br>    features, labels = synthesis_data(w_true, b_true, n)<br><br>    batch_size = <span class="hljs-number">10</span><br>    data_iter = load_array((features, labels), batch_size)<br>    <span class="hljs-comment"># print(next(iter(data_iter)))</span><br><br>    net = nn.Sequential(nn.Linear(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>))<br>    net[<span class="hljs-number">0</span>].weight.data.normal_(<span class="hljs-number">0</span>, <span class="hljs-number">0.01</span>)<br>    net[<span class="hljs-number">0</span>].bias.data.fill_(<span class="hljs-number">0</span>)<br>    <span class="hljs-comment"># print(net[0])</span><br><br>    loss = nn.MSELoss()<br>    trainer = torch.optim.SGD(net.parameters(), lr=<span class="hljs-number">0.03</span>)<br><br>    num_epochs = <span class="hljs-number">30</span><br>    <span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, num_epochs+<span class="hljs-number">1</span>):<br>        <span class="hljs-keyword">for</span> X, y <span class="hljs-keyword">in</span> data_iter:<br>            l = loss(net(X), y)<br>            trainer.zero_grad()<br>            l.backward()<br>            trainer.step()<br>        l = loss(net(features), labels)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;epoch<span class="hljs-subst">&#123;epoch&#125;</span>, loss<span class="hljs-subst">&#123;l:<span class="hljs-number">.4</span>f&#125;</span>&#x27;</span>)<br><br>    w = net[<span class="hljs-number">0</span>].weight.data<br>    b = net[<span class="hljs-number">0</span>].bias.data<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;error of w= <span class="hljs-subst">&#123;w-w_true&#125;</span>&#x27;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;error of b= <span class="hljs-subst">&#123;b-b_true&#125;</span>&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<p>其中还有不少不理解的地方，等待后续补充</p>
+<h3 id="【不理解的地方】"><a href="#【不理解的地方】" class="headerlink" title="【不理解的地方】"></a>【不理解的地方】</h3>
                 
               </div>
             
@@ -361,7 +425,7 @@ E=A_{12}+M_1A_{22}-(A_{11}+M_1A_{21})M_1 \\</script><p>上述称为Luenberger观
     
       <span class="category-chain">
         
-  <a href="/categories/Control/" class="category-chain-item">Control</a>
+  <a href="/categories/Deeplearning/" class="category-chain-item">Deeplearning</a>
   
   
 
@@ -376,7 +440,9 @@ E=A_{12}+M_1A_{22}-(A_{11}+M_1A_{21})M_1 \\</script><p>上述称为Luenberger观
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Control/">#Control</a>
+        <a href="/tags/Deeplearning/">#Deeplearning</a>
+      
+        <a href="/tags/Linear-Regression/">#Linear Regression</a>
       
     </div>
   
@@ -388,8 +454,8 @@ E=A_{12}+M_1A_{22}-(A_{11}+M_1A_{21})M_1 \\</script><p>上述称为Luenberger观
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>降维观测器</div>
-      <div>http://example.com/2022/04/06/降维观测器/</div>
+      <div>线性回归基本理论</div>
+      <div>http://example.com/2022/12/17/线性回归基本理论/</div>
     </div>
     <div class="license-meta">
       
@@ -401,7 +467,7 @@ E=A_{12}+M_1A_{22}-(A_{11}+M_1A_{21})M_1 \\</script><p>上述称为Luenberger观
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年4月6日</div>
+          <div>2022年12月17日</div>
         </div>
       
       
@@ -433,9 +499,9 @@ E=A_{12}+M_1A_{22}-(A_{11}+M_1A_{21})M_1 \\</script><p>上述称为Luenberger观
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/12/17/Git%E5%85%A5%E9%97%A8/" title="Git入门">
+                      <a href="/2022/12/17/Bitonic-Sort%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/" title="Bitonic-Sort解题报告">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Git入门</span>
+                        <span class="hidden-mobile">Bitonic-Sort解题报告</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -443,8 +509,8 @@ E=A_{12}+M_1A_{22}-(A_{11}+M_1A_{21})M_1 \\</script><p>上述称为Luenberger观
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/04/01/Kalman-Filter/" title="Kalman Filter">
-                        <span class="hidden-mobile">Kalman Filter</span>
+                      <a href="/2022/12/17/%E5%9B%BE%E5%83%8F%E5%8F%96%E6%A0%B7%E4%B8%8E%E9%87%8F%E5%8C%96/" title="图像取样与量化">
+                        <span class="hidden-mobile">图像取样与量化</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

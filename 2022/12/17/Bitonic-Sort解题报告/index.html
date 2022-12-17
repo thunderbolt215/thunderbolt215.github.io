@@ -1,0 +1,797 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Thunderbolt">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="分段双调排序-解题报告a)算法描述0.定义双调排序是一种并行排序算法，它同时也被用于排序网络的构建。 1.双调序列双调序列是一个先单调递增后单调递减（或者先单调递减后单调递增）的序列。 即序列表示为  x_0 \leq \ldots \leq x_k \geq \ldots \geq x_{n-1}(0 \leq k  \leq n)2.Batcher定理将任意一个长为2n的双调序列分为等长的两半">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bitonic-Sort解题报告">
+<meta property="og:url" content="http://example.com/2022/12/17/Bitonic-Sort%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/index.html">
+<meta property="og:site_name" content="Thunderbolt&#39;s Blog">
+<meta property="og:description" content="分段双调排序-解题报告a)算法描述0.定义双调排序是一种并行排序算法，它同时也被用于排序网络的构建。 1.双调序列双调序列是一个先单调递增后单调递减（或者先单调递减后单调递增）的序列。 即序列表示为  x_0 \leq \ldots \leq x_k \geq \ldots \geq x_{n-1}(0 \leq k  \leq n)2.Batcher定理将任意一个长为2n的双调序列分为等长的两半">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdn.net/20170730231529532?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveGJpbndvcmxk/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="article:published_time" content="2022-12-17T12:20:31.000Z">
+<meta property="article:modified_time" content="2022-12-17T12:21:42.850Z">
+<meta property="article:author" content="Thunderbolt">
+<meta property="article:tag" content="Bitonic Sort">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20170730231529532?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveGJpbndvcmxk/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+  
+  
+  
+  <title>Bitonic-Sort解题报告 - Thunderbolt&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/fluid-extension.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":35,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 90vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Thunderbolt&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/4d0205c2883111ebb6edd017c2d2eca2.6k79p4vr9yk0.webp') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Bitonic-Sort解题报告"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-12-17 20:20" pubdate>
+          2022年12月17日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          26 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Bitonic-Sort解题报告</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="分段双调排序-解题报告"><a href="#分段双调排序-解题报告" class="headerlink" title="分段双调排序-解题报告"></a>分段双调排序-解题报告</h1><h2 id="a-算法描述"><a href="#a-算法描述" class="headerlink" title="a)算法描述"></a>a)算法描述</h2><h3 id="0-定义"><a href="#0-定义" class="headerlink" title="0.定义"></a>0.定义</h3><p>双调排序是一种并行排序算法，它同时也被用于排序网络的构建。</p>
+<h3 id="1-双调序列"><a href="#1-双调序列" class="headerlink" title="1.双调序列"></a>1.双调序列</h3><p>双调序列是一个先单调递增后单调递减（或者先单调递减后单调递增）的序列。</p>
+<p>即序列表示为</p>
+<script type="math/tex; mode=display">
+x_0 \leq \ldots \leq x_k \geq \ldots \geq x_{n-1}(0 \leq k  \leq n)</script><h3 id="2-Batcher定理"><a href="#2-Batcher定理" class="headerlink" title="2.Batcher定理"></a>2.Batcher定理</h3><p>将任意一个长为<code>2n</code>的双调序列分为等长的两半<code>X</code>和<code>Y</code>，将<code>X</code>中的元素与<code>Y</code>中的元素按原顺序比较，即对于所有的<code>0&lt;=i&lt;n</code>，比较<code>a[i]</code>与<code>a[i+n]</code>，将较大者放入<code>MAX</code>序列，较小者放入<code>MIN</code>序列。</p>
+<p>定理指出，经过这一操作后得到的<code>MAX</code>和<code>MIN</code>序列仍然是双调序列，并且<code>MAX</code>序列中的任意一个元素不小于<code>MIN</code>序列中的任意一个元素。</p>
+<p>这一操作对应代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>;i&lt;n;i++) <br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">get</span>(i)&gt;<span class="hljs-built_in">get</span>(i+n)) <span class="hljs-built_in">exchange</span>(i,i+n);<br></code></pre></td></tr></table></figure>
+<h3 id="3-双调排序"><a href="#3-双调排序" class="headerlink" title="3.双调排序"></a><strong>3.双调排序</strong></h3><p>假设有一个双调序列，根据Batcher定理，将该序列划分成2个双调序列，然后继续对每个双调序列递归划分，得到更短的双调序列，直到得到的子序列长度为1为止，于是得到了一个按单调递增顺序排列的输出序列。</p>
+<p>具体方法是，把一个序列<code>(1…n)</code>对半分，假设<code>n=2^k</code>，然后<code>1</code>和<code>n/2+1</code>比较，小的放上，接下来<code>2</code>和<code>n/2+2</code>比较，小的放上，以此类推；然后看成两个<code>(n/2)</code>长度的序列，因为他们都是双调序列，所以可以重复上面的过程；总共重复<code>k</code>轮，即最后一轮已经是长度是<code>2</code>的序列比较了，就可得到最终的排序结果。</p>
+<p><img src="https://img-blog.csdn.net/20170730230343427?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveGJpbndvcmxk/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" srcset="/img/loading.gif" lazyload alt="双调排序示意图"></p>
+<p>（图片来源：<a target="_blank" rel="noopener" href="https://blog.csdn.net/xbinworld/article/details/76408595">三十分钟理解：双调排序Bitonic Sort，适合并行计算的排序算法</a>）</p>
+<p>上图为这组元素进行升序双调排序的示意图。可以看到第一轮比较中，只有<code>20</code>和<code>0</code>发生了交换；第二轮比较中，<code>9</code>和<code>0</code>、<code>95</code>和<code>35</code>、<code>90</code>和<code>23</code>、<code>60</code>和<code>18</code>、<code>40</code>和<code>20</code>发生了交换，由于序列长度为<code>16</code>，递归到第四轮时得到了正确的升序结果。</p>
+<h3 id="4-任意序列生成双调序列"><a href="#4-任意序列生成双调序列" class="headerlink" title="4.任意序列生成双调序列"></a><strong>4.任意序列生成双调序列</strong></h3><p>前面所述为双调序列的排序方法，现在讨论如何将任意序列变成一个双调序列。</p>
+<p>这个过程和前面排序的思路相反，基本想法是：如果已经有两个相邻、长度为<code>n</code>的、单调性相反的序列， 就可以连接得到一个长度为<code>2n</code>的双调序列，然后对这个<code>2n</code>的序列进行一次双调排序变成有序。</p>
+<p>以16个元素的array为例，具体步骤如下：</p>
+<p><img src="https://img-blog.csdn.net/20170730231529532?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveGJpbndvcmxk/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" srcset="/img/loading.gif" lazyload alt="生成双调序列示意图"></p>
+<p>（图片来源：<a target="_blank" rel="noopener" href="https://blog.csdn.net/xbinworld/article/details/76408595">三十分钟理解：双调排序Bitonic Sort，适合并行计算的排序算法</a>）</p>
+<ol>
+<li>相邻两个元素合并形成8个单调性相反的单调序列</li>
+<li>两两序列合并，形成4个双调序列，分别按相反单调性排序</li>
+<li>4个长度为4的相反单调性单调序列，相邻两个合并，生成两个长度为8的双调序列，分别按相反单调性排序</li>
+<li>2个长度为8的相反单调性单调序列，相邻两个合并，生成1个长度为16的双调序列，排序</li>
+</ol>
+<h3 id="5-非2的幂次长度序列双调排序"><a href="#5-非2的幂次长度序列双调排序" class="headerlink" title="5.非2的幂次长度序列双调排序"></a><strong>5.非2的幂次长度序列双调排序</strong></h3><p>以上讨论的双调排序算法只适合于<code>n</code>为<code>2</code>的幂次的情况。为了适合于任意长度的数组，可以用一个定义的最大或者最小者来填充数组，让数组的大小填充到<code>2</code>的幂长度，再进行排序，最后过滤掉那些最大（最小）值即可。</p>
+<p>本次解题中使用的就是这种方式，但是在数组长度较大的时候可能会造成比较大的空间浪费，可以在以后的学习工作中学习更好的解决方案。</p>
+<h2 id="b-尝试过和完成了的加分挑战"><a href="#b-尝试过和完成了的加分挑战" class="headerlink" title="b)尝试过和完成了的加分挑战"></a>b)尝试过和完成了的加分挑战</h2><p>所有的加分挑战都已完成，下面分别叙述：</p>
+<h3 id="1-不递归"><a href="#1-不递归" class="headerlink" title="1.不递归"></a>1.不递归</h3><p><code>segmentedBitonicSort</code>函数及其所调用的任何其他函数在程序中都没有进行形式的递归。</p>
+<h3 id="2-不调用函数"><a href="#2-不调用函数" class="headerlink" title="2.不调用函数"></a>2.不调用函数</h3><p><code>segmentedBitonicSort</code>函数内未调用除标准库以外的其他任何函数。</p>
+<h3 id="3-内存高效"><a href="#3-内存高效" class="headerlink" title="3.内存高效"></a>3.内存高效</h3><p><code>segmentedBitonicSort</code>及其所调用的任何其他函数都没有进行任何形式的动态内存分配。</p>
+<h3 id="4-可并行"><a href="#4-可并行" class="headerlink" title="4.可并行"></a>4.可并行</h3><p><code>segmentedBitonicSort</code>涉及到的所有时间复杂度O(n)以上的代码都写在for循环中，而且每个这样的for循环内部的循环顺序可以任意改变，不影响程序结果。</p>
+<h3 id="5-不需内存"><a href="#5-不需内存" class="headerlink" title="5.不需内存"></a>5.不需内存</h3><p><code>segmentedBitonicSort</code>不调用任何函数（包括C/C++标准库函数，不使用全局变量，所有局部变量都是<code>int</code>、<code>float</code>或指针类型，C++程序不使用new关键字。</p>
+<h3 id="6-绝对鲁棒"><a href="#6-绝对鲁棒" class="headerlink" title="6.绝对鲁棒"></a>6.绝对鲁棒</h3><p>包含<code>NaN</code>时（例如<code>sqrt(-1.f)</code>），保证除<code>NaN</code>以外的数据正确排序，<code>NaN</code>的个数保持不变。</p>
+<p>本代码中利用<code>var != var</code>判定是否是<code>NAN</code>，若是<code>NAN</code>则在比较的时候当作极小值。</p>
+<h2 id="c-可以独立运行的源代码"><a href="#c-可以独立运行的源代码" class="headerlink" title="c)可以独立运行的源代码"></a>c)可以独立运行的源代码</h2><p><strong>源文件:</strong><code>BitonicSort.cpp</code></p>
+<p>见附件。</p>
+<h2 id="d-测试数据"><a href="#d-测试数据" class="headerlink" title="d)测试数据"></a>d)测试数据</h2><p>测试数据1：样例输入</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">float</span> data[<span class="hljs-number">5</span>] = &#123; <span class="hljs-number">0.8</span>, <span class="hljs-number">0.2</span>, <span class="hljs-number">0.4</span>, <span class="hljs-number">0.6</span>, <span class="hljs-number">0.5</span> &#125;;<br><span class="hljs-type">int</span> seg_id[<span class="hljs-number">5</span>] = &#123; <span class="hljs-number">0</span>,   <span class="hljs-number">0</span>,   <span class="hljs-number">1</span>,   <span class="hljs-number">1</span>,   <span class="hljs-number">1</span> &#125;;<br><span class="hljs-type">int</span> seg_start[<span class="hljs-number">3</span>] = &#123; <span class="hljs-number">0</span>,<span class="hljs-number">2</span>,<span class="hljs-number">5</span> &#125;;<br><span class="hljs-type">int</span> n = <span class="hljs-number">5</span>;<br><span class="hljs-type">int</span> m = <span class="hljs-number">2</span>;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/res1.48o6fht4dd80.webp" srcset="/img/loading.gif" lazyload alt="res1"></p>
+<p>测试数据2：加入<code>sqrt(-1.f)</code>测试鲁棒性</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">float</span> data[<span class="hljs-number">12</span>] = &#123; <span class="hljs-number">0.1</span>, <span class="hljs-built_in">sqrt</span>(<span class="hljs-number">-1.f</span>), <span class="hljs-number">0.5</span> ,<span class="hljs-number">0.7</span>,<span class="hljs-number">0.9</span>,<span class="hljs-number">0.8</span>,<span class="hljs-built_in">sqrt</span>(<span class="hljs-number">-1.f</span>),<span class="hljs-number">0.2</span>,<span class="hljs-number">0.3</span>,<span class="hljs-number">0.6</span>,<span class="hljs-built_in">sqrt</span>(<span class="hljs-number">-1.f</span>),<span class="hljs-number">0.0</span> &#125;;<br><span class="hljs-type">int</span> seg_id[<span class="hljs-number">12</span>] = &#123; <span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span> &#125;;<br><span class="hljs-type">int</span> seg_start[<span class="hljs-number">4</span>] = &#123; <span class="hljs-number">0</span>,<span class="hljs-number">4</span>,<span class="hljs-number">9</span>,<span class="hljs-number">12</span> &#125;;<br><span class="hljs-type">int</span> n = <span class="hljs-number">12</span>;<br><span class="hljs-type">int</span> m = <span class="hljs-number">3</span>;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/res2.4hfnnum033i0.webp" srcset="/img/loading.gif" lazyload alt="res2"></p>
+<p>测试数据3：大部分为<code>NAN</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">float</span> data[<span class="hljs-number">8</span>] = &#123; <span class="hljs-built_in">sqrt</span>(<span class="hljs-number">-1.f</span>),<span class="hljs-built_in">sqrt</span>(<span class="hljs-number">-1.f</span>),<span class="hljs-built_in">sqrt</span>(<span class="hljs-number">-1.f</span>),<span class="hljs-built_in">sqrt</span>(<span class="hljs-number">-1.f</span>),<span class="hljs-number">0.1</span>,<span class="hljs-built_in">sqrt</span>(<span class="hljs-number">-1.f</span>),<span class="hljs-built_in">sqrt</span>(<span class="hljs-number">-1.f</span>),<span class="hljs-built_in">sqrt</span>(<span class="hljs-number">-1.f</span>) &#125;;<br><span class="hljs-type">int</span> seg_id[<span class="hljs-number">8</span>] = &#123; <span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span> &#125;;<br><span class="hljs-type">int</span> seg_start[<span class="hljs-number">3</span>] = &#123; <span class="hljs-number">0</span>,<span class="hljs-number">4</span>,<span class="hljs-number">8</span> &#125;;<br><span class="hljs-type">int</span> n = <span class="hljs-number">8</span>;<br><span class="hljs-type">int</span> m = <span class="hljs-number">2</span>;<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/res3.6nlnrg4p8nc0.webp" srcset="/img/loading.gif" lazyload alt="res3"></p>
+<h2 id="e-性能分析"><a href="#e-性能分析" class="headerlink" title="e)性能分析"></a>e)性能分析</h2><p>具有<code>2^n</code>长度数据的双调排序的时间复杂度为<code>O(n(logn)^2)</code>。</p>
+<p>当数组长度<code>n</code>为任意数字时需要补齐到<code>2</code>的幂次方，这个对于任意<code>n</code>的新排序网络可以嵌入原始的对于<code>2^k</code>的双调排序网络。因此，它仍有 <code>log(n)*(log(n)+1)/2</code> 层，每层最多比较<code>n/2</code>次，结果仍然是一个复杂度为<code>O(nlog(n)^2)</code>的比较器，跟原始的双调排序网络无区别。</p>
+<p>此外由于已经具备了可并行性，引入<code>openmp</code>等并行框架可以提升执行效率，在此由于时间原因未加入。</p>
+<h2 id="f-测试的起始和完成时间以及实际使用的时间"><a href="#f-测试的起始和完成时间以及实际使用的时间" class="headerlink" title="f)测试的起始和完成时间以及实际使用的时间"></a>f)测试的起始和完成时间以及实际使用的时间</h2><p>起始时间：<code>2022-9-9 15:40</code></p>
+<p>完成时间：<code>2022-9-9 23:50</code></p>
+<p>期间除去吃饭、洗澡等事务实际使用的时间约为8小时，花费了约5小时进行算法学习、资料查找、加分挑战实现以及调试等，约3小时进行解题报告文档撰写。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/xbinworld/article/details/76408595">三十分钟理解：双调排序Bitonic Sort，适合并行计算的排序算法</a></p>
+<p>主要参考了其中内容进行了算法理解和描述。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Bitonic_sorter">Wiki pedia: Bitonic sorter</a></p>
+<p>主要参考了其中的算法描述和并行结构写法。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://www.tools-of-computing.com/tc/CS/Sorts/bitonic_sort.htm">Bitonic Sort</a></p>
+<p>主要参考其中对于算法并行化改进的描述以及并行结构写法。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.huangjunqin.com/2017/08/19/segmentedBitonicSort/">分段双调排序算法 - 黄俊钦</a></p>
+<p>是曾经做过这项测试的同学的解题博客，在基本完成代码编写后参考了其中的文档结构，并补充了合法性检查以及数组边界设置。</p>
+</li>
+<li><p>各类有关并行计算和位运算的资料若干</p>
+</li>
+</ul>
+<h2 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h2><p><a target="_blank" rel="noopener" href="https://github.com/thunderbolt215/Bitonic-Sort">https://github.com/thunderbolt215/Bitonic-Sort</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Algorithm/" class="category-chain-item">Algorithm</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Bitonic-Sort/">#Bitonic Sort</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Bitonic-Sort解题报告</div>
+      <div>http://example.com/2022/12/17/Bitonic-Sort解题报告/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Thunderbolt</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年12月17日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/12/17/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/" title="线性回归基本理论">
+                        <span class="hidden-mobile">线性回归基本理论</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
