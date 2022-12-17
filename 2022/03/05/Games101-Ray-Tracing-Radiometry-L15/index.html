@@ -23,27 +23,14 @@
 <meta property="og:site_name" content="Thunderbolt&#39;s Blog">
 <meta property="og:description" content="Ray Tracing -  Basic radiometry（辐射度量学）Introduction辐射度量学可以提供光线的物理参数。包括： 123• Measurement system and units for illumination• Perform lighting calculations in a physically correct manner• New terms: Radi">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2022/03/05/AR3Heb29a5Try7U.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/11/Or9AcZjHx8wQ31G.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/05/1OQkV69FvhHPrt8.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/05/8rhkcvxQpXl9uqJ.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/05/C359iRKLQjyw7Us.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/05/xgqfIyCGWhnAsdV.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/05/uxzTecoE4l9aWD1.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/06/KZ59iasXvpV1x8N.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/05/JZNq37PS2gtHAIX.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/05/uAE9bJ3LO2prPmz.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/06/Z5AjL9UEBN6ogwr.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/06/QxH35LcFPGgByZq.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/06/iAm6pdWyvPtrxMz.png">
 <meta property="og:image" content="https://s2.loli.net/2022/03/06/5ABmtyXKVMv1P8F.png">
 <meta property="article:published_time" content="2022-03-05T09:15:59.000Z">
-<meta property="article:modified_time" content="2022-03-06T08:04:33.462Z">
+<meta property="article:modified_time" content="2022-12-17T11:15:39.952Z">
 <meta property="article:author" content="Thunderbolt">
 <meta property="article:tag" content="graphics">
 <meta property="article:tag" content="Ray Tracing">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2022/03/05/AR3Heb29a5Try7U.png">
+<meta name="twitter:image" content="https://s2.loli.net/2022/03/06/5ABmtyXKVMv1P8F.png">
   
   
   
@@ -562,6 +549,12 @@ Expected\space value\space of\space a\space function\space of\space a\space rand
   
 
 
+  
+  
+
+
+
+
 
 
 
@@ -753,6 +746,49 @@ Expected\space value\space of\space a\space function\space of\space a\space rand
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

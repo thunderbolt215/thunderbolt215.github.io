@@ -24,31 +24,8 @@
 <meta property="og:description" content="04. Camera CalibrationWCS. CCS. IPCS. PCS坐标系变换关系汇总WCS: World Coordinate System$(X^W,Y^W,Z^W)$ CCS: Camera Coordinate System$(X^C,Y^C,Z^C)$ IPCS&#x2F;FCS: Image Plane Coordinate System&#x2F;Film Coordinate Syste">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2022/03/27/vWAy7DkO9FI8lRN.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/27/VcITkGpqD6OYjex.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/27/Uf9QO8XVSogTzFk.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/27/5yuzcZKhnESseCB.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/27/k1ZGfj9FhzcAQiS.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/27/Czxt7oNIHdKwYka.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/27/nMoYiRHgPJ8leGd.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/27/6caKyoe52UASF8h.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/27/EtlY7dZcxVf51Lm.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/27/O5PJGtvLVsFMR93.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/27/PxYCygLRlX5eUam.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/27/vFHR8kPdDYBlhVO.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/27/8I6jMyWYzCbPLwJ.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/27/cAMYwS2fZ4kqC65.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/27/zYVEoIcu3XjSnmf.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/27/zCj1sncUGVgOPKZ.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/28/wcLnq6eAzblNxvM.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/28/MV1zRuhYBs8GHS3.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/28/fU5CAMmRslitGgp.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/28/dsTGpbL1Ofz5rj8.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/28/ZCIYJsixmn67Azt.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/28/eOqPHZUGk4CIasm.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/28/dWki3y89ojaAIhm.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/28/LoSGP5Kz4yAaVhc.png">
 <meta property="article:published_time" content="2022-03-27T13:45:21.000Z">
-<meta property="article:modified_time" content="2022-03-28T07:03:14.860Z">
+<meta property="article:modified_time" content="2022-12-17T11:13:23.539Z">
 <meta property="article:author" content="Thunderbolt">
 <meta property="article:tag" content="CV">
 <meta name="twitter:card" content="summary_large_image">
@@ -560,6 +537,12 @@ P_{dist}=[x_{dist},y_{dist}]^T\rightarrow P_{undist}=[x_{undist},y_{undist}]^T</
   
 
 
+  
+  
+
+
+
+
 
 
 
@@ -751,6 +734,49 @@ P_{dist}=[x_{dist},y_{dist}]^T\rightarrow P_{undist}=[x_{undist},y_{undist}]^T</
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

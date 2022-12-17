@@ -23,20 +23,13 @@
 <meta property="og:site_name" content="Thunderbolt&#39;s Blog">
 <meta property="og:description" content="Kalman滤波算法简介基本介绍卡尔曼滤波（也称为线性二次型估计），是一种最优化自回归数据处理算法，它的主要功能是：从一系列不完全且包含噪声的数据测量值序列中，估计出动态系统的状态。由于其效率高且所占空间较小，在雷达、计算机视觉、机器人导航等很多工程应用领域中都有应用。 卡尔曼滤波的一个典型实例是：现在有一组有限时间内、包含噪声的数据，记录了物体运动中若干时刻的位置和速度，通过卡尔曼滤波算法可以根">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2022/04/01/VrKt98wXmGWlsJi.png">
-<meta property="og:image" content="https://s2.loli.net/2022/04/01/9KyuJGZdsEcfeNR.png">
-<meta property="og:image" content="https://s2.loli.net/2022/04/01/JnDyqAz5bcldRhs.png">
-<meta property="og:image" content="https://s2.loli.net/2022/04/01/G2Of8FBMZResJou.png">
-<meta property="og:image" content="https://s2.loli.net/2022/04/01/6fPISNbgkZMAnuF.png">
 <meta property="og:image" content="https://s2.loli.net/2022/04/01/fpDdjO3LmWPV19X.jpg">
-<meta property="og:image" content="https://s2.loli.net/2022/04/02/7OUPCQlzW6dREhg.jpg">
-<meta property="og:image" content="https://s2.loli.net/2022/04/02/HuKPfpjh6TkEXwA.jpg">
 <meta property="article:published_time" content="2022-04-01T06:55:53.000Z">
-<meta property="article:modified_time" content="2022-04-06T00:30:06.551Z">
+<meta property="article:modified_time" content="2022-12-17T11:13:05.500Z">
 <meta property="article:author" content="Thunderbolt">
 <meta property="article:tag" content="Control">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2022/04/01/VrKt98wXmGWlsJi.png">
+<meta name="twitter:image" content="https://s2.loli.net/2022/04/01/fpDdjO3LmWPV19X.jpg">
   
   
   
@@ -577,6 +570,12 @@ P_t=(I-K_tH)P_t^-</script><h4 id="关系图"><a href="#关系图" class="headerl
   
 
 
+  
+  
+
+
+
+
 
 
 
@@ -768,6 +767,49 @@ P_t=(I-K_tH)P_t^-</script><h4 id="关系图"><a href="#关系图" class="headerl
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

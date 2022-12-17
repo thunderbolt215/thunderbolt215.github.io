@@ -23,20 +23,13 @@
 <meta property="og:site_name" content="Thunderbolt&#39;s Blog">
 <meta property="og:description" content="03. Perspective TransformationPreliminaries范数$l_p$-Norm (p范数) ||a||_p&#x3D;(\sum_{k&#x3D;1}^n |a_k|^p)^\frac{1}{p}Infinity Norm (无穷范数) ||a||_{+\infty}&#x3D;\max_i |x_i| \\ ||a||_{-\infty}&#x3D;\min_i |x_i|">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2022/03/27/U6tOaKjynPDqBWE.png">
 <meta property="og:image" content="https://s2.loli.net/2022/03/27/j3GQ5i4PUlYoWp9.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/27/TCBovaF3kDuMlRt.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/14/vqywfTEZB49HgKC.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/27/WrYIKbByaq9QTFC.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/27/n4G7zZXCvK26YIp.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/27/tqWVJy2gCcOu5kU.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/27/DJd1v2ZxYj5CuaE.png">
 <meta property="article:published_time" content="2022-03-08T13:35:35.000Z">
-<meta property="article:modified_time" content="2022-03-28T13:08:29.680Z">
+<meta property="article:modified_time" content="2022-12-17T11:13:58.631Z">
 <meta property="article:author" content="Thunderbolt">
 <meta property="article:tag" content="CV">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2022/03/27/U6tOaKjynPDqBWE.png">
+<meta name="twitter:image" content="https://s2.loli.net/2022/03/27/j3GQ5i4PUlYoWp9.png">
   
   
   
@@ -576,6 +569,12 @@ v_i=v_o+s_y y_i</script><p>最终表达式</p>
   
 
 
+  
+  
+
+
+
+
 
 
 
@@ -767,6 +766,49 @@ v_i=v_o+s_y y_i</script><p>最终表达式</p>
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

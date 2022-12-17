@@ -23,28 +23,14 @@
 <meta property="og:site_name" content="Thunderbolt&#39;s Blog">
 <meta property="og:description" content="Ray Tracing-Path TracingMonte Carlo Integration 引入：对难以解析求解的定积分求数值解。 基本思想：在区域内不断采样，并认为采样值&#x3D;函数平均值  \int f(X)dx&#x3D;\frac{1}{N}\sum_{i&#x3D;1}^N \frac{f(X_i)}{p(X_i)} \space \space X_i \sim p(x_i)其中积分域已经在$p(X_i)$中">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2022/03/06/GtLEx1YyMX3gwiz.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/12/fnD2rUMHGVjYCOe.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/12/GP81pZEFjWc3MOm.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/12/2UokeiVdjZa1q9A.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/12/P7CWK5eiyVwLJA2.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/12/DPkiCxj6pKnWHdE.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/12/pdmTzuQS5wVfanY.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/12/Anh3BTiCReaS6FD.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/12/bH326ZfsLuSe9kE.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/12/KkOxo9gB2EwHCUn.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/12/h37op68W9LxaCbf.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/12/fOZpeyBmAEuoVGj.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/12/zn8jZWwqybL1HlP.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/12/bIdLyCf8rGgZ4MT.png">
 <meta property="og:image" content="https://s2.loli.net/2022/03/12/kuvM5L4TVQoJOnX.png">
 <meta property="article:published_time" content="2022-03-06T03:19:24.000Z">
-<meta property="article:modified_time" content="2022-03-20T11:15:34.296Z">
+<meta property="article:modified_time" content="2022-12-17T11:16:14.511Z">
 <meta property="article:author" content="Thunderbolt">
 <meta property="article:tag" content="graphics">
 <meta property="article:tag" content="Ray Tracing">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2022/03/06/GtLEx1YyMX3gwiz.png">
+<meta name="twitter:image" content="https://s2.loli.net/2022/03/12/kuvM5L4TVQoJOnX.png">
   
   
   
@@ -557,6 +543,12 @@ L_O(p,\omega_O)=\int_{\Omega^+}L_i(p,\omega_i)f_r(p,\omega_i,\omega_O)cos\theta 
   
 
 
+  
+  
+
+
+
+
 
 
 
@@ -748,6 +740,49 @@ L_O(p,\omega_O)=\int_{\Omega^+}L_i(p,\omega_i)f_r(p,\omega_i,\omega_O)cos\theta 
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

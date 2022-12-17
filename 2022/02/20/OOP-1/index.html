@@ -23,15 +23,13 @@
 <meta property="og:site_name" content="Thunderbolt&#39;s Blog">
 <meta property="og:description" content="02 What is Object-OrientedObjects&#x3D;Attributes+Services Data​    properties or status Operations​     functions">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2022/03/20/ha4mFAnYDUMuBlE.png">
 <meta property="og:image" content="https://s2.loli.net/2022/03/20/kMynmbp56TcXoJC.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/20/CU7JmPDhMLqAyNp.png">
 <meta property="article:published_time" content="2022-02-20T13:24:20.000Z">
-<meta property="article:modified_time" content="2022-04-24T08:54:17.145Z">
+<meta property="article:modified_time" content="2022-12-17T11:12:33.079Z">
 <meta property="article:author" content="Thunderbolt">
 <meta property="article:tag" content="OOP">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2022/03/20/ha4mFAnYDUMuBlE.png">
+<meta name="twitter:image" content="https://s2.loli.net/2022/03/20/kMynmbp56TcXoJC.png">
   
   
   
@@ -486,6 +484,12 @@
   
 
 
+  
+  
+
+
+
+
 
 
 
@@ -677,6 +681,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

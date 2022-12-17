@@ -23,33 +23,14 @@
 <meta property="og:site_name" content="Thunderbolt&#39;s Blog">
 <meta property="og:description" content="Ray Tracing - Introduction （L13)0.Introduction0.1 光栅化无法处理的问题Rasterization couldn’t handle global effects well.  1.Soft Shadows（软阴影）    2.light bounces more than once（多次反射）">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/thunderbolt215/imagehosting@main/data/1.18x6t15o01uo.webp">
-<meta property="og:image" content="https://s2.loli.net/2022/02/10/cm4RWXGL9xKhbVC.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/02/jnWSJ2Hy4blI7kq.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/02/naDQ7JRlkxjXKe2.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/02/Vj4cNBLhFGZWXeu.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/02/NQ2M7ge1rHYVB6u.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/02/56F3LJ2yVGI1fZH.png">
 <meta property="og:image" content="https://s2.loli.net/2022/03/02/d24Lyag1HJCf9Bo.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/11/ZU5Q9JoA6NVIuht.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/02/6YLoH19dVSg5NrE.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/11/oH25ahMSsBVdGXz.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/02/4esKFxDCm6BQNn5.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/02/tHLlbFUOyMpPm2f.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/02/fHhBOosKaiNEkpA.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/10/47ngwolWMQjtZxS.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/02/gsf8yZhT9rGzIAn.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/02/ezKqXG8gYIDV2R3.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/11/3tIAwFzyGkCJpBv.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/02/7ThdrcLwoyNjGaC.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/02/oYpn68VjlRMWdxb.png">
 <meta property="article:published_time" content="2022-03-02T10:36:11.000Z">
-<meta property="article:modified_time" content="2022-05-04T14:42:33.487Z">
+<meta property="article:modified_time" content="2022-12-17T11:16:34.780Z">
 <meta property="article:author" content="Thunderbolt">
 <meta property="article:tag" content="graphics">
 <meta property="article:tag" content="Ray Tracing">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/thunderbolt215/imagehosting@main/data/1.18x6t15o01uo.webp">
+<meta name="twitter:image" content="https://s2.loli.net/2022/03/02/d24Lyag1HJCf9Bo.png">
   
   
   
@@ -572,6 +553,12 @@ t_{exit}\geq0</script><h5 id="1-4-3-Why-Axis-Aligned"><a href="#1-4-3-Why-Axis-A
   
 
 
+  
+  
+
+
+
+
 
 
 
@@ -763,6 +750,49 @@ t_{exit}\geq0</script><h5 id="1-4-3-Why-Axis-Aligned"><a href="#1-4-3-Why-Axis-A
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

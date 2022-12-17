@@ -23,21 +23,14 @@
 <meta property="og:site_name" content="Thunderbolt&#39;s Blog">
 <meta property="og:description" content="Ray Tracing - Acceleration1.Uniform Spatial Partitions (Grids)123Assumptions:- 判断光线是否与物体相交是耗时的- 判断光线是否与bounding box相交是容易的">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2022/02/10/GyDajLnXSZsv9bu.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/02/HmiSj6QDGrZY1JF.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/02/gsf8yZhT9rGzIAn.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/02/nRlI72OBU4ijeEc.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/02/lxs6AYJPXfOc2ST.png">
 <meta property="og:image" content="https://s2.loli.net/2022/03/02/1J4kYbLnmyDjZ3w.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/02/CFfDekQnwgAYahp.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/02/Hno1iDxwtUMRY85.png">
 <meta property="article:published_time" content="2022-03-02T10:40:58.000Z">
-<meta property="article:modified_time" content="2022-04-24T08:43:39.113Z">
+<meta property="article:modified_time" content="2022-12-17T11:17:10.772Z">
 <meta property="article:author" content="Thunderbolt">
 <meta property="article:tag" content="graphics">
 <meta property="article:tag" content="Ray Tracing">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2022/02/10/GyDajLnXSZsv9bu.png">
+<meta name="twitter:image" content="https://s2.loli.net/2022/03/02/1J4kYbLnmyDjZ3w.png">
   
   
   
@@ -501,6 +494,12 @@
   
 
 
+  
+  
+
+
+
+
 
 
 
@@ -692,6 +691,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

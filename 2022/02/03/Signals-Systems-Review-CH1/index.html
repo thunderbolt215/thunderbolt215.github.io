@@ -23,29 +23,13 @@
 <meta property="og:site_name" content="Thunderbolt&#39;s Blog">
 <meta property="og:description" content="Signals and Systems Review - CH11.1 概述信息.消息.信号例子：电信号传递声音、图像、文字 信号是消息的表现形式，消息是信号的具体内容 系统包括变换器、处理器等 $\Leftrightarrow$网络$\Leftrightarrow$电路 信号分析目的：揭示信号特性及其改变方式 思想：分解成简单基本单元信号 系统分析对指定输入激励的输出响应">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2022/04/03/4n1XgovF9skeYxf.png">
-<meta property="og:image" content="https://s2.loli.net/2022/04/03/AT9Lcu6gwNjzt5n.png">
-<meta property="og:image" content="https://s2.loli.net/2022/04/03/BSGRMUk9y7hz3qv.png">
-<meta property="og:image" content="https://s2.loli.net/2022/04/03/FzBOlVEjmLMw6UI.png">
-<meta property="og:image" content="https://s2.loli.net/2022/04/03/ydisMXkzvrFhPAE.png">
-<meta property="og:image" content="https://s2.loli.net/2022/04/03/ewizHKBP49g5Dh2.png">
-<meta property="og:image" content="https://s2.loli.net/2022/04/03/rMvd6plFLuqRQJj.png">
-<meta property="og:image" content="https://s2.loli.net/2022/04/03/lmI4JewqxkBbhE2.png">
-<meta property="og:image" content="https://s2.loli.net/2022/04/03/RzL5ltykH7YdSZn.png">
-<meta property="og:image" content="https://s2.loli.net/2022/04/03/Xif2SUOuL5jtaQc.png">
-<meta property="og:image" content="https://s2.loli.net/2022/04/03/qjpdZNm9OWzU8iv.png">
-<meta property="og:image" content="https://s2.loli.net/2022/04/03/B6sfcMivy7NUCFQ.png">
 <meta property="og:image" content="https://s2.loli.net/2022/04/03/2IPsxX4wRUOe713.png">
-<meta property="og:image" content="https://s2.loli.net/2022/04/03/iqmZwhFfMn24Dgb.png">
-<meta property="og:image" content="https://s2.loli.net/2022/04/03/Z2e4LncSRoWdwDI.png">
-<meta property="og:image" content="https://s2.loli.net/2022/04/03/TlmWDrZyvCXLOxH.png">
-<meta property="og:image" content="https://s2.loli.net/2022/04/03/wH2BiVhy6JCURcr.png">
 <meta property="article:published_time" content="2022-02-03T06:30:48.000Z">
-<meta property="article:modified_time" content="2022-04-24T08:52:39.690Z">
+<meta property="article:modified_time" content="2022-12-17T11:11:34.716Z">
 <meta property="article:author" content="Thunderbolt">
 <meta property="article:tag" content="Signals">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2022/04/03/4n1XgovF9skeYxf.png">
+<meta name="twitter:image" content="https://s2.loli.net/2022/04/03/2IPsxX4wRUOe713.png">
   
   
   
@@ -542,6 +526,12 @@ f(a(t+\frac{b}{a}))\rightarrow f(-a(t+\frac{b}{a}))=f(-at- b)</script><p>1.平�
   
 
 
+  
+  
+
+
+
+
 
 
 
@@ -733,6 +723,49 @@ f(a(t+\frac{b}{a}))\rightarrow f(-a(t+\frac{b}{a}))=f(-at- b)</script><p>1.平�
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
