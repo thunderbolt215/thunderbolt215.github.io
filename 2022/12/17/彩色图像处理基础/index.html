@@ -1,0 +1,964 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/cmyk.png">
+  <link rel="icon" href="/img/plane.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Thunderbolt">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="彩色图像处理基础彩色基础颜色的描述物体本身的颜色是由光反射所产生的，这种反射是由物体的物理性质决定的，不同的物体由于光的吸收、发射光谱等因素的差异拥有了不一样的颜色。但人类对颜色的解释则更为复杂，这种解释主要来源于生活经验，我们通过视觉感知到的特征对光的颜色类别进行描述，往往还伴随着心理和生理因素的影响，难以定量分析，因此这里所讨论的颜色主要指由物体物理性质决定的颜色。 一般意义上的彩色光波长范围">
+<meta property="og:type" content="article">
+<meta property="og:title" content="彩色图像处理基础">
+<meta property="og:url" content="http://example.com/2022/12/17/%E5%BD%A9%E8%89%B2%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Thunderbolt&#39;s Blog">
+<meta property="og:description" content="彩色图像处理基础彩色基础颜色的描述物体本身的颜色是由光反射所产生的，这种反射是由物体的物理性质决定的，不同的物体由于光的吸收、发射光谱等因素的差异拥有了不一样的颜色。但人类对颜色的解释则更为复杂，这种解释主要来源于生活经验，我们通过视觉感知到的特征对光的颜色类别进行描述，往往还伴随着心理和生理因素的影响，难以定量分析，因此这里所讨论的颜色主要指由物体物理性质决定的颜色。 一般意义上的彩色光波长范围">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/1280px-PlanckianLocus.2ontzcg9eea0.webp">
+<meta property="article:published_time" content="2022-12-17T14:24:16.000Z">
+<meta property="article:modified_time" content="2022-12-17T14:36:06.982Z">
+<meta property="article:author" content="Thunderbolt">
+<meta property="article:tag" content="Image Processing">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/1280px-PlanckianLocus.2ontzcg9eea0.webp">
+  
+  
+  
+  <title>彩色图像处理基础 - Thunderbolt&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/fluid-extension.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":25,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 90vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Thunderbolt&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/4d0205c2883111ebb6edd017c2d2eca2.6k79p4vr9yk0.webp') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="彩色图像处理基础"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-12-17 22:24" pubdate>
+          2022年12月17日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          62 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">彩色图像处理基础</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="彩色图像处理基础"><a href="#彩色图像处理基础" class="headerlink" title="彩色图像处理基础"></a>彩色图像处理基础</h1><h2 id="彩色基础"><a href="#彩色基础" class="headerlink" title="彩色基础"></a>彩色基础</h2><h3 id="颜色的描述"><a href="#颜色的描述" class="headerlink" title="颜色的描述"></a>颜色的描述</h3><p>物体本身的颜色是由光反射所产生的，这种反射是由物体的物理性质决定的，不同的物体由于光的吸收、发射光谱等因素的差异拥有了不一样的颜色。但人类对颜色的解释则更为复杂，这种解释主要来源于生活经验，我们通过视觉感知到的特征对光的颜色类别进行描述，往往还伴随着心理和生理因素的影响，难以定量分析，因此这里所讨论的颜色主要指由物体物理性质决定的颜色。</p>
+<p>一般意义上的彩色光波长范围为$[400nm,700nm]$，描述彩色光源的物理量主要包括：</p>
+<ul>
+<li>辐射亮度：指从光源流出的总能量，单位为$W$；</li>
+<li>发光强度：指观察者从光源感知到的总能量，单位为$lm$；</li>
+<li>亮度：体现了发光强度的消色概念，是一个主观描述子，在后文的彩色模型中会详细讨论。</li>
+</ul>
+<p>出于标准化描述的考虑，国际照明委员会(CIE)规定了三原色的波长：</p>
+<script type="math/tex; mode=display">
+\left\{\begin{matrix}\lambda_{Red}=700nm 
+\\ \lambda_{Green}=546.1nm
+\\ \lambda_{Blue}=435.8nm
+
+\end{matrix}\right.</script><p>需要强调的是，与“原色”本身的字面含义不同，规定三原色的目的仅仅是为了标准化描述，并不意味着以不同的发光强度混合这三种标准原色就能产生所有的可见颜色。</p>
+<p>光的原色和颜料的原色定义不同，颜料的原色定义为减去或吸收光的一种原色，同时反射或投射其他两种原色，因此颜料的原色恰好对应于光的二次色，即深红色(红色+蓝色)、青色(绿色+蓝色)、黄色(红色+绿色)，这两套原色体系的对比如图所示：</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/1280px-AdditiveColorMixing.5mwgxb0zzxs0.webp" srcset="/img/loading.gif" lazyload alt="1280px-AdditiveColorMixing"></p>
+<center>光的原色</center>
+
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/SubtractiveColorMixing.1hdcek9hw8jk.webp" srcset="/img/loading.gif" lazyload alt="SubtractiveColorMixing"></p>
+<center>颜料的原色</center>
+
+<p>我们可定义形成任意特殊颜色的红色量、绿色量和蓝色量为三色值，记作$X,Y,Z$，并定义三色系数为</p>
+<script type="math/tex; mode=display">
+\left\{\begin{matrix}x=\frac{X}{X+Y+Z}
+\\ y=\frac{Y}{X+Y+Z}
+\\ z=\frac{Z}{X+Y+Z}
+
+\end{matrix}\right.</script><p>由此可以通过三色系数来规定某种色彩。</p>
+<h3 id="色度与色度图"><a href="#色度与色度图" class="headerlink" title="色度与色度图"></a>色度与色度图</h3><p>不同颜色之间的区分主要依靠人为引入的描述量亮度、色调和饱和度，这将会在下文的HSI模型中详细讨论，这里可以简单理解为：亮度作为主观描述子体现发光强度的消色概念；色调表示了观察者感知到的主导颜色；饱和度表示了与某种色调混合的白光量，体现了颜色的相对纯度。通常将色调和饱和度一起称为色度，由此一种颜色可以通过其亮度和色度来表征。</p>
+<p>通过CIE色度图也可以对颜色进行规定。如下所示：</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/1280px-PlanckianLocus.2ontzcg9eea0.webp" srcset="/img/loading.gif" lazyload alt="1280px-PlanckianLocus"></p>
+<p>这里的$x,y$即为上文所述的三色系数，表示红色和绿色所占的比例，对于任意点的$x,y$值可以计算出$z$(蓝色)值：</p>
+<script type="math/tex; mode=display">
+z=1-x-y</script><p>色度图的舌形边界给出了光谱中的纯色所在位置，它们是完全饱和的，其波长范围为$[380nm,780nm]$。除边界外位于色度图内部的点均表示混合色，特别地，图中白光对应的点称为<strong>等能量点</strong>，代表了三原色的等比例混合，其饱和度为0，标注在下图中。一个点越远离边界、越接近等能量点，其饱和度越低。</p>
+<p>色度图中任意两点的连线段定义了不同的颜色变化，例如连接纯红色点和纯蓝色点的线段上所有点的颜色都是由纯红色和纯蓝色混合得到，根据颜色混合比例的不同可能更靠近红色端或更靠近蓝色端。这一结论可以推广到三个点的情况，即连接三个颜色点中的任意两点可以得到一个”颜色三角形“，这个三角形边界上及其内部的任何点对应的颜色都可以由三个顶点对应的颜色组合产生。由此我们可以得到RGB三原色所能产生的颜色范围：</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/CIExy1931_AdobeWGRGB.eua5nntifog.webp" srcset="/img/loading.gif" lazyload alt="CIExy1931_AdobeWGRGB"></p>
+<p>可以看到这个三角形并未覆盖整个色度图，这也再次验证了三原色的并非意味着可以通过对它们的不同比例混合产生所有的颜色。这一特殊的颜色范围称为<strong>彩色域</strong>，同时这也是今天高质量彩色打印设备的彩色域。</p>
+<h2 id="彩色模型"><a href="#彩色模型" class="headerlink" title="彩色模型"></a>彩色模型</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>彩色模型(又称彩色空间、彩色系统)为我们定义了颜色坐标系及其内部的子空间。通过这种定义，模型内部的每种颜色都可以用子空间内包含的一个点表示，从而通过一种标准的方式规定了颜色的表达。</p>
+<p>如今大部分彩色模型都可以划分为为面向硬件和面向应用两类。常见的模型包括：</p>
+<ul>
+<li>面向硬件：RGB模型、CMY模型、CMYK模型，主要面向彩色显示器、彩色摄像机、彩色打印等；</li>
+<li>面向应用：HSI模型，主要面向人类对颜色的描述和解释。</li>
+</ul>
+<p>下面将介绍常见的几个色彩模型。</p>
+<h3 id="RGB彩色模型"><a href="#RGB彩色模型" class="headerlink" title="RGB彩色模型"></a>RGB彩色模型</h3><p>RGB彩色模型(又称三原色光模型或红绿蓝颜色模型，下称RGB模型)，是一种加色模型，即将红(Red)、绿(Green)、蓝(Blue)三原色的色光以不同的比例相加，以合成产生各种色彩光。</p>
+<p>RGB模型中的颜色坐标系是根据笛卡尔坐标系建立的，如图所示为RGB坐标系，其中的三个坐标轴分别代表RGB三种颜色的分量。</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/image-20221125150432499.6g77sno7k400.webp" srcset="/img/loading.gif" lazyload alt="image-20221125150432499"></p>
+<p>假定所有的颜色值已经归一化，颜色表示中R,G,B的值都位于[0,1]内，我们可以得到一个如图所示的单位立方体，即RGB彩色立方体：</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/RGB_color_solid_cube.6w49z2kg37k0.webp" srcset="/img/loading.gif" lazyload alt="RGB_color_solid_cube"></p>
+<p>RGB模型中的颜色都是位于立方体内部或立方体上的点，可以定义为从坐标系原点向外延伸的向量。其中RGB的三原色位于单位立方体沿三根轴方向分布的三个顶点上：红色$(1,0,0)$，绿色$(0,1,0)$，蓝色$(0,0,1)$，它们混合形成的二次色则位于与之相邻的另外三个顶点上：黄色$(1,1,0)$，深红色$(1,0,1)$，青色$(0,1,1)$，此外还有两个特殊的颜色的位置是黑色$(0,0,0)$和白色$(1,1,1)$，它们的连线是立方体的一条体对角线，同时也是灰度级也沿着这条连线从黑色变为白色。</p>
+<p>RGB模型中图像由三幅分量图像组成，实际应用中送入RGB显示器时将会合并三种原色对应的图像得到一幅彩色图像，一个三通道分解的实例如下：</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/xpixel图片修改.3r3ucd0pus40.webp" srcset="/img/loading.gif" lazyload alt="xpixel图片修改"></p>
+<p>定义表示每个像素所用的比特数为<strong>像素深度</strong>，则如果我们有一幅RGB图像三个分量图像均为$x$比特图像，它的每个RGB像素的像素深度为$3x$比特。特别地，当像素深度达到24比特时称为<strong>全彩色图像</strong>。</p>
+<p>值得注意的是，对于确定了像素深度的图像，在未归一化前坐标轴的值域要做相应改变，例如对于8比特图像，值域为$[0,255]$，白色的坐标为$(255,255,255)$。</p>
+<h3 id="CMY与CMYK彩色模型"><a href="#CMY与CMYK彩色模型" class="headerlink" title="CMY与CMYK彩色模型"></a>CMY与CMYK彩色模型</h3><h4 id="CMY模型"><a href="#CMY模型" class="headerlink" title="CMY模型"></a>CMY模型</h4><p>CMY彩色模型使用青色（Cyan）、深红色（Magenta）、黄色（Yellow）三种颜料原色构成彩色模型，将红色、绿色和蓝色作为二次色。下图是这一颜色模型的叠色示意：</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/顏色減法.2b3g8z0js84k.webp" srcset="/img/loading.gif" lazyload alt="顏色減法"></p>
+<p>其对应的坐标系和归一化后得到的彩色立方体如下：</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/cmyclrs1.4fq3owtjmto.webp" srcset="/img/loading.gif" lazyload alt="cmyclrs1"></p>
+<p>CMY模型和RGB模型存在着简单的转换关系：</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}C
+\\ M
+\\ Y
+
+\end{bmatrix}=
+\begin{bmatrix}1
+\\1
+\\ 1
+
+\end{bmatrix}-
+\begin{bmatrix}R
+\\G
+\\ B
+
+\end{bmatrix}</script><p>这里的转换关系公式应用于图像中的独立像素，并假设已经进行过归一化，下同。</p>
+<p>由这一转换关系可以看出，$R$分量的增大会导致$C$分量的减小，极限情况下有$R=1,C=0$，这表明<strong>纯</strong>青色颜料不反射红光。同理我们也可以得到<strong>纯</strong>深红色颜料不反射绿光，<strong>纯</strong>黄色材料不反射蓝光等。</p>
+<h4 id="CMYK模型"><a href="#CMYK模型" class="headerlink" title="CMYK模型"></a>CMYK模型</h4><p>CMYK模型，被普遍称为<strong>“印刷四分色模式”</strong>，是彩色印刷时采用的一种套色模式。它利用色料的三原色混色原理，加上黑色油墨，共计四种颜色混合叠加，形成所谓“全彩印刷”的效果。使用的四种颜色简称为CMYK，如下图所示。其中CMY与上面介绍的CMY模型完全一致，不同之处在于引入黑色(K,全称Key plate)构成印刷四分色模式，因而得到了更广泛的应用。</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/CMYK_color_swatches.3k79hum80f.webp" srcset="/img/loading.gif" lazyload alt="CMYK_color_swatches"></p>
+<p>CMY到CMYK的转换关系为</p>
+<script type="math/tex; mode=display">
+\left\{\begin{matrix}{C}'=0
+\\ M'=0
+\\ Y'=0
+
+\end{matrix}\right.,where~k=0 \\</script><script type="math/tex; mode=display">
+\left\{\begin{matrix}C'=(C-K)/(1-K)
+\\ M'=(M-K)/(1-K)
+\\ Y'=(Y-K)/(1-K)
+
+\end{matrix}\right.,where~k\neq 0</script><p>CMYK到CMY的转换则为：</p>
+<script type="math/tex; mode=display">
+\left\{\begin{matrix}C=C'(1-K)+K
+\\M=M'(1-K)+K 
+\\ Y=Y'(1-K)+K
+
+\end{matrix}\right.</script><p>式中带$’$的量属于CMYK系统，不带$’$的量属于CMY系统。</p>
+<h3 id="HSI模型"><a href="#HSI模型" class="headerlink" title="HSI模型"></a>HSI模型</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>前面所述的RGB模型、CMY模型、CMYK模型彼此之间存在简单的转换关系，因此非常适合于硬件实现，同时也符合人眼对于相应原色的较强感知。但是这类颜色模型都存在类似的弊端。例如已知三种原色混合的百分比，我们不能直接给出颜色混合的结果；给定某一颜色，我们也无法给出单一的颜色组合或者区间来描述它，换言之，这类颜色模型在彩色图像生成方面是理想的，但在描述颜色方面存在劣势，会增大图像分析与处理的工作量，而接下来引入的HSI模型则解决了这一问题。</p>
+<p>HSI颜色模型是美国色彩学家孟塞尔(H.A.Munseu)于1915年提出的，它反映了人的视觉系统感知彩色的方式，用H、S、I三参数描述颜色特性，这三个量是人们从现实图像世界抽象出来的概念，这套概念比RGB模型更符合人的视觉特性，因此HSI模型在描述人类实际解释的颜色方面有较大的优势。</p>
+<ul>
+<li>色调</li>
+</ul>
+<p>色调定义颜色的频率，用H表示，这是一种描述纯色的属性，例如我们可以说某个彩色物体的色调是纯蓝色、亮黄色或者红色。</p>
+<p>图示表示中，H用角度$(0-360^\circ)$表示它反映颜色最接近的光谱波长，如红色为$0^\circ$，绿色为$120^\circ$，蓝色为$240^\circ$。</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/image-20221125172626586.1wauy01xv3fk.webp" srcset="/img/loading.gif" lazyload alt="image-20221125172626586"></p>
+<ul>
+<li>饱和度</li>
+</ul>
+<p>饱和度表示颜色的深浅程度，用S表示，是纯色被白光稀释的程度的度量，一种颜色的饱和度越高，它就越鲜艳；反之，一种颜色的饱和度越低，它就越接近于灰色。调节饱和度，我们可以得到图像上明显的差异效果：</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/Saturation_change_photoshop.2o8yqc10g040.webp" srcset="/img/loading.gif" lazyload alt="Saturation_change_photoshop"></p>
+<p>如果用色环图示进行表示，则S代表色环的原点到彩色点的半径长度。例如在下图中，有向线段的外端点为纯色，其饱和度为1(100%)，而线段根部(原点处)，饱和度为0(0%)。</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/image-20221125173459533.2mfvojy5l4q0.webp" srcset="/img/loading.gif" lazyload alt="image-20221125173459533"></p>
+<ul>
+<li>亮度</li>
+</ul>
+<p>亮度是一个不可测量的主管描述子，一般用I表示，它体现了发光强度的消色概念，也是描述彩色感觉的关键参数之一。</p>
+<p>与亮度相似的一个概念是<strong>明度</strong>，一般用V表示，用明度替换亮度即可得到与HSI模型类似的HSV模型。两者的联系是：一种纯色的明度等于白色的明度，而纯色的亮度等于中度灰的亮度，换言之，即明度值是相对1处而言，亮度值是相对0.5处而言。</p>
+<p>不论颜色如何，明度分布范围为从最亮1(100%)到最暗0(0%):</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/image-20221126113125215.44gqof9ybc60.webp" srcset="/img/loading.gif" lazyload alt="image-20221126113125215"></p>
+<p>而亮度分布范围则是从最亮0.5(50%)到最暗0(0%)再到最亮0.5(50%)：</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/image-20221126113114491.1dnj5gg9apfk.webp" srcset="/img/loading.gif" lazyload alt="image-20221126113114491"></p>
+<p>颜色模型需要满足唯一性，即模型内一确定点对应的颜色应唯一，同时外界一确定颜色对应的模型内点也应唯一。上文所述的H、S两者可以构成一个圆，I垂直于这个圆面，将他们表示在一个空间中可以得到一个圆柱，但该圆柱颜色空间不满足唯一性，因此并不适用于做颜色模型(例如当$I=0$时，HS将没有意义，圆柱的整个底面都是黑色)。</p>
+<p>由此我们将圆柱的底部挤压为一个点，变成圆锥模型，这时就符合颜色模型定义了。故HSI色彩空间可以用一个圆锥空间模型来描述，如下图所示：</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/image-20221125171020679.4ipcep40y3u0.webp" srcset="/img/loading.gif" lazyload alt="image-20221125171020679"></p>
+<p>色彩空间的圆锥模型相把色调、亮度和色饱和度的变化情形表现得很清楚，因此HSI色彩空间可以大大简化图像分析和处理的工作量。</p>
+<h4 id="与RGB模型的关系"><a href="#与RGB模型的关系" class="headerlink" title="与RGB模型的关系"></a>与RGB模型的关系</h4><p>RGB模型到HSI模型的转换关系为(假设RGB值已经归一化到区间$[0,1]$)：</p>
+<ul>
+<li>色调分量H(单位：$\circ$)：</li>
+</ul>
+<script type="math/tex; mode=display">
+H=\left\{\begin{matrix}\theta, B\leq G \\
+360-\theta, B>G
+
+\end{matrix}\right.</script><p>其中</p>
+<script type="math/tex; mode=display">
+\theta=arccos({\frac{\frac{1}{2}[(R-G)+(R-B)]}{[(R-G)^2+(R-B)(G-B)]^{\frac{1}{2}}}})</script><ul>
+<li>饱和度分量S：</li>
+</ul>
+<script type="math/tex; mode=display">
+S=1-\frac{3}{R+G+B}[min(R,G,B)]</script><ul>
+<li>亮度分量I:</li>
+</ul>
+<script type="math/tex; mode=display">
+I=\frac{1}{3}(R+G+B)</script><p>HSI模型到RGB模型的转换关系为(假设HSI已归一化后H乘以$360^{\circ}$)：</p>
+<ul>
+<li>RG扇区$(0^\circ \leq H &lt;120^\circ)$</li>
+</ul>
+<script type="math/tex; mode=display">
+\left\{\begin{matrix}B=I(1-S)  
+\\ R=I[1+\frac{ScosH}{cos(60^\circ-H)}]
+\\ G=3I-(R+B)
+
+\end{matrix}\right.</script><ul>
+<li>GB扇区$(120^\circ \leq H &lt;240^\circ)$</li>
+</ul>
+<p>在这个扇区时，令</p>
+<script type="math/tex; mode=display">
+H=H-120^\circ</script><p>得到：</p>
+<script type="math/tex; mode=display">
+\left\{\begin{matrix}R=I(1-S)
+\\ G=I[1+\frac{ScosH}{cos(60^\circ-H)}]
+\\ B=3I-(R+G)
+
+\end{matrix}\right.</script><ul>
+<li>BR扇区$(240^\circ \leq H &lt;360^\circ)$</li>
+</ul>
+<p>在这个扇区时，令</p>
+<script type="math/tex; mode=display">
+H=H-240^\circ</script><p>得到：</p>
+<script type="math/tex; mode=display">
+\left\{\begin{matrix}G=I(1-S) 
+\\ B=I[1+\frac{ScosH}{cos(60^\circ-H)}]
+\\ R=3I-(R+B)
+
+\end{matrix}\right.</script><p>这一转换关系也可以从RGB彩色立方体中获得，如图所示。</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/image-20221126095742252.6e7fpfwls400.webp" srcset="/img/loading.gif" lazyload alt="image-20221126095742252"></p>
+<p>将立方体旋转到如图所示位姿，黑色作为基点，白色作为顶点，两点连线构成了亮度轴，亮度沿亮度轴分布在[0,1]内。要获取任一点的亮度分量，只需要取包含该彩色点并与亮度轴垂直的平面，该平面与亮度轴的交点即为亮度分量；饱和度对应于该彩色点到亮度轴的距离；对于已知彩色点将其和黑色点、白色点连接构成颜色三角形，则由于三角形内部的点都由三个顶点对应颜色产生，而黑色和白色不改变色调，所以同一个三角形平面内的点色调均相同，因此色调对应于这一平面绕亮度轴旋转的角度。</p>
+<h3 id="YUV-YCbCr-模型"><a href="#YUV-YCbCr-模型" class="headerlink" title="YUV(YCbCr)模型"></a>YUV(YCbCr)模型</h3><h4 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h4><p>YUV模型也使用三个分量来存储数据，对每个像素而言其存储结构为：</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/webp.4kjbcymc2nq0.webp" srcset="/img/loading.gif" lazyload alt="webp"></p>
+<p>三个分量具体的意义是：</p>
+<ul>
+<li><p>Y：用于表示<strong>明亮度</strong>(Luminance或Luma)，即灰度值，表示了图片的总体轮廓，常见的亮度图如下：</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/v2-3943a5e8886f08863cf6ee7697c46fa0_r.242lg5vlefs0.webp" srcset="/img/loading.gif" lazyload alt="v2-3943a5e8886f08863cf6ee7697c46fa0_r"></p>
+</li>
+<li><p>U、V：用于表示<strong>色度</strong>(Chrominance或Chroma)，描述色彩颜色和颜色饱和度，UV图如下：</p>
+</li>
+</ul>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/v2-6f30f523322f7817d3f17f429e81e49b_720w.1zrpmnmxyrgg.webp" srcset="/img/loading.gif" lazyload alt="v2-6f30f523322f7817d3f17f429e81e49b_720w"></p>
+<p>下面举一个例子，图中上方第一张图片为YUV图片的原图，下面的图片分别为只有Y分量、只有U分量、只有V分量数据的图片。可以看到只有Y分量的图片能够看清楚图片的轮廓，但图片是黑白的。</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/800px-Barns_grand_tetons_YCbCr_separation.2lm8q51dhfc0.webp" srcset="/img/loading.gif" lazyload alt="800px-Barns_grand_tetons_YCbCr_separation"></p>
+<p>(这里其实是对U,V分量的灰度图进行了伪上色过程，具体参考的就是上面的UV图或者下面的crcb图，如我们现在要画U分量的图，就固定V分量的值然后画一条平行于U轴的直线，按这个直线的色彩分布进行伪上色)</p>
+<p>此外还需指出，与YUV模型意义相近的一个常用模型叫做YCbCr。 YCbCr是YUV模型的具体实现，YCbCr是在世界数字组织视频标准研制过程中作为<code>ITU - R BT1601</code>建议的一部分，它其实是YUV经过缩放和偏移的翻版。其中Y与YUV中的Y含义一致，为亮度分量；Cb，Cr同样都指色彩，Cb指蓝色色度分量，而Cr指红色色度分量，其色度图如下：</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/1280px-YCbCr-CbCr_Scaled_Y50.1t6piyaey5xc.webp" srcset="/img/loading.gif" lazyload alt="1280px-YCbCr-CbCr_Scaled_Y50"></p>
+<p>YUV模型的主要优点包括：</p>
+<ol>
+<li>便于压缩编码；</li>
+<li>数据量相较于其他颜色模型更小；</li>
+<li>能够兼容老式黑白电视。</li>
+</ol>
+<p>其中第三个优点已经可以看出，因为Y分量单独显示是其实就是黑白图像，因此YUV要想兼容黑白电视只需要去除UV相关的数据就可以了。其他优点将在后面的介绍中体现。</p>
+<h4 id="与RGB模型的关系-1"><a href="#与RGB模型的关系-1" class="headerlink" title="与RGB模型的关系"></a>与RGB模型的关系</h4><p>YUV与RGB之间的转换需要按照相应标准进行，常见的标准有ITU-R BT.601(标清)、ITU-R BT.709(高清)、ITU-R BT.2020(超高清)，除标准之外还要区分不同的颜色范围，下面仅示例一种标准下的转换公式。</p>
+<p>RGB到YUV的转换，就是将图像所有像素点的R、G、B分量转换到Y、U、V分量的过程：</p>
+<script type="math/tex; mode=display">
+\left\{\begin{matrix}
+Y = 0.299 R + 0.587 G + 0.114 B
+\\U = -0.1687 R - 0.3313 G + 0.5 B + 128
+\\ V = 0.5 R - 0.4187 G - 0.0813 B + 128
+
+\end{matrix}\right.</script><p>YUV到RGB的转换类似：</p>
+<script type="math/tex; mode=display">
+\left\{\begin{matrix}R = Y + 1.402 (V-128)
+\\ G= Y - 0.34414 (U-128) - 0.71414 (V-128)
+\\  B= Y + 1.772 (U-128)
+
+\end{matrix}\right.</script><p>这种转换的实际应用价值是：将图像显示器中以RGB模型来显示的图像转换到YUV模型，便于传输图像数据，还能够节省带宽。</p>
+<h4 id="采样"><a href="#采样" class="headerlink" title="采样"></a>采样</h4><p>一般的视频采集芯片输出的码流是YUV数据流的形式，视频处理也通常是在原始YUV码流上进行编码和解析，因此了解YUV模型的采样和存储结构对图像行业从业者有着重要意义。YUV码流的存储格式与其采样的方式密切相关，这里将首先简要介绍YUV主流的采样方式，包括<code>YUV444</code>，<code>YUV422</code>，<code>YUV420</code>，不同类型之间的主要区别是使用了不同的方式进行U、V分量的采样。</p>
+<ul>
+<li>YUV444</li>
+</ul>
+<p>YUV444中每个Y分量分别对应一个U分量和一个V分量。</p>
+<p>下面的图示中，Y用×表示，UV用○表示：</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/1240.317omnf0pm60.webp" srcset="/img/loading.gif" lazyload alt="1240"></p>
+<ul>
+<li>YUV422</li>
+</ul>
+<p>YUV422中每2个Y分量共用一个U分量和一个V分量。</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/1240-166997380331210.6bor18bcxmk0.webp" srcset="/img/loading.gif" lazyload alt="1240-166997380331210"></p>
+<ul>
+<li>YUV420</li>
+</ul>
+<p>YUV420中每4个Y分量共用一个U分量和一个V分量。</p>
+<p><img src="https://cdn.staticaly.com/gh/thunderbolt215/imagehosting@main/data/auto-orient.4rq6dxw0e040.webp" srcset="/img/loading.gif" lazyload alt="auto-orient"></p>
+<p>通过计算可以得到，在存储一张$2\times 2$像素的图片时：YUV444需要$12\times8$bit，YUV422需要$8\times 8$bit，而YUV420则只需要$6\times 8$bit。可以看到YUV444存储的数据量与RGB相同，但YUV422和YUV420却只需要存储RGB的数据量的$\frac{2}{3}$和$\frac{1}{2}$,这也是YUV模型的重要优势之一。</p>
+<h4 id="存储"><a href="#存储" class="headerlink" title="存储"></a>存储</h4><p>YUV有packed和planar两种存储方式。其中packed格式是先连续存储所有的Y分量，然后依次交叉存储U、V分量；planar格式也会先连续存储所有的Y分量，然后先连续存储U(或V)分量的数据，再连续存储V(或U)分量的数据。</p>
+<p>每种YUV类型都会有多种存储方式，常用的有YUV422和YUV420两种，读者可自行查阅相关存储结构细节，这里不做过多展开。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>《数字图像处理》(第四版).冈萨雷斯著.</p>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/三原色光模式">三原色光模式- 维基百科，自由的百科全书</a></p>
+<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/CMYK_color_model">CMYK color model - Wikipedia</a></p>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/颜色">颜色- 维基百科，自由的百科全书</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Image-Processing/" class="category-chain-item">Image Processing</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Image-Processing/">#Image Processing</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>彩色图像处理基础</div>
+      <div>http://example.com/2022/12/17/彩色图像处理基础/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Thunderbolt</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年12月17日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/12/17/Bitonic-Sort%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/" title="Bitonic-Sort解题报告">
+                        <span class="hidden-mobile">Bitonic-Sort解题报告</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
